@@ -169,7 +169,7 @@ export default function Page() {
                   ease: 'easeInOut',
                 }}
               >
-                <Image src="/assets/heroDance.svg" width={550} height={500} alt="hero" />
+                <Image src="/assets/heroDance.svg" width={550} height={500} alt="hero" className='mb-4' />
               </motion.div>
             )}
             
@@ -180,7 +180,7 @@ export default function Page() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <div className="w-[300px] h-[300px] md:w-[600px] md:h-[600px] md:mt-4 rounded-full overflow-hidden flex items-center justify-center bg-white shadow-lg">
+                <div className="w-[300px] h-[300px] md:w-[600px] md:h-[600px] md:mt-4  rounded-full overflow-hidden flex items-center justify-center bg-white shadow-lg">
                   <Image
                     src="/assets/world.svg"
                     width={300}
@@ -193,7 +193,7 @@ export default function Page() {
             )}
             
             {currentStage > 2 && currentStage < 11 && 
-              <div className="scale-75 md:scale-100 w-full h-full">
+              <div className="scale-75 md:scale-100 w-full h-full mb-[120px] md:mb-0 flex items-center justify-center">
                 <ConcentricCircles stage={currentStage} />
               </div>
             }

@@ -49,11 +49,17 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
         </svg>
       </motion.button>
     </div>
-    <p className='text-white pt-4 sm:pt-10 text-xs xs:text-sm md:text-sm font-normal leading-tight relative md:absolute md:bottom-4 sm:bottom-10 left-0 md:left-4 sm:left-auto w-[90%] sm:w-full md:max-w-[70%]'>
-      The Life Balance Wheel Tool has been developed by the Academy of Leadership Coaching & 
+    
+    <p className='text-white mt-3 sm:mt-5  xs:text-lg sm:text-xl  leading-relaxed text-xs xs:text-sm md:text-sm font-normal'>
+    The Life Balance Wheel Tool has been developed by the Academy of Leadership Coaching & 
       <br className="hidden sm:block"/>NLP (ALCN). To know more about its work please visit https://nlp-leadership-coaching.com/ If 
       <br className="hidden sm:block"/>you want to seek coaching support from ALCN certified professionals in India click here
     </p>
+    {/* <p className='  mt-3 sm:mt-5  xs:text-lg sm:text-xl  text-white pt-4 sm:pt-10 text-xs xs:text-sm md:text-sm font-normal leading-tight relative md:absolute md:bottom-4 sm:bottom-10 left-0 md:left-4 sm:left-auto w-[90%] sm:w-full md:max-w-[70%]'>
+      The Life Balance Wheel Tool has been developed by the Academy of Leadership Coaching & 
+      <br className="hidden sm:block"/>NLP (ALCN). To know more about its work please visit https://nlp-leadership-coaching.com/ If 
+      <br className="hidden sm:block"/>you want to seek coaching support from ALCN certified professionals in India click here
+    </p> */}
   </motion.div>
 );
 
