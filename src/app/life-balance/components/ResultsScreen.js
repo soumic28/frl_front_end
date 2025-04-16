@@ -30,7 +30,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
         onClick={handleDownload}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex w-fit items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 mt-4 sm:mt-[50px] bg-white rounded-full text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-gray-700 sm:text-lg sm:font-semibold"
+        className="flex w-fit items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 mt-4 sm:mt-[50px] bg-white rounded-full text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-gray-700 sm:text-lg sm:font-semibold text-[18px]"
       >
         Download
         <svg className="ml-1.5 xs:ml-2 w-3 h-3 xs:w-4 xs:h-4 lg:w-[19px] lg:h-[15px]" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
         onClick={() => {router.push("/resources")}}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex w-fit items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 border-white border rounded-full text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-white sm:text-lg sm:font-semibold"
+        className="flex w-fit items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 border-white border rounded-full text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-white sm:text-lg text-[18px] sm:font-semibold"
       >
         Discard
         <svg className="ml-1.5 xs:ml-2 w-3 h-3 xs:w-4 xs:h-4 lg:w-[19px] lg:h-[15px]" viewBox="0 0 19 15" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       </motion.button>
     </div>
     
-    <p className='text-white mt-3 sm:mt-5  xs:text-lg sm:text-xl  leading-relaxed text-xs xs:text-sm md:text-sm font-normal'>
+    <p className='text-white mt-3 sm:mt-5  xs:text-lg sm:text-xl  leading-relaxed text-xs xs:text-sm md:text-sm font-normal mb-8 md:mb-0'>
     The Life Balance Wheel Tool has been developed by the Academy of Leadership Coaching & 
       <br className="hidden sm:block"/>NLP (ALCN). To know more about its work please visit https://nlp-leadership-coaching.com/ If 
       <br className="hidden sm:block"/>you want to seek coaching support from ALCN certified professionals in India click here

@@ -253,7 +253,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
           alt="wheel background"
         />
       </div>
-      <div ref={graphRef} className="relative w-full h-[280px] md:h-[400px] max-w-[280px] md:max-w-[500px] bg-white rounded-full">
+      <div ref={graphRef} className="relative w-full h-[280px] md:h-[400px] max-w-[280px] md:max-w-[600px] bg-white rounded-full">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart cx="50%" cy="50%" outerRadius="80%">
             <PolarGrid 

@@ -1,12 +1,13 @@
 /* "use client" */
 import { motion } from 'framer-motion';
 
-const NavigationButton = ({ onClick, text, className }) => (
+const NavigationButton = ({ onClick, text, className, disabled = false }) => (
   <motion.button
     onClick={onClick}
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    className={`flex w-fit items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 bg-white rounded-full text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-gray-700 sm:text-lg sm:font-semibold ${className}`}
+    whileHover={disabled ? {} : { scale: 1.05 }}
+    whileTap={disabled ? {} : { scale: 0.95 }}
+    className={`flex w-fit  items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 bg-white rounded-full text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-gray-700 sm:text-lg sm:font-semibold ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+    disabled={disabled}
   >
     {text}
     <svg className="ml-1.5 xs:ml-2 w-3 h-3 xs:w-4 xs:h-4 lg:w-[19px] lg:h-[15px]" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">

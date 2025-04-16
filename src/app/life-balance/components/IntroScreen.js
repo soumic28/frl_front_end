@@ -13,7 +13,14 @@ const IntroScreen = ({ setCurrentStage, pageVariants }) => (
     <h1 className="h-auto sm:h-14 text-white text-3xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]">
       Life Balance Wheel
     </h1>
-    <p className="mt-4 sm:mt-7 text-white text-base xs:text-lg sm:text-xl font-light leading-relaxed">
+    
+    <p className="font-inter font-normal text-[14px] text-white block md:hidden">
+      The Life Balance Wheel helps you reflect on eight key areas of your life,
+      both external (home, work, relationships) and internal (thoughts,
+      feelings). It builds awareness and highlights where change might be
+      needed.
+    </p>
+    <p className="mt-4 sm:mt-7 text-white text-base xs:text-lg sm:text-xl font-light leading-relaxed hidden md:block">
       The Life Balance Wheel Tool will help to raise awareness
       <br className="hidden xs:block" />
       and create insight into your internal and external
@@ -36,8 +43,8 @@ const IntroScreen = ({ setCurrentStage, pageVariants }) => (
     <NavigationButton
       onClick={() => setCurrentStage(1)}
       text="Explore"
-      className="mt-6 sm:mt-[50px]"
-    />
+      className="mt-6 sm:mt-[50px]  text-[18px]"
+    ></NavigationButton>
   </motion.div>
 );
 

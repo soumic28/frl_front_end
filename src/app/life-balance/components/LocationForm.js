@@ -69,7 +69,7 @@ const LocationForm = ({
     <NavigationButton
       onClick={() => setCurrentStage(currentStage + 1)}
       text="Next"
-      className="mt-4"
+      className="mt-4 text-[18px]"
     />
   </motion.div>
 );

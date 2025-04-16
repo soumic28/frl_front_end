@@ -93,9 +93,58 @@ export default function Page() {
   return (
     <PageTransition>
       <div className="h-full bg-[#19667A] flex flex-col min-h-screen">
+        {/* Reordered flex direction for mobile - column puts visuals first, then md: changes to row */}
         <div className="flex flex-col md:flex-row w-full">
-          {/* Left side - Quiz Content */}
-          <div className="w-full md:w-[80%] flex flex-col px-4 sm:px-0">
+          
+          {/* Visuals section - Now first in the column order for mobile */}
+          <div className="w-full md:w-1/2 md:order-2 mt-[100px] md:mt-4 mx-auto  md:mr-10 relative flex justify-center md:justify-center items-center h-[300px] md:h-auto">
+            {currentStage < 2 && (
+              <motion.div
+                className="flex justify-center md:mr-32 scale-75 md:scale-100"
+                animate={isSwinging ? { rotate: [0, 10, -10, 0] } : {}}
+                transition={{
+                  duration: 2,
+                  ease: 'easeInOut',
+                }}
+              >
+                <Image src="/assets/heroDance.svg" width={550} height={500} alt="hero" className='' />
+              </motion.div>
+            )}
+            
+            {currentStage === 2 && (
+              <motion.div
+                className="flex justify-center md:mr-[25%] scale-75 md:scale-100"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <div className="w-[300px] h-[300px] md:w-[600px] md:h-[600px] md:mt-4 rounded-full overflow-hidden flex items-center justify-center bg-white shadow-lg">
+                  <Image
+                    src="/assets/world.svg"
+                    width={300}
+                    height={300}
+                    className="md:w-[600px] md:h-[600px] object-cover"
+                    alt="world map"
+                  />
+                </div>
+              </motion.div>
+            )}
+            
+            {currentStage > 2 && currentStage < 11 && 
+              <div className="scale-75 md:scale-100 w-full h-full mb-[80px] md:mb-0 flex items-center justify-center">
+                <ConcentricCircles stage={currentStage} />
+              </div>
+            }
+            
+            {currentStage === 11 && (
+              <div className="scale-75 md:scale-100 mt-4 md:mt-[20%] md:mr-[25%] mb-4 w-full h-[300px] md:h-[500px] flex items-center justify-center">
+                <BalanceWheel graphRef={ref} formData={formData} />
+              </div>
+            )}
+          </div>
+
+          {/* Quiz Content section - Second in mobile column order */}
+          <div className="w-full md:w-[80%] md:order-1 flex flex-col px-4 sm:px-0">
             <AnimatePresence mode="wait">
               {currentStage === 0 && (
                 <IntroScreen 
@@ -130,7 +179,7 @@ export default function Page() {
                   animate="visible"
                   exit="exit"
                   variants={pageVariants}
-                  className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw]" 
+                  className="flex flex-col justify-start mt-[80px] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw]" 
                 >
                   {currentQuestion && (
                     <QuestionScreen 
@@ -156,53 +205,6 @@ export default function Page() {
                 />
               )}
             </AnimatePresence>
-          </div>
-
-          {/* Right side - Visuals (shown below on mobile, side-by-side on md+) */}
-          <div className="w-full md:w-1/2 mt-4  mx-auto md:mr-10 relative flex justify-center md:justify-center items-center h-[300px] md:h-auto">
-            {currentStage < 2 && (
-              <motion.div
-                className="flex justify-center md:mr-32 scale-75 md:scale-100"
-                animate={isSwinging ? { rotate: [0, 10, -10, 0] } : {}}
-                transition={{
-                  duration: 2,
-                  ease: 'easeInOut',
-                }}
-              >
-                <Image src="/assets/heroDance.svg" width={550} height={500} alt="hero" className='mb-4' />
-              </motion.div>
-            )}
-            
-            {currentStage === 2 && (
-              <motion.div
-                className="flex justify-center md:mr-[25%] scale-75 md:scale-100"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <div className="w-[300px] h-[300px] md:w-[600px] md:h-[600px] md:mt-4  rounded-full overflow-hidden flex items-center justify-center bg-white shadow-lg">
-                  <Image
-                    src="/assets/world.svg"
-                    width={300}
-                    height={300}
-                    className="md:w-[600px] md:h-[600px] object-cover"
-                    alt="world map"
-                  />
-                </div>
-              </motion.div>
-            )}
-            
-            {currentStage > 2 && currentStage < 11 && 
-              <div className="scale-75 md:scale-100 w-full h-full mb-[120px] md:mb-0 flex items-center justify-center">
-                <ConcentricCircles stage={currentStage} />
-              </div>
-            }
-            
-            {currentStage === 11 && (
-              <div className="scale-75 md:scale-100 mt-0 md:mt-[20%] md:mr-[25%] mb-4 w-full h-[300px] md:h-[500px] flex items-center justify-center">
-                <BalanceWheel graphRef={ref} formData={formData} />
-              </div>
-            )}
           </div>
         </div>
       </div>
