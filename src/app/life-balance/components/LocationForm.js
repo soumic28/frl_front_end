@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import NavigationButton from "./NavigationButton";
 import { countries } from "../data/constants";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const LocationForm = ({
   formData,
@@ -11,6 +11,9 @@ const LocationForm = ({
   pageVariants,
 }) => {
   const [error, setError] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const dropdownRef = useRef(null);
 
   const handleNext = () => {
     if (!formData.country || !formData.zipCode) {
@@ -22,6 +25,23 @@ const LocationForm = ({
   };
 
   const isNextDisabled = !formData.country || !formData.zipCode;
+
+  const filteredCountries = countries.filter((country) =>
+    country.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <motion.div
@@ -37,37 +57,37 @@ const LocationForm = ({
       </h1>
 
       <div className="flex flex-col gap-3 sm:gap-4 mb-4 sm:mb-8">
-        <div className="relative max-w-[280px]">
-          <select
-            className="w-full px-3 sm:px-4 py-2 sm:py-3 text-white bg-transparent border border-white rounded-full appearance-none focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base"
-            value={formData.country}
-            onChange={(e) => updateFormData("country", e.target.value)}
+        <div className="relative max-w-[280px]" ref={dropdownRef}>
+          <div
+            className="w-full px-3 sm:px-4 py-2 sm:py-3 text-white bg-transparent border border-white rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base cursor-pointer"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
-            <option disabled value="" className="text-gray-700">
-              Select your country
-            </option>
-            {countries.map((country) => (
-              <option key={country} className="text-gray-700">
-                {country}
-              </option>
-            ))}
-          </select>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 sm:pr-4 pointer-events-none">
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              ></path>
-            </svg>
+            {formData.country || "Select your country"}
           </div>
+          {isDropdownOpen && (
+            <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg max-h-60 overflow-y-auto w-full">
+              <input
+                type="text"
+                placeholder="Search country"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none"
+              />
+              {filteredCountries.map((country) => (
+                <div
+                  key={country}
+                  onClick={() => {
+                    updateFormData("country", country);
+                    setIsDropdownOpen(false);
+                    setSearchTerm("");
+                  }}
+                  className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                >
+                  {country}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="relative max-w-[280px]">
