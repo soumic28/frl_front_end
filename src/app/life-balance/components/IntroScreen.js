@@ -43,7 +43,7 @@ const IntroScreen = ({ setCurrentStage, pageVariants }) => (
     <NavigationButton
       onClick={() => setCurrentStage(1)}
       text="Explore"
-      className="mt-6 sm:mt-[50px]  text-[18px]"
+      className="mt-6 sm:mt-[50px]  text-[20px]"
     ></NavigationButton>
   </motion.div>
 );

@@ -39,10 +39,10 @@ const QuestionScreen = ({
 
   return (
     <>
-      <h1 className='text-white text-3xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]'>
+      <h1 className='text-white text-2xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]'>
         {question}
       </h1>
-      <p className='text-white mt-3 sm:mt-5 text-base xs:text-lg sm:text-xl font-light leading-relaxed'>
+      <p className='text-white mt-3 sm:mt-5 text-base xs:text-lg sm:text-xl font-light leading-relaxed text-[14px]'>
         Rate your level of satisfaction in a scale of 1 - 10
       </p>
       <RatingSlider 
@@ -56,7 +56,7 @@ const QuestionScreen = ({
           setCurrentStage(currentStage + 1);
         }} 
         text="Next" 
-        className="mt-6 sm:mt-10 mb-10 md:mb-0 text-[18px]"
+        className="mt-6 sm:mt-10 mb-10 md:mb-0 text-[20px]"
         disabled={!hasMovedSlider}
       />
     </>

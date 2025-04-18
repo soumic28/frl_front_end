@@ -50,7 +50,7 @@ const InstructionsScreen = ({
     <NavigationButton
       onClick={() => setCurrentStage(currentStage + 1)}
       text="Start"
-      className="mt-6 sm:mt-[50px] text-[18px] mb-8 md:mb-0"
+      className="mt-6 sm:mt-[50px] text-[20px] mb-8 md:mb-0"
     />
   </motion.div>
 );

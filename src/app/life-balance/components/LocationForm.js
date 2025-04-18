@@ -108,7 +108,7 @@ const LocationForm = ({
       <NavigationButton
         onClick={handleNext}
         text="Next"
-        className="mt-4 text-[18px]"
+        className="mt-4 text-[20px]"
         disabled={isNextDisabled}
       />
     </motion.div>
