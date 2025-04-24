@@ -16,6 +16,7 @@ import InstructionsScreen from './components/InstructionsScreen';
 import LocationForm from './components/LocationForm';
 import QuestionScreen from './components/QuestionScreen';
 import ResultsScreen from './components/ResultsScreen';
+import ProgressBar from './components/ProgressBar';
 
 const BalanceWheel = dynamic(() => import('./BalanceWheel'), { ssr: false });
 
@@ -98,7 +99,24 @@ export default function Page() {
           <div className="flex flex-col md:flex-row w-full">
             
             {/* Visuals section - Now first in the column order for mobile */}
-            <div className="w-full md:w-1/2 md:order-2 mt-[100px] md:mt-4 mx-auto md:mr-10 relative flex justify-center md:justify-center items-center h-[300px] md:h-auto">
+            <div className="w-full md:w-1/2 md:order-2 mt-[60px] md:mt-4 mx-auto md:mr-10 relative flex justify-center md:justify-center items-center h-[300px] md:h-auto">
+              {currentStage >= 3 && currentStage <= 10 && currentQuestion && (
+                <div className="absolute top-[-40px] md:top-0 left-0 right-0 w-full z-10 px-4 md:px-8">
+                  <div className="w-full flex items-center justify-between mb-4 md:mb-8">
+                    <button 
+                      onClick={() => setCurrentStage(currentStage - 1)}
+                      className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-md"
+                    >
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 19L8 12L15 5" stroke="#19667A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                    <ProgressBar currentStage={currentStage} />
+                    <div className="w-12 md:w-16"></div> {/* Empty div for flex justification */}
+                  </div>
+                </div>
+              )}
+              
               {currentStage < 2 && (
                 <motion.div
                   className="flex justify-center md:mr-32 scale-75 md:scale-100"
@@ -108,7 +126,7 @@ export default function Page() {
                     ease: 'easeInOut',
                   }}
                 >
-                  <Image src="/assets/heroDance.svg" width={550} height={500} alt="hero" className='' />
+                  <Image src="/assets/Life-balance-model.svg" width={550} height={500} alt="hero" className='' />
                 </motion.div>
               )}
               
@@ -180,7 +198,7 @@ export default function Page() {
                     animate="visible"
                     exit="exit"
                     variants={pageVariants}
-                    className="flex flex-col justify-start mt-[80px] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw]" 
+                    className="flex flex-col justify-start mt-[60px] md:mt-[20vh] ml-2 sm:ml-[5vw] md:ml-[10vw] pr-2 sm:pr-[5vw]" 
                   >
                     {currentQuestion && (
                       <QuestionScreen 
