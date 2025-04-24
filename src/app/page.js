@@ -11,10 +11,12 @@ export default function Home() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-[#19667A] min-h-screen"
+      className="bg-[#19667A] min-h-[100dvh]"
     >
-      <Header/>
-      <Hero/>
+      <div className="max-w-screen-xl mx-auto px-4">
+        <Header/>
+        <Hero/>
+      </div>
     </motion.div>
   );
 }

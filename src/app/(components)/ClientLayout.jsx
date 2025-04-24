@@ -7,7 +7,7 @@ const ClientLayout = ({ children }) => {
 
   return (
     <AnimatePresence mode="wait">
-      <div key={pathname}>
+      <div key={pathname} className=" w-full">
         {children}
       </div>
     </AnimatePresence>
