@@ -6,15 +6,15 @@ const ConcentricCircles = ({ stage }) => {
   // Circle color definitions - from outside to inside
   const circleColors = [
     "#FFFFFF", // White outermost circle
-    "#E9E0E0",
-    "#DAC5C5",
-    "#C39E9E",
-    "#A58282",
-    "#8C6666",
-    "#563B3B",
-    "#2B1B1B",
-    "#422B2B",  // Dark center
-    "#422B2B",  // Dark center
+    "#EAE5D7",
+    "#D6CDB2",
+    "#BFAC85",
+    "#AB9264",
+    "#9C8056",
+    "#866948",
+    "#5C4537",
+    "##2D201B",  // Dark center
+    "#2D201B",  // Dark center
   ];
   
   // Start showing circles from stage 2

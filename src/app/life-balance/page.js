@@ -156,7 +156,7 @@ export default function Page() {
               }
               
               {currentStage === 11 && (
-                <div className="scale-75 md:scale-100 mt-4 md:mt-[20%] md:mr-[25%] mb-4 w-full h-[300px] md:h-[500px] flex items-center justify-center">
+                <div className="scale-100 md:scale-100 mt-0 md:mt-[20%] md:mr-[25%] mb-4 w-full h-[350px] md:h-[500px] flex items-center justify-center">
                   <BalanceWheel graphRef={ref} formData={formData} />
                 </div>
               )}
