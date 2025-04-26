@@ -95,17 +95,39 @@ export default function Page() {
     <PageTransition>
       <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh]">
         <div className="w-full max-w-screen-xl mx-auto px-4">
-          {/* Reordered flex direction for mobile - column puts visuals first, then md: changes to row */}
-          <div className="flex flex-col md:flex-row w-full">
-            {/* Visuals section - Now first in the column order for mobile */}
-            <div className="w-full md:w-1/2 md:order-2 mt-[60px] md:mt-4 mx-auto md:mr-10 relative flex justify-center md:justify-center items-center h-[300px] md:h-auto">
-              {currentStage >= 3 && currentStage <= 10 && currentQuestion && (
-                <div className="absolute top-[-40px] md:top-0 left-0 right-0 w-full z-10 px-4 md:px-8">
-                  <div className="w-full flex items-center justify-between mb-4 md:mb-8">
+          
+                <div className="flex flex-col md:flex-row w-full">
+                <div className="w-full md:w-1/2 md:order-2 mt-[60px] md:mt-4 mx-auto md:mr-10 relative flex justify-center md:justify-center items-center h-[300px] md:h-auto">
+                  {currentStage >= 3 && currentStage <= 10 && currentQuestion && (
+                  <>
+                    <div className="absolute top-[-40px] md:top-0 -left-[620px] right-0 w-full z-10 px-4 md:px-8 hidden md:block">
                     <button
                       onClick={() => setCurrentStage(currentStage - 1)}
                       className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-md"
                     >
+                      <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      >
+                      <path
+                        d="M15 19L8 12L15 5"
+                        stroke="#19667A"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      </svg>
+                    </button>
+                    </div>
+                    <div className="absolute top-[-40px] md:top-0 left-0 right-0 w-full z-10 px-4 md:px-8">
+                    <div className="w-full flex items-center justify-between mb-4 md:mb-8">
+                      <button
+                      onClick={() => setCurrentStage(currentStage - 1)}
+                      className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-md md:hidden"
+                      >
                       <svg
                         width="20"
                         height="20"
@@ -114,29 +136,30 @@ export default function Page() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M15 19L8 12L15 5"
-                          stroke="#19667A"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                        d="M15 19L8 12L15 5"
+                        stroke="#19667A"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         />
                       </svg>
-                    </button>
-                    <ProgressBar currentStage={currentStage} />
-                  </div>
-                </div>
-              )}
+                      </button>
+                      <ProgressBar currentStage={currentStage} />
+                    </div>
+                    </div>
+                  </>
+                  )}
 
-              {currentStage < 2 && (
-                <motion.div
-                  className="flex justify-center md:mr-32 scale-75 md:scale-100"
-                  animate={isSwinging ? { rotate: [0, 10, -10, 0] } : {}}
-                  transition={{
+                  {currentStage < 2 && (
+                  <motion.div
+                    className="flex justify-center md:mr-32 scale-75 md:scale-100"
+                    animate={isSwinging ? { rotate: [0, 10, -10, 0] } : {}}
+                    transition={{
                     duration: 2,
                     ease: "easeInOut",
-                  }}
-                >
-                  {/* Hero image for PC only */}
+                    }}
+                  >
+                    {/* Hero image for PC only */}
                   <div className="hidden md:flex  md:w-[500px] md:h-[500px] md:mt-4 rounded-full overflow-hidden items-center justify-center shadow-lg">
                     <Image
                       src="/assets/Life-balance-model.svg"
