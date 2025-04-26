@@ -10,7 +10,7 @@ const IntroScreen = ({ setCurrentStage, pageVariants }) => (
     variants={pageVariants}
     className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] ml-4 sm:ml-[5vw] md:ml-[8vw] pr-4 sm:pr-[5vw]"
   >
-    <h1 className="h-auto sm:h-14 text-white text-3xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]">
+    <h1 className="h-auto sm:h-14 text-white text-3xl whitespace-nowrap xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]">
       Life Balance Wheel
     </h1>
     

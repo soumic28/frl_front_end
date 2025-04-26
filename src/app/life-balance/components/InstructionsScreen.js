@@ -1,7 +1,15 @@
 import { motion } from "framer-motion";
 import NavigationButton from "./NavigationButton";
 
-const InstructionsScreen = ({
+const 
+
+
+
+
+
+
+
+InstructionsScreen = ({
   setCurrentStage,
   currentStage,
   pageVariants,
@@ -14,7 +22,7 @@ const InstructionsScreen = ({
     variants={pageVariants}
     className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] ml-4 sm:ml-[5vw] md:ml-[8vw] pr-4 sm:pr-[5vw]"
   >
-    <h1 className="text-white text-3xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]">
+    <h1 className="text-white text-3xl xs:text-4xl whitespace-nowrap sm:text-5xl font-medium leading-tight sm:leading-[62.40px]">
       Life Balance Wheel
     </h1>
     <p className="font-inter font-normal text-[14px] text-white block md:hidden">
