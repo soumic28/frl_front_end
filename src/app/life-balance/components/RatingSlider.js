@@ -143,25 +143,19 @@ const RatingSlider = ({ initialValue = 5, onChange }) => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Static elements */}
-          <path
-            d="M7.47346 51.0891V65.6346H4.83851V53.653H4.75328L1.3513 55.8263V53.4116L4.96635 51.0891H7.47346Z"
-            fill="white"
-          />
-          <path
-            d="M433.355 51.0891V65.6346H430.72V53.653H430.635L427.233 55.8263V53.4116L430.848 51.0891H433.355ZM441.925 65.9116C440.755 65.9116 439.752 65.6156 438.914 65.0238C438.08 64.4272 437.439 63.5678 436.989 62.4457C436.544 61.3188 436.321 59.9622 436.321 58.3761C436.326 56.7899 436.551 55.4405 436.996 54.3278C437.446 53.2103 438.087 52.3581 438.921 51.7709C439.759 51.1838 440.76 50.8903 441.925 50.8903C443.09 50.8903 444.091 51.1838 444.929 51.7709C445.767 52.3581 446.409 53.2103 446.854 54.3278C447.304 55.4452 447.529 56.7946 447.529 58.3761C447.529 59.967 447.304 61.3259 446.854 62.4528C446.409 63.5749 445.767 64.4319 444.929 65.0238C444.096 65.6156 443.094 65.9116 441.925 65.9116ZM441.925 63.6886C442.834 63.6886 443.551 63.2411 444.077 62.3462C444.607 61.4466 444.872 60.1232 444.872 58.3761C444.872 57.2208 444.752 56.2501 444.51 55.4641C444.269 54.6781 443.928 54.0863 443.487 53.6886C443.047 53.2861 442.526 53.0849 441.925 53.0849C441.021 53.0849 440.306 53.5347 439.78 54.4343C439.254 55.3292 438.989 56.6431 438.985 58.3761C438.98 59.5361 439.096 60.5115 439.333 61.3022C439.574 62.0929 439.915 62.6895 440.355 63.092C440.796 63.4897 441.319 63.6886 441.925 63.6886Z"
-            fill="white"
-          />
-
           {/* This is an invisible rectangle covering the track area for better click detection */}
           <rect
             x="25"
-            y="52"
-            width="392"
-            height="16"
+            y="25"
+            width="390"
+            height="30"
             fill="transparent"
             style={{ pointerEvents: "all" }}
           />
+
+          {/* Number labels for 1 and 10 */}
+          <text x="1" y="65" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold">1</text>
+          <text x="443" y="65" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold">10</text>
 
           {/* Line with tick marks */}
           <path
@@ -172,46 +166,64 @@ const RatingSlider = ({ initialValue = 5, onChange }) => {
           {/* Tick marks - we'll selectively show these based on screen size using CSS classes */}
           <g className="tick-marks">
             <path
-              d="M372.336 55.118V62.87"
+              d="M26 55.118V62.87"
               stroke="#A3C2CA"
               strokeLinecap="round"
               className="tick md-tick"
             />
             <path
-              d="M328.481 55.118V62.87"
+              d="M65 55.118V62.87"
               stroke="#A3C2CA"
               strokeLinecap="round"
               className="tick sm-tick"
             />
             <path
-              d="M284.627 55.118V62.87"
+              d="M104 55.118V62.87"
               stroke="#A3C2CA"
               strokeLinecap="round"
               className="tick md-tick"
             />
             <path
-              d="M240.772 55.118V62.87"
+              d="M143 55.118V62.87"
               stroke="#A3C2CA"
               strokeLinecap="round"
               className="tick sm-tick"
             />
             <path
-              d="M196.918 55.118V62.87"
+              d="M182 55.118V62.87"
               stroke="#A3C2CA"
               strokeLinecap="round"
               className="tick md-tick"
             />
             <path
-              d="M153.062 55.118V62.87"
+              d="M221 55.118V62.87"
               stroke="#A3C2CA"
               strokeLinecap="round"
               className="tick sm-tick"
             />
             <path
-              d="M65.3535 55.118V62.87"
+              d="M260 55.118V62.87"
               stroke="#A3C2CA"
               strokeLinecap="round"
               className="tick md-tick"
+            />
+            <path
+              d="M299 55.118V62.87"
+              stroke="#A3C2CA"
+              strokeLinecap="round"
+              className="tick sm-tick"
+            />
+            <path
+              d="M338 55.118V62.87"
+              stroke="#A3C2CA"
+              strokeLinecap="round"
+              className="tick md-tick"
+            />
+            <path
+              d="M377 55.118V62.87"
+              stroke="#A3C2CA"
+              strokeLinecap="round"
+              className="tick sm-tick"
             />
           </g>
 
@@ -275,8 +287,8 @@ const RatingSlider = ({ initialValue = 5, onChange }) => {
           .thumb-inner {
             r: 8;
           }
-          .tick.sm-tick {
-            display: none;
+          text {
+            font-size: 10px;
           }
         }
 
@@ -290,7 +302,10 @@ const RatingSlider = ({ initialValue = 5, onChange }) => {
           .thumb-inner {
             r: 7;
           }
-          .tick.md-tick {
+          text {
+            font-size: 8px;
+          }
+          text:nth-child(even) {
             display: none;
           }
         }
