@@ -32,8 +32,8 @@ const CustomDot = (props) => {
 
   // Use smaller radius on mobile - check if window is defined (client-side only)
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const radius = isMobile ? 10 : 15;
-  const fontSize = isMobile ? 10 : 10;
+  const radius = isMobile ? 15 : 20;
+  const fontSize = isMobile ? 9 : 10;
 
   return (
     <g>
@@ -54,7 +54,7 @@ const CustomDot = (props) => {
         fontSize={fontSize}
         fontWeight="bold"
       >
-        {payload.value}
+        {payload.value}/10
       </text>
     </g>
   );
@@ -66,7 +66,6 @@ const CustomTooltip = ({ active, payload }) => {
       <div className="bg-[#866948] text-white p-3 rounded shadow-lg">
         <p className="font-bold">{payload[0].payload.subject}</p>
         <p>Score: {payload[0].payload.value}/10</p>
-        <p>Percentage: {payload[0].payload.valuePercent}%</p>
       </div>
     );
   }
@@ -324,7 +323,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
             />
             <PolarRadiusAxis
               angle={90}
-              domain={[0, 100]}
+              domain={[0, 10]}
               tick={({ payload, x, y, cx, cy, index, tickFormatter }) => {
                 const value = payload.value;
                 if (value === 0) return null;
@@ -335,17 +334,17 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
                     textAnchor={x > cx ? "start" : "end"}
                     fill="#666666"
                     fontSize={10}
-                  >{`${value}%`}</text>
+                  >{`${value}/10`}</text>
                 );
               }}
               tickCount={5}
-              ticks={[20, 40, 60, 80, 100]}
+              ticks={[2, 4, 6, 8, 10]}
               stroke="#D6CDB2"
               axisLine={false}
             />
             <Radar
               name="Life Balance"
-              dataKey="valuePercent"
+              dataKey="value"
               stroke="#866948"
               fill="#866948"
               fillOpacity={0.1}
