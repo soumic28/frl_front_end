@@ -153,23 +153,15 @@ const RatingSlider = ({ initialValue = 5, onChange }) => {
             style={{ pointerEvents: "all" }}
           />
 
+          {/* Number labels for 1 and 10 */}
+          <text x="1" y="65" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold">1</text>
+          <text x="443" y="65" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold">10</text>
+
           {/* Line with tick marks */}
           <path
             d="M25.9863 59.994L416.192 59.994L416.192 57.994L25.9863 57.994L25.9863 59.994Z"
             fill="#A3C2CA"
           />
-
-          {/* Number labels */}
-          {/* <text x="26" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">1</text>
-          <text x="65" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">2</text>
-          <text x="104" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">3</text>
-          <text x="143" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">4</text>
-          <text x="182" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">5</text>
-          <text x="221" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">6</text>
-          <text x="260" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">7</text>
-          <text x="299" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">8</text>
-          <text x="338" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">9</text>
-          <text x="377" y="75" textAnchor="middle" fill="#A3C2CA" fontSize="12">10</text> */}
 
           {/* Tick marks - we'll selectively show these based on screen size using CSS classes */}
           <g className="tick-marks">
