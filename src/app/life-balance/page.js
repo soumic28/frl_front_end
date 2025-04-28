@@ -93,13 +93,13 @@ export default function Page() {
 
   return (
     <PageTransition>
-      <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh] overflow-hidden  md:my-0">
-        <div className="w-full max-w-screen-[1440px] mx-auto px-4">
-          <div className="flex flex-col md:flex-row w-full">
+      <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh] overflow-hidden md:my-0 items-center justify-center">
+        <div className="w-full max-w-screen-[1440px] mx-auto px-4 flex items-center justify-center">
+          <div className="flex flex-col md:flex-row w-full justify-center items-center">
             <div className="w-full md:w-1/2 md:order-2 mt-[60px] md:mt-4 mx-auto md:mr-10 relative flex justify-center md:justify-center items-center h-auto min-h-[280px] md:min-h-[600px]">
               {currentStage >= 3 && currentStage <= 10 && currentQuestion && (
                 <>
-                  <div className="absolute top-[-40px] md:top-0 -left-[780px] right-0 w-full z-10 px-4 md:px-8 hidden md:block my-3">
+                  <div className="absolute top-[-40px] md:-top-[65px] -left-[780px] right-0 w-full z-10 px-4 md:px-8 hidden md:block my-3">
                     <button
                       onClick={() => setCurrentStage(currentStage - 1)}
                       className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-md"
@@ -143,7 +143,7 @@ export default function Page() {
                           />
                         </svg>
                       </button>
-                      <div className="md:mx-[120px] md:my-[20px]">
+                      <div className="md:mx-[120px] md:relative -top-[60px]">
                         <ProgressBar currentStage={currentStage} />
                       </div>
                     </div>
@@ -211,7 +211,7 @@ export default function Page() {
 
               {currentStage === 11 && (
                 <div
-                  className="scale-100 md:scale-100 mt-0 md:mt-[20%] md:mr-[25%] mb-4 w-[280px] h-[280px] md:w-[600px] md:h-[600px] flex items-center justify-center relative md:-top-[70px]"
+                  className="scale-100 md:scale-100 mt-0 md:mt-[20%] md:mr-[25%] mb-4 w-[280px] h-[280px] md:w-[600px] md:h-[600px] flex items-center justify-center relative "
                   style={{ aspectRatio: "1/1" }}
                 >
                   <BalanceWheel graphRef={ref} formData={formData} />
