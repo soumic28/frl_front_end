@@ -13,7 +13,7 @@ const ConcentricCircles = ({ stage }) => {
     "#9C8056",
     "#866948",
     "#5C4537",
-    "##2D201B",  // Dark center
+    "#5C4537",  // Dark center
     "#2D201B",  // Dark center
   ];
   

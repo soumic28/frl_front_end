@@ -24,10 +24,16 @@ const CustomDot = (props) => {
   }
 
   const { cx, cy, payload, index } = props;
+  
+  // Additional safety check for NaN values
+  if (cx === undefined || cy === undefined || isNaN(cx) || isNaN(cy)) {
+    return null;
+  }
 
-  // Use smaller radius on mobile
-  const radius = window?.innerWidth < 768 ? 10 : 15;
-  const fontSize = window?.innerWidth < 768 ? 10 : 10;
+  // Use smaller radius on mobile - check if window is defined (client-side only)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const radius = isMobile ? 10 : 15;
+  const fontSize = isMobile ? 10 : 10;
 
   return (
     <g>
@@ -70,6 +76,13 @@ const CustomTooltip = ({ active, payload }) => {
 // Custom angle axis tick to position labels along the circumference
 const CustomAngleTick = (props) => {
   const { x, y, cx, cy, payload, index } = props;
+
+  // Safety check - if any required values are undefined or NaN, return null
+  if (!payload || x === undefined || y === undefined || 
+      cx === undefined || cy === undefined ||
+      isNaN(x) || isNaN(y) || isNaN(cx) || isNaN(cy)) {
+    return null;
+  }
 
   // Generate a unique ID for this path
   const pathId = `curve${index}`;
@@ -267,7 +280,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="absolute w-[280px] h-[280px] md:w-[600px] md:h-[600px] rounded-full overflow-hidden flex items-center justify-center">
+      <div className="absolute w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full overflow-hidden flex items-center justify-center">
         <Image
           src="/assets/roundtext.svg"
           width={300}
@@ -278,14 +291,14 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
       </div>
       <div
         ref={graphRef}
-        className="relative w-[280px] h-[280px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
+        className="relative w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
         style={{ aspectRatio: "1/1" }}
       >
         <ResponsiveContainer width="100%" height="100%" aspect={1}>
           <RadarChart
             cx="50%"
             cy="50%"
-            outerRadius="85%"
+            outerRadius="95%"
             startAngle={90}
             endAngle={-270}
             margin={{ top: 5, right: 5, bottom: 5, left: 5 }}

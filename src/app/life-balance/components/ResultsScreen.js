@@ -15,39 +15,35 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       <br />
       <em>on {date}</em>
     </h1>
-    <p className="text-white mt-3 sm:mt-5 text-base xs:text-lg sm:text-xl font-light leading-relaxed hidden sm:block">
-      This is how your Life Balance Wheel looks like
-      <br />
-      now. Scores will change weekly, daily, even
-      <br />
-      hourly as circumstances change. Do not look for
-      <br />
-      any ultimate truth, just check in with how you
-      <br />
-      feel in this moment.
+    <p className="text-white mt-3 sm:mt-5 text-base xs:text-lg sm:text-xl font-medium hidden sm:block">
+      This is how your life balance wheel looks like now. Scores will change
+      weekly, daily, even hourly as circumstances change. do not look for any
+      ultimate truth, just check in with how you feel in this moment.
     </p>
     <p className="text-[#E6E6E6] block lg:hidden">
       This is how your life balance wheel looks like now. Scores will change
       weekly, daily, even hourly as circumstances change. do not look for any
       ultimate truth, just check in with how you feel in this moment.
     </p>
-    <div className="flex flex-col xs:flex-row space-y-3 xs:space-y-0 xs:space-x-4 sm:space-x-10 mb-4">
+    <div className="flex flex-row items-center gap-4 sm:gap-6 mt-4 sm:mt-8">
       <motion.button
         onClick={handleDownload}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex w-fit items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 mt-4 sm:mt-[50px] bg-white rounded-full text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-gray-700 sm:text-lg sm:font-semibold text-[18px]"
+        className="flex items-center justify-center px-4 sm:px-6 lg:px-7 py-2 sm:py-3 bg-white rounded-full text-sm sm:text-lg font-medium sm:font-semibold text-gray-700"
       >
         Download
         <svg
-          className="ml-1.5 xs:ml-2 w-3 h-3 xs:w-4 xs:h-4 lg:w-[19px] lg:h-[15px]"
-          viewBox="0 0 19 15"
+          className="ml-2 w-4 h-4 lg:w-[19px] lg:h-[15px]"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M1.41626 6.51514C0.863975 6.51514 0.41626 6.96285 0.41626 7.51514C0.41626 8.06742 0.863975 8.51514 1.41626 8.51514V6.51514ZM18.1234 8.22224C18.5139 7.83172 18.5139 7.19855 18.1234 6.80803L11.7594 0.444069C11.3689 0.0535445 10.7357 0.0535445 10.3452 0.444069C9.95467 0.834593 9.95467 1.46776 10.3452 1.85828L16.002 7.51514L10.3452 13.172C9.95467 13.5625 9.95467 14.1957 10.3452 14.5862C10.7357 14.9767 11.3689 14.9767 11.7594 14.5862L18.1234 8.22224ZM1.41626 8.51514H17.4163V6.51514H1.41626V8.51514Z"
-            fill="#3B3A4D"
+            d="M7 12.175V0L9 0V12.175L14.6 6.575L16 8L8 16L0 8L1.4 6.575L7 12.175Z"
+            fill="#2D201B"
           />
         </svg>
       </motion.button>
@@ -57,32 +53,31 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
         }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex w-fit items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 border-white border rounded-full text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-white sm:text-lg text-[18px] sm:font-semibold"
+        className="flex items-center justify-center px-4 sm:px-6 lg:px-7 py-2 sm:py-3 border-white border rounded-full text-sm sm:text-lg font-medium sm:font-semibold text-white"
       >
-        Discard
+        Share
         <svg
-          className="ml-1.5 xs:ml-2 w-3 h-3 xs:w-4 xs:h-4 lg:w-[19px] lg:h-[15px]"
-          viewBox="0 0 19 15"
-          fill="white"
+          className="ml-2 w-4 h-4 lg:w-[19px] lg:h-[15px]"
+          width="18"
+          height="20"
+          viewBox="0 0 18 20"
+          fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M1.41626 6.51514C0.863975 6.51514 0.41626 6.96285 0.41626 7.51514C0.41626 8.06742 0.863975 8.51514 1.41626 8.51514V6.51514ZM18.1234 8.22224C18.5139 7.83172 18.5139 7.19855 18.1234 6.80803L11.7594 0.444069C11.3689 0.0535445 10.7357 0.0535445 10.3452 0.444069C9.95467 0.834593 9.95467 1.46776 10.3452 1.85828L16.002 7.51514L10.3452 13.172C9.95467 13.5625 9.95467 14.1957 10.3452 14.5862C10.7357 14.9767 11.3689 14.9767 11.7594 14.5862L18.1234 8.22224ZM1.41626 8.51514H17.4163V6.51514H1.41626V8.51514Z"
-            fill="white"
+            d="M15 20C14.1667 20 13.4583 19.7083 12.875 19.125C12.2917 18.5417 12 17.8333 12 17C12 16.9 12.025 16.6667 12.075 16.3L5.05 12.2C4.78333 12.45 4.475 12.6458 4.125 12.7875C3.775 12.9292 3.4 13 3 13C2.16667 13 1.45833 12.7083 0.875 12.125C0.291667 11.5417 0 10.8333 0 10C0 9.16667 0.291667 8.45833 0.875 7.875C1.45833 7.29167 2.16667 7 3 7C3.4 7 3.775 7.07083 4.125 7.2125C4.475 7.35417 4.78333 7.55 5.05 7.8L12.075 3.7C12.0417 3.58333 12.0208 3.47083 12.0125 3.3625C12.0042 3.25417 12 3.13333 12 3C12 2.16667 12.2917 1.45833 12.875 0.875C13.4583 0.291667 14.1667 0 15 0C15.8333 0 16.5417 0.291667 17.125 0.875C17.7083 1.45833 18 2.16667 18 3C18 3.83333 17.7083 4.54167 17.125 5.125C16.5417 5.70833 15.8333 6 15 6C14.6 6 14.225 5.92917 13.875 5.7875C13.525 5.64583 13.2167 5.45 12.95 5.2L5.925 9.3C5.95833 9.41667 5.97917 9.52917 5.9875 9.6375C5.99583 9.74583 6 9.86667 6 10C6 10.1333 5.99583 10.2542 5.9875 10.3625C5.97917 10.4708 5.95833 10.5833 5.925 10.7L12.95 14.8C13.2167 14.55 13.525 14.3542 13.875 14.2125C14.225 14.0708 14.6 14 15 14C15.8333 14 16.5417 14.2917 17.125 14.875C17.7083 15.4583 18 16.1667 18 17C18 17.8333 17.7083 18.5417 17.125 19.125C16.5417 19.7083 15.8333 20 15 20Z"
+            fill="#EEFCFD"
           />
         </svg>
       </motion.button>
     </div>
 
-    <p className="text-white mt-3 sm:mt-5  xs:text-lg sm:text-xl  leading-relaxed text-xs xs:text-sm md:text-sm font-normal mb-8 md:mb-0">
+    <p className="text-[#EBEBEB] md:text-[14px] max-w-[100%] mt-6 hidden sm:block">
       The Life Balance Wheel Tool has been developed by the Academy of
-      Leadership Coaching &
-      <br className="hidden sm:block" />
-      NLP (ALCN). To know more about its work please visit
-      https://nlp-leadership-coaching.com/ If
-      <br className="hidden sm:block" />
-      you want to seek coaching support from ALCN certified professionals in
-      India click here
+      Leadership Coaching & NLP (ALCN). To know more about its work please visit
+      <span className="underline mx-1">https://nlp-leadership-coaching.com/</span>
+      If you want to seek coaching support
+      from ALCN certified professionals in India click here
     </p>
   </motion.div>
 );
