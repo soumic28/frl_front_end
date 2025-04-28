@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import {
   Radar,
   RadarChart,
@@ -23,7 +23,7 @@ const CustomDot = (props) => {
     return null;
   }
 
-  const { cx, cy, payload, index } = props;
+  const { cx, cy, payload } = props;
   
   // Additional safety check for NaN values
   if (cx === undefined || cy === undefined || isNaN(cx) || isNaN(cy)) {
@@ -74,7 +74,7 @@ const CustomTooltip = ({ active, payload }) => {
 
 // Custom angle axis tick to position labels along the circumference
 const CustomAngleTick = (props) => {
-  const { x, y, cx, cy, payload, index } = props;
+  const { x, y, cx, cy, payload } = props;
 
   // Safety check - if any required values are undefined or NaN, return null
   if (!payload || x === undefined || y === undefined || 
@@ -82,9 +82,6 @@ const CustomAngleTick = (props) => {
       isNaN(x) || isNaN(y) || isNaN(cx) || isNaN(cy)) {
     return null;
   }
-
-  // Generate a unique ID for this path
-  const pathId = `curve${index}`;
 
   // Calculate angle in radians
   const angleRad = (-payload.angle * Math.PI) / 180;
@@ -161,67 +158,142 @@ const CustomRadarShape = (props) => {
   );
 };
 
+// Component for RadarChart to keep BalanceWheel component cleaner
+const BalanceRadarChart = ({ data }) => (
+  <ResponsiveContainer width="100%" height="100%" aspect={1}>
+    <RadarChart
+      cx="50%"
+      cy="50%"
+      outerRadius="95%"
+      startAngle={90}
+      endAngle={-270}
+      margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
+    >
+      <circle cx="50%" cy="50%" r="85%" fill="white" />
+      <PolarGrid
+        gridType="circle"
+        stroke="#D6CDB2"
+        radialLines={true}
+        gridCount={5}
+        radialLineProps={{
+          stroke: "#D6CDB2",
+          strokeWidth: 1,
+          strokeOpacity: 1,
+        }}
+      />
+      <PolarAngleAxis
+        dataKey="subject"
+        tick={<CustomAngleTick />}
+        tickLine={false}
+        stroke="#D6CDB2"
+        axisLineType="circle"
+      />
+      <PolarRadiusAxis
+        angle={90}
+        domain={[0, 10]}
+        tick={({ payload, x, y, cx, cy }) => {
+          const value = payload.value;
+          if (value === 0) return null;
+          return (
+            <text
+              x={x}
+              y={y}
+              textAnchor={x > cx ? "start" : "end"}
+              fill="#666666"
+              fontSize={10}
+            >{`${value}`}</text>
+          );
+        }}
+        tickCount={5}
+        ticks={[2, 4, 6, 8, 10]}
+        stroke="#D6CDB2"
+        axisLine={false}
+      />
+      <Radar
+        name="Life Balance"
+        dataKey="value"
+        stroke="#866948"
+        fill="#866948"
+        fillOpacity={0.1}
+        strokeWidth={2}
+        dot={<CustomDot />}
+        data={data}
+        isAnimationActive={true}
+        shape={<CustomRadarShape />}
+      />
+      <Tooltip content={<CustomTooltip />} />
+    </RadarChart>
+  </ResponsiveContainer>
+);
+
+// Helper function to transform form data to chart data
+const transformFormDataToChartData = (formData) => {
+  if (!formData) return [];
+  
+  return [
+    {
+      subject: "HEALTH",
+      value: formData.health || 5,
+      valuePercent: (formData.health || 5) * 10,
+      fullMark: 100,
+    },
+    {
+      subject: "RECREATION & FUN",
+      value: formData.recreation || 5,
+      valuePercent: (formData.recreation || 5) * 10,
+      fullMark: 100,
+    },
+    {
+      subject: "FRIENDS & FAMILY",
+      value: formData.relationships || 5,
+      valuePercent: (formData.relationships || 5) * 10,
+      fullMark: 100,
+    },
+    {
+      subject: "ROMANCE",
+      value: formData.romance || 5,
+      valuePercent: (formData.romance || 5) * 10,
+      fullMark: 100,
+    },
+    {
+      subject: "FINANCES",
+      value: formData.finance || 5,
+      valuePercent: (formData.finance || 5) * 10,
+      fullMark: 100,
+    },
+    {
+      subject: "PHYSICAL ENVIRONMENT",
+      value: formData.environment || 5,
+      valuePercent: (formData.environment || 5) * 10,
+      fullMark: 100,
+    },
+    {
+      subject: "WORK / CAREER",
+      value: formData.career || 5,
+      valuePercent: (formData.career || 5) * 10,
+      fullMark: 100,
+    },
+    {
+      subject: "SPIRITUAL & EMOTION",
+      value: formData.spiritual || 5,
+      valuePercent: (formData.spiritual || 5) * 10,
+      fullMark: 100,
+    },
+  ];
+};
+
 const BalanceWheel = ({ formData, onDownload, graphRef }) => {
-  const [data, setData] = useState([]);
   const [mounted, setMounted] = useState(false);
   const chartRef = useRef(null);
+  
+  // Transform form data to chart data using memoization to prevent unnecessary recalculations
+  const data = useMemo(() => transformFormDataToChartData(formData), [formData]);
 
-  // Safety check for formData
+  // Mount component after data is ready
   useEffect(() => {
-    if (!formData) return;
-
-    setData([
-      {
-        subject: "HEALTH",
-        value: formData.health || 5,
-        valuePercent: (formData.health || 5) * 10,
-        fullMark: 100,
-      },
-      {
-        subject: "RECREATION & FUN",
-        value: formData.recreation || 5,
-        valuePercent: (formData.recreation || 5) * 10,
-        fullMark: 100,
-      },
-      {
-        subject: "FRIENDS & FAMILY",
-        value: formData.relationships || 5,
-        valuePercent: (formData.relationships || 5) * 10,
-        fullMark: 100,
-      },
-      {
-        subject: "ROMANCE",
-        value: formData.romance || 5,
-        valuePercent: (formData.romance || 5) * 10,
-        fullMark: 100,
-      },
-      {
-        subject: "FINANCES",
-        value: formData.finance || 5,
-        valuePercent: (formData.finance || 5) * 10,
-        fullMark: 100,
-      },
-      {
-        subject: "PHYSICAL ENVIRONMENT",
-        value: formData.environment || 5,
-        valuePercent: (formData.environment || 5) * 10,
-        fullMark: 100,
-      },
-      {
-        subject: "WORK / CAREER",
-        value: formData.career || 5,
-        valuePercent: (formData.career || 5) * 10,
-        fullMark: 100,
-      },
-      {
-        subject: "SPIRITUAL & EMOTION",
-        value: formData.spiritual || 5,
-        valuePercent: (formData.spiritual || 5) * 10,
-        fullMark: 100,
-      },
-    ]);
-
-    setMounted(true);
+    if (formData) {
+      setMounted(true);
+    }
   }, [formData]);
 
   // Function to download chart as image
@@ -304,9 +376,6 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
     };
   }, [onDownload]);
 
-  // Create an array of ticks from 1 to 10
-  const ticks = Array.from({ length: 10 }, (_, i) => i + 1);
-
   // If not mounted or no formData, show a loading placeholder
   if (!mounted || !formData) {
     return (
@@ -317,85 +386,29 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
   }
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="absolute w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full overflow-hidden flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center" data-wheel-container="true">
+      {/* Outer wheel with category labels */}
+      <div className="absolute w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full overflow-hidden flex items-center justify-center" data-outer-wheel="true">
         <Image
           src="/assets/roundtext.svg"
           width={300}
           height={300}
           className="w-[280px] h-[280px] md:w-[600px] md:h-[550px] object-contain"
           alt="wheel background"
+          priority={true}
+          unoptimized={true}
+          crossOrigin="anonymous"
         />
       </div>
+      
+      {/* Inner wheel with radar chart */}
       <div
         ref={graphRef}
         className="relative w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
         style={{ aspectRatio: "1/1" }}
+        data-inner-wheel="true"
       >
-        <ResponsiveContainer width="100%" height="100%" aspect={1}>
-          <RadarChart
-            cx="50%"
-            cy="50%"
-            outerRadius="95%"
-            startAngle={90}
-            endAngle={-270}
-            margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
-          >
-            <circle cx="50%" cy="50%" r="85%" fill="white" />
-            <PolarGrid
-              gridType="circle"
-              stroke="#D6CDB2"
-              radialLines={true}
-              gridCount={5}
-              radialLineProps={{
-                stroke: "#D6CDB2",
-                strokeWidth: 1,
-                strokeOpacity: 1,
-              }}
-            />
-            <PolarAngleAxis
-              dataKey="subject"
-              tick={<CustomAngleTick />}
-              tickLine={false}
-              stroke="#D6CDB2"
-              axisLineType="circle"
-            />
-            <PolarRadiusAxis
-              angle={90}
-              domain={[0, 10]}
-              tick={({ payload, x, y, cx, cy, index, tickFormatter }) => {
-                const value = payload.value;
-                if (value === 0) return null;
-                return (
-                  <text
-                    x={x}
-                    y={y}
-                    textAnchor={x > cx ? "start" : "end"}
-                    fill="#666666"
-                    fontSize={10}
-                  >{`${value}`}</text>
-                );
-              }}
-              tickCount={5}
-              ticks={[2, 4, 6, 8, 10]}
-              stroke="#D6CDB2"
-              axisLine={false}
-            />
-            <Radar
-              name="Life Balance"
-              dataKey="value"
-              stroke="#866948"
-              fill="#866948"
-              fillOpacity={0.1}
-              strokeWidth={2}
-              dot={<CustomDot />}
-              data={data}
-              isAnimationActive={true}
-              shape={<CustomRadarShape />}
-            />
-            <Tooltip content={<CustomTooltip />} />
-          </RadarChart>
-        </ResponsiveContainer>
+        <BalanceRadarChart data={data} />
       </div>
     </div>
   );
