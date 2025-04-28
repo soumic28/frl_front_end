@@ -8,7 +8,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
     animate="visible"
     exit="exit"
     variants={pageVariants}
-    className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw]"
+    className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw] mb-[40px] md:mb-0"
   >
     <h1 className="text-white mt-0 sm:mt-[-20px] md:mt-[-50px] text-3xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px] md:whitespace-nowrap">
       Your Life Wheel Balance
