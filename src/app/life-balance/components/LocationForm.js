@@ -65,7 +65,7 @@ const LocationForm = ({
       className="flex flex-col min-h-[calc(50vh-120px)] md:min-h-0 mt-[10vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw]"
     >
       <div className="flex-grow -mt-[90px] md:mt-0">
-        <h1 className="text-white font-general-sans text-3xl xs:text-4xl sm:text-5xl font-semibold leading-tight sm:leading-[62.40px] mb-8">
+        <h1 className="text-white font-general-sans text-3xl xs:text-4xl sm:text-5xl font-semibold leading-tight sm:leading-[62.40px] mb-8 whitespace-nowrap -mx-3">
           Where Are You From?
         </h1>
 
