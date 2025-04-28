@@ -36,8 +36,8 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       </p>
     </div>
     
-    <div className="mt-4 sm:mt-8 mb-8 md:mb-0">
-      <div className="flex flex-row items-center gap-4 sm:gap-6">
+    <div className="mt-4 sm:mt-8 mb-8 md:mb-0 -mx-3">
+      <div className="flex flex-row items-center gap-4 sm:gap-6 mx-auto sm:mx-0">
         <motion.button
           onClick={handleDownload}
           whileHover={{ scale: 1.05 }}
