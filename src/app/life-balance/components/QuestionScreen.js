@@ -53,7 +53,7 @@ const QuestionScreen = ({
           onChange={handleSliderChange}
         />
       </div>
-      <div className="mt-6 sm:mt-10 mb-8 md:mb-0">
+      <div className="mt-6 sm:mt-10 mb-8 md:mb-0 flex justify-end md:justify-start">
         <NavigationButton 
           onClick={() => {
             if (handleSubmit) handleSubmit();

@@ -13,7 +13,7 @@ export default function Home() {
       transition={{ duration: 0.5 }}
       className="bg-[#19667A] min-h-[100dvh]"
     >
-      <div className="max-w-screen-xl mx-auto px-4">
+      <div className="max-w-screen-xl mx-auto px-4 ">
         <Header/>
         <Hero/>
       </div>

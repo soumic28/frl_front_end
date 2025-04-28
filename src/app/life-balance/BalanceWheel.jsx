@@ -32,8 +32,8 @@ const CustomDot = (props) => {
 
   // Use smaller radius on mobile - check if window is defined (client-side only)
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const radius = isMobile ? 10 : 15;
-  const fontSize = isMobile ? 10 : 10;
+  const radius = isMobile ? 15 : 20;
+  const fontSize = isMobile ? 9 : 10;
 
   return (
     <g>
@@ -54,7 +54,7 @@ const CustomDot = (props) => {
         fontSize={fontSize}
         fontWeight="bold"
       >
-        {payload.value}
+        {payload.value}/10
       </text>
     </g>
   );
@@ -66,7 +66,6 @@ const CustomTooltip = ({ active, payload }) => {
       <div className="bg-[#866948] text-white p-3 rounded shadow-lg">
         <p className="font-bold">{payload[0].payload.subject}</p>
         <p>Score: {payload[0].payload.value}/10</p>
-        <p>Percentage: {payload[0].payload.valuePercent}%</p>
       </div>
     );
   }
@@ -120,6 +119,45 @@ const CustomAngleTick = (props) => {
         {payload.value}
       </text>
     </g>
+  );
+};
+
+// Define a custom shape for the radar polygon with curved lines
+const CustomRadarShape = (props) => {
+  const { cx, cy, points } = props;
+  
+  if (!points || points.length < 3) return null;
+  
+  // Create a path with cubic Bezier curves
+  let pathData = `M ${points[0].x} ${points[0].y}`;
+  
+  for (let i = 0; i < points.length; i++) {
+    const current = points[i];
+    const next = points[(i + 1) % points.length];
+    const prev = points[(i - 1 + points.length) % points.length];
+    
+    // Calculate control points for smoother cubic Bezier curve
+    // Move control points 1/3 of the way from current to adjacent points
+    const cp1X = current.x + (next.x - prev.x) / 6;
+    const cp1Y = current.y + (next.y - prev.y) / 6;
+    
+    const cp2X = next.x - (next.x - current.x) / 3;
+    const cp2Y = next.y - (next.y - current.y) / 3;
+    
+    // Add cubic Bezier curve segment
+    pathData += ` C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${next.x} ${next.y}`;
+  }
+  
+  pathData += ' Z'; // Close the path
+  
+  return (
+    <path
+      d={pathData}
+      stroke={props.stroke}
+      fill={props.fill}
+      fillOpacity={props.fillOpacity}
+      strokeWidth={props.strokeWidth}
+    />
   );
 };
 
@@ -324,7 +362,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
             />
             <PolarRadiusAxis
               angle={90}
-              domain={[0, 100]}
+              domain={[0, 10]}
               tick={({ payload, x, y, cx, cy, index, tickFormatter }) => {
                 const value = payload.value;
                 if (value === 0) return null;
@@ -335,17 +373,17 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
                     textAnchor={x > cx ? "start" : "end"}
                     fill="#666666"
                     fontSize={10}
-                  >{`${value}%`}</text>
+                  >{`${value}/10`}</text>
                 );
               }}
               tickCount={5}
-              ticks={[20, 40, 60, 80, 100]}
+              ticks={[2, 4, 6, 8, 10]}
               stroke="#D6CDB2"
               axisLine={false}
             />
             <Radar
               name="Life Balance"
-              dataKey="valuePercent"
+              dataKey="value"
               stroke="#866948"
               fill="#866948"
               fillOpacity={0.1}
@@ -353,6 +391,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
               dot={<CustomDot />}
               data={data}
               isAnimationActive={true}
+              shape={<CustomRadarShape />}
             />
             <Tooltip content={<CustomTooltip />} />
           </RadarChart>
