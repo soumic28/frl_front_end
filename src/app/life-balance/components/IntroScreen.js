@@ -8,7 +8,7 @@ const IntroScreen = ({ setCurrentStage, pageVariants }) => (
     animate="visible"
     exit="exit"
     variants={pageVariants}
-    className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] ml-4 sm:ml-[5vw] md:ml-[8vw] pr-4 sm:pr-[5vw]"
+    className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] ml-4 sm:ml-[5vw] md:ml-[8vw] pr-4 sm:pr-[5vw] mb-[20px]"
   >
     <h1 className="h-auto sm:h-14 text-white text-3xl whitespace-nowrap xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]">
       Life Balance Wheel
@@ -40,11 +40,13 @@ const IntroScreen = ({ setCurrentStage, pageVariants }) => (
       <br className="hidden xs:block" />
       you may want to or need to make in.
     </p>
-    <NavigationButton
-      onClick={() => setCurrentStage(1)}
-      text="Explore"
-      className="mt-6 sm:mt-[50px]  text-[20px]"
-    ></NavigationButton>
+    <div className="flex justify-end md:justify-start">
+      <NavigationButton
+        onClick={() => setCurrentStage(1)}
+        text="Explore Now"
+        className="mt-6 sm:mt-[50px] text-[20px]"
+      ></NavigationButton>
+    </div>
   </motion.div>
 );
 

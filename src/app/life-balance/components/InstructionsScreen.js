@@ -55,11 +55,14 @@ InstructionsScreen = ({
       <br className="hidden xs:block" />
       download a snapshot of your responses today.
     </p>
+    <div className="flex justify-end md:justify-start">
     <NavigationButton
       onClick={() => setCurrentStage(currentStage + 1)}
       text="Start"
       className="mt-6 sm:mt-[50px] text-[20px] mb-8 md:mb-0"
     />
+    </div>
+   
   </motion.div>
 );
 

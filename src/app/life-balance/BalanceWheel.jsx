@@ -122,6 +122,45 @@ const CustomAngleTick = (props) => {
   );
 };
 
+// Define a custom shape for the radar polygon with curved lines
+const CustomRadarShape = (props) => {
+  const { cx, cy, points } = props;
+  
+  if (!points || points.length < 3) return null;
+  
+  // Create a path with cubic Bezier curves
+  let pathData = `M ${points[0].x} ${points[0].y}`;
+  
+  for (let i = 0; i < points.length; i++) {
+    const current = points[i];
+    const next = points[(i + 1) % points.length];
+    const prev = points[(i - 1 + points.length) % points.length];
+    
+    // Calculate control points for smoother cubic Bezier curve
+    // Move control points 1/3 of the way from current to adjacent points
+    const cp1X = current.x + (next.x - prev.x) / 6;
+    const cp1Y = current.y + (next.y - prev.y) / 6;
+    
+    const cp2X = next.x - (next.x - current.x) / 3;
+    const cp2Y = next.y - (next.y - current.y) / 3;
+    
+    // Add cubic Bezier curve segment
+    pathData += ` C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${next.x} ${next.y}`;
+  }
+  
+  pathData += ' Z'; // Close the path
+  
+  return (
+    <path
+      d={pathData}
+      stroke={props.stroke}
+      fill={props.fill}
+      fillOpacity={props.fillOpacity}
+      strokeWidth={props.strokeWidth}
+    />
+  );
+};
+
 const BalanceWheel = ({ formData, onDownload, graphRef }) => {
   const [data, setData] = useState([]);
   const [mounted, setMounted] = useState(false);
@@ -352,6 +391,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
               dot={<CustomDot />}
               data={data}
               isAnimationActive={true}
+              shape={<CustomRadarShape />}
             />
             <Tooltip content={<CustomTooltip />} />
           </RadarChart>

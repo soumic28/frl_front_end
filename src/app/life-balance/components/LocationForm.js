@@ -104,13 +104,14 @@ const LocationForm = ({
       {error && (
         <p className="text-red-500 text-sm sm:text-base mb-4">{error}</p>
       )}
-
-      <NavigationButton
-        onClick={handleNext}
-        text="Next"
-        className="mt-4 text-[20px]"
-        disabled={isNextDisabled}
-      />
+      <div className="flex justify-end md:justify-start">
+        <NavigationButton
+          onClick={handleNext}
+          text="Next"
+          className="mt-4 text-[20px]"
+          disabled={isNextDisabled}
+        />
+      </div>
     </motion.div>
   );
 };

@@ -93,7 +93,7 @@ export default function Page() {
 
   return (
     <PageTransition>
-      <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh] overflow-hidden">
+      <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh] overflow-hidden  md:my-0">
         <div className="w-full max-w-screen-[1440px] mx-auto px-4">
           
                 <div className="flex flex-col md:flex-row w-full">
