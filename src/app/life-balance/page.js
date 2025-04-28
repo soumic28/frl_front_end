@@ -5,6 +5,7 @@ import { toJpeg } from "html-to-image";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
+import html2canvas from "html2canvas";
 
 import PageTransition from "../(components)/PageTransition";
 import ConcentricCircles from "./ConcentricCircles";
@@ -59,18 +60,156 @@ export default function Page() {
   };
 
   const handleDownload = () => {
-    if (ref.current === null) return;
+    // Create a container element that will hold our full card for download
+    const cardContainer = document.createElement("div");
+    cardContainer.style.width = "800px";
+    cardContainer.style.height = "1000px";
+    cardContainer.style.backgroundColor = "#19667A"; // Teal background matching the app
+    cardContainer.style.borderRadius = "20px";
+    cardContainer.style.padding = "60px";
+    cardContainer.style.display = "flex";
+    cardContainer.style.flexDirection = "column";
+    cardContainer.style.color = "white";
+    cardContainer.style.fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+    cardContainer.style.boxSizing = "border-box";
+    cardContainer.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.2)";
+    cardContainer.style.position = "fixed";
+    cardContainer.style.zIndex = "-9999";
+    cardContainer.style.top = "0";
+    cardContainer.style.left = "0";
+    cardContainer.style.transform = "scale(0.8)";
+    cardContainer.style.transformOrigin = "top left";
+    
+    // Format date as DD/MM/YYYY to match the image
+    const formattedDate = date.split('/').reverse().join('/');
+    
+    // Add card title
+    const titleContainer = document.createElement("div");
+    titleContainer.style.marginBottom = "60px";
+    cardContainer.appendChild(titleContainer);
+    
+    const title = document.createElement("h1");
+    title.style.fontSize = "48px";
+    title.style.fontWeight = "600";
+    title.style.margin = "0";
+    title.style.letterSpacing = "-0.5px";
+    title.textContent = "Your Life Balance Wheel";
+    titleContainer.appendChild(title);
+    
+    // Add date
+    const dateDiv = document.createElement("h2");
+    dateDiv.style.fontSize = "32px";
+    dateDiv.style.fontWeight = "normal";
+    dateDiv.style.margin = "10px 0 0 0";
+    dateDiv.style.fontStyle = "italic";
+    dateDiv.textContent = `On ${formattedDate}`;
+    titleContainer.appendChild(dateDiv);
+    
+    // Add description
+    const description = document.createElement("p");
+    description.style.fontSize = "18px";
+    description.style.lineHeight = "1.6";
+    description.style.marginBottom = "60px";
+    description.style.maxWidth = "90%";
+    description.style.opacity = "0.9";
+    description.textContent = "This Is How Your Life Balance Wheel Looks Like Now. Scores Will Change Weekly, Daily, Even Hourly As Circumstances Change. Do Not Look For Any Ultimate Truth, Just Check In With How You Feel In This Moment.";
+    cardContainer.appendChild(description);
+    
+    // Create a div for the balance wheel
+    const wheelContainer = document.createElement("div");
+    wheelContainer.style.width = "600px";
+    wheelContainer.style.height = "600px";
+    wheelContainer.style.margin = "0 auto";
+    wheelContainer.style.position = "relative";
+    wheelContainer.style.display = "flex";
+    wheelContainer.style.alignItems = "center";
+    wheelContainer.style.justifyContent = "center";
+    wheelContainer.style.flexGrow = "1";
+    cardContainer.appendChild(wheelContainer);
+    
+    // Temporarily append to document to capture, but hide it
+    document.body.appendChild(cardContainer);
+    
+    // Clone the wheel components
+    if (ref.current) {
+      // Ensure we have the parent container that holds both wheels
+      const wheelParent = ref.current.closest('[data-wheel-container="true"]');
+      const wheelParentClone = wheelParent ? wheelParent.cloneNode(true) : null;
+      
+      if (wheelParentClone) {
+        // Properly position the cloned elements 
+        wheelParentClone.style.position = "absolute";
+        wheelParentClone.style.top = "0";
+        wheelParentClone.style.left = "0";
+        wheelParentClone.style.width = "100%";
+        wheelParentClone.style.height = "100%";
+        wheelContainer.appendChild(wheelParentClone);
+      } else {
+        // Fallback to just cloning individual elements if we can't get the parent
+        const wheelContent = ref.current.cloneNode(true);
+        wheelContainer.appendChild(wheelContent);
+        
+        // Also clone the absolute positioned outer text wheel
+        const outerWheel = document.querySelector('[data-outer-wheel="true"]');
+        if (outerWheel) {
+          const outerWheelClone = outerWheel.cloneNode(true);
+          wheelContainer.appendChild(outerWheelClone);
+        }
+      }
+    }
+    
+    // Use html2canvas on our container
+    html2canvas(cardContainer, {
+      backgroundColor: "#19667A",
+      useCORS: true,
+      scale: 2, // Higher resolution
+      allowTaint: true,
+      foreignObjectRendering: true,
+      onclone: (clonedDoc, element) => {
+        // Make visible for capture
+        element.style.zIndex = "auto";
+        element.style.transform = "none";
+        element.style.top = "0";
+        element.style.left = "0";
+        element.style.position = "absolute";
+        
+        // Ensure all images are loaded correctly
+        const images = element.querySelectorAll('img');
+        images.forEach(img => {
+          if (img.src) {
+            img.crossOrigin = "anonymous";
+            img.style.maxWidth = "100%";
+            img.style.height = "auto";
+          }
+        });
+      },
+    }).then((canvas) => {
+      // Convert to JPEG
+      const imageData = canvas.toDataURL("image/jpeg", 0.9);
 
-    toJpeg(ref.current, { quality: 0.95 })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "balance-wheel.jpeg";
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((err) => {
-        console.error("Error exporting image", err);
-      });
+      // Create download link
+      const link = document.createElement("a");
+      link.download = "life-balance-wheel.jpg";
+      link.href = imageData;
+
+      // Trigger download
+      link.click();
+      
+      // Clean up
+      document.body.removeChild(cardContainer);
+    }).catch(err => {
+      console.error("Error generating card image:", err);
+      // Fallback to the original method if there's an error
+      if (ref.current) {
+        toJpeg(ref.current, { quality: 0.95 })
+          .then((dataUrl) => {
+            const link = document.createElement("a");
+            link.download = "balance-wheel.jpeg";
+            link.href = dataUrl;
+            link.click();
+          });
+      }
+    });
   };
 
   useEffect(() => {
