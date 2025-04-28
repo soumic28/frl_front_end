@@ -42,7 +42,7 @@ const QuestionScreen = ({
       <h1 className='text-white text-xl xs:text-3xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]'>
         {question}
       </h1>
-      <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-light leading-relaxed'>
+      <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-light leading-relaxed whitespace-nowrap'>
         Rate your level of satisfaction in a scale of 1 - 10
       </p>
       <div className="mt-4 sm:mt-8">

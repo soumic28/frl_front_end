@@ -10,14 +10,12 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
     variants={pageVariants}
     className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw]"
   >
-    <h1 className="text-white mt-0 sm:mt-[-20px] md:mt-[-50px] text-3xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px]">
-      Your Life
-      <br />
-      Wheel Balance
+    <h1 className="text-white mt-0 sm:mt-[-20px] md:mt-[-50px] text-3xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px] md:whitespace-nowrap">
+      Your Life Wheel Balance
       <br />
       <em>on {date}</em>
     </h1>
-    <p className="text-white mt-3 sm:mt-5 text-base xs:text-lg sm:text-xl font-light leading-relaxed">
+    <p className="text-white mt-3 sm:mt-5 text-base xs:text-lg sm:text-xl font-light leading-relaxed hidden sm:block">
       This is how your Life Balance Wheel looks like
       <br />
       now. Scores will change weekly, daily, even
@@ -28,7 +26,11 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       <br />
       feel in this moment.
     </p>
-
+    <p className="text-[#E6E6E6] block lg:hidden">
+      This is how your life balance wheel looks like now. Scores will change
+      weekly, daily, even hourly as circumstances change. do not look for any
+      ultimate truth, just check in with how you feel in this moment.
+    </p>
     <div className="flex flex-col xs:flex-row space-y-3 xs:space-y-0 xs:space-x-4 sm:space-x-10 mb-4">
       <motion.button
         onClick={handleDownload}
@@ -82,11 +84,6 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       you want to seek coaching support from ALCN certified professionals in
       India click here
     </p>
-    {/* <p className='  mt-3 sm:mt-5  xs:text-lg sm:text-xl  text-white pt-4 sm:pt-10 text-xs xs:text-sm md:text-sm font-normal leading-tight relative md:absolute md:bottom-4 sm:bottom-10 left-0 md:left-4 sm:left-auto w-[90%] sm:w-full md:max-w-[70%]'>
-      The Life Balance Wheel Tool has been developed by the Academy of Leadership Coaching & 
-      <br className="hidden sm:block"/>NLP (ALCN). To know more about its work please visit https://nlp-leadership-coaching.com/ If 
-      <br className="hidden sm:block"/>you want to seek coaching support from ALCN certified professionals in India click here
-    </p> */}
   </motion.div>
 );
 
