@@ -40,10 +40,10 @@ const QuestionScreen = ({
   return (
     <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
       <div className="flex-grow">
-        <h1 className='text-white text-xl xs:text-3xl sm:text-5xl font-general-sans font-semibold leading-tight sm:leading-[62.40px] '>
+        <h1 className='text-white text-xl xs:text-3xl sm:text-5xl font-general-sans font-semibold  '>
           {question}
         </h1>
-        <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium leading-relaxed max-w-[90%]  md:mx-0'>
+        <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium  max-w-[90%]  md:mx-0'>
           Rate your level of satisfaction in a scale of 1 - 10
         </p>
         <div className="mt-4 sm:mt-8">
