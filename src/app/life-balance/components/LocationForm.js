@@ -11,9 +11,12 @@ const LocationForm = ({
   pageVariants,
 }) => {
   const [error, setError] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  const [isZipDropdownOpen, setIsZipDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const dropdownRef = useRef(null);
+  const [zipCode, setZipCode] = useState(formData.zipCode || "");
+  const countryDropdownRef = useRef(null);
+  const zipDropdownRef = useRef(null);
 
   const handleNext = () => {
     if (!formData.country || !formData.zipCode) {
@@ -32,8 +35,11 @@ const LocationForm = ({
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
+      if (countryDropdownRef.current && !countryDropdownRef.current.contains(event.target)) {
+        setIsCountryDropdownOpen(false);
+      }
+      if (zipDropdownRef.current && !zipDropdownRef.current.contains(event.target)) {
+        setIsZipDropdownOpen(false);
       }
     };
 
@@ -42,6 +48,12 @@ const LocationForm = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleZipCodeChange = (e) => {
+    const value = e.target.value;
+    setZipCode(value);
+    updateFormData("zipCode", value);
+  };
 
   return (
     <motion.div
@@ -58,17 +70,18 @@ const LocationForm = ({
         </h1>
 
         <div className="flex flex-col gap-[18px] mb-8 max-w-[580px]">
-          <div className="relative" ref={dropdownRef}>
+          {/* Country Selection Dropdown */}
+          <div className="relative" ref={countryDropdownRef}>
             <div
               className="w-full px-[32px] py-[22px] text-white bg-transparent border-[2px] border-white rounded-[50px] appearance-none focus:outline-none focus:ring-2 focus:ring-white cursor-pointer flex items-center justify-between"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
             >
               <span className="text-xl">{formData.country || "Select Your Country"}</span>
               <svg width="14" height="7" viewBox="0 0 14 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.99967 6.99992L0.333008 0.333252H13.6663L6.99967 6.99992Z" fill="#EEFCFD"/>
               </svg>
             </div>
-            {isDropdownOpen && (
+            {isCountryDropdownOpen && (
               <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg max-h-60 overflow-y-auto w-full">
                 <input
                   type="text"
@@ -82,7 +95,7 @@ const LocationForm = ({
                     key={country}
                     onClick={() => {
                       updateFormData("country", country);
-                      setIsDropdownOpen(false);
+                      setIsCountryDropdownOpen(false);
                       setSearchTerm("");
                     }}
                     className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
@@ -94,19 +107,40 @@ const LocationForm = ({
             )}
           </div>
 
-          <div className="relative">
-            <div className="flex items-center relative">
-              <input
-                type="text"
-                placeholder="PIN / ZIP Code"
-                value={formData.zipCode}
-                onChange={(e) => updateFormData("zipCode", e.target.value)}
-                className="w-full px-[32px] py-[22px] text-white text-xl bg-transparent border-[2px] border-white rounded-[50px] appearance-none focus:outline-none focus:ring-2 focus:ring-white placeholder-white placeholder-opacity-70"
-              />
-              <svg className="absolute right-[32px]" width="14" height="7" viewBox="0 0 14 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* ZIP/PIN Code Dropdown */}
+          <div className="relative" ref={zipDropdownRef}>
+            <div
+              className="w-full px-[32px] py-[22px] text-white bg-transparent border-[2px] border-white rounded-[50px] appearance-none focus:outline-none focus:ring-2 focus:ring-white cursor-pointer flex items-center justify-between"
+              onClick={() => setIsZipDropdownOpen(!isZipDropdownOpen)}
+            >
+              <span className="text-xl">{formData.zipCode || "PIN / ZIP Code"}</span>
+              <svg width="14" height="7" viewBox="0 0 14 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.99967 6.99992L0.333008 0.333252H13.6663L6.99967 6.99992Z" fill="#EEFCFD"/>
               </svg>
             </div>
+            {isZipDropdownOpen && (
+              <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg p-4 w-full">
+                <input
+                  type="text"
+                  placeholder="Enter PIN / ZIP Code"
+                  value={zipCode}
+                  onChange={handleZipCodeChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  autoFocus
+                />
+                <div className="flex justify-end mt-3">
+                  <button
+                    onClick={() => {
+                      updateFormData("zipCode", zipCode);
+                      setIsZipDropdownOpen(false);
+                    }}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
