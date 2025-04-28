@@ -50,65 +50,68 @@ const LocationForm = ({
       animate="visible"
       exit="exit"
       variants={pageVariants}
-      className="flex flex-col justify-start mt-[10vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw]"
+      className="flex flex-col min-h-[calc(50vh-120px)] md:min-h-0 mt-[10vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw]"
     >
-      <h1 className="text-white text-3xl xs:text-4xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px] mb-4 sm:mb-8">
-        Where&apos;re you from?
-      </h1>
+      <div className="flex-grow -mt-[90px] md:mt-0">
+        <h1 className="text-white font-general-sans text-3xl xs:text-4xl sm:text-5xl font-semibold leading-tight sm:leading-[62.40px] mb-4 sm:mb-8">
+          Where&apos;re you from?
+        </h1>
 
-      <div className="flex flex-col gap-3 sm:gap-4 mb-4 sm:mb-8">
-        <div className="relative max-w-[280px]" ref={dropdownRef}>
-          <div
-            className="w-full px-3 sm:px-4 py-2 sm:py-3 text-white bg-transparent border border-white rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base cursor-pointer"
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          >
-            {formData.country || "Select your country"}
-          </div>
-          {isDropdownOpen && (
-            <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg max-h-60 overflow-y-auto w-full">
-              <input
-                type="text"
-                placeholder="Search country"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none"
-              />
-              {filteredCountries.map((country) => (
-                <div
-                  key={country}
-                  onClick={() => {
-                    updateFormData("country", country);
-                    setIsDropdownOpen(false);
-                    setSearchTerm("");
-                  }}
-                  className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
-                >
-                  {country}
-                </div>
-              ))}
+        <div className="flex flex-col gap-3 sm:gap-4 mb-4 sm:mb-8">
+          <div className="relative max-w-[580px] rounded-[32px] " ref={dropdownRef}>
+            <div
+              className="w-full h-[60px] px-3 sm:px-4 py-2 sm:py-3 text-white bg-transparent border border-white rounded-[32px] appearance-none focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base cursor-pointer"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              {formData.country || "Select your country"}
             </div>
-          )}
+            {isDropdownOpen && (
+              <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg max-h-60 overflow-y-auto w-full">
+                <input
+                  type="text"
+                  placeholder="Search country"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none"
+                />
+                {filteredCountries.map((country) => (
+                  <div
+                    key={country}
+                    onClick={() => {
+                      updateFormData("country", country);
+                      setIsDropdownOpen(false);
+                      setSearchTerm("");
+                    }}
+                    className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                  >
+                    {country}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="relative max-w-[580px] rounded-[32px]">
+            <input
+              type="text"
+              placeholder="PIN/ZIP Code"
+              value={formData.zipCode}
+              onChange={(e) => updateFormData("zipCode", e.target.value)}
+              className="w-full h-[60px] px-3 sm:px-4 py-2 sm:py-3 text-white bg-transparent border border-white  rounded-full appearance-none focus:outline-none focus:ring-2 focus:ring-white placeholder-white placeholder-opacity-70 text-sm sm:text-base"
+            />
+          </div>
         </div>
 
-        <div className="relative max-w-[280px]">
-          <input
-            type="text"
-            placeholder="PIN/ZIP Code"
-            value={formData.zipCode}
-            onChange={(e) => updateFormData("zipCode", e.target.value)}
-            className="w-full px-3 sm:px-4 py-2 sm:py-3 text-white bg-transparent border border-white rounded-full appearance-none focus:outline-none focus:ring-2 focus:ring-white placeholder-white placeholder-opacity-70 text-sm sm:text-base"
-          />
-        </div>
+        {error && (
+          <p className="text-red-500 text-sm sm:text-base mb-4">{error}</p>
+        )}
       </div>
-
-      {error && (
-        <p className="text-red-500 text-sm sm:text-base mb-4">{error}</p>
-      )}
-      <div className="flex justify-end md:justify-start">
+      
+      <div className="flex justify-end md:justify-start mb-8 md:mb-0">
         <NavigationButton
           onClick={handleNext}
           text="Next"
-          className="mt-4 text-[20px]"
+          className="text-[24px]"
           disabled={isNextDisabled}
         />
       </div>
