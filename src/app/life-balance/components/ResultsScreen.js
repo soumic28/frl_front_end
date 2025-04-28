@@ -14,7 +14,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       <h1 className="text-white font-general-sans  mt-0 sm:mt-[-20px] md:mt-[-50px] text-2xl xs:text-4xl sm:text-5xl font-semibold leading-tight sm:leading-[62.40px] md:whitespace-nowrap " >
         Your Life Wheel Balance
         <br />
-        <em>on {date}</em>
+        on {date}
       </h1>
       <p className="text-white mt-3 sm:mt-5 text-base xs:text-lg sm:text-xl font-semibold hidden sm:block font-general-sans">
         This is how your life balance wheel looks like now. Scores will change
