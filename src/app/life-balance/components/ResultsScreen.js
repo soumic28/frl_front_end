@@ -21,7 +21,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
         weekly, daily, even hourly as circumstances change. do not look for any
         ultimate truth, just check in with how you feel in this moment.
       </p>
-      <p className="text-[#E6E6E6] block lg:hidden font-general-sans font-semibold text-[15px] mt-4 sm:mt-6">
+      <p className="text-[#E6E6E6] block lg:hidden font-general-sans font-medium text-[15px] mt-4 sm:mt-6">
         This is how your life balance wheel looks like now. Scores will change
         weekly, daily, even hourly as circumstances change. do not look for any
         ultimate truth, just check in with how you feel in this moment.

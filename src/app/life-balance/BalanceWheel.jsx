@@ -54,7 +54,7 @@ const CustomDot = (props) => {
         fontSize={fontSize}
         fontWeight="bold"
       >
-        {payload.value}/10
+        {payload.value}
       </text>
     </g>
   );
