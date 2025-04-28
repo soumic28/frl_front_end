@@ -38,35 +38,35 @@ const QuestionScreen = ({
   }, [formData, field, hasMovedSlider]);
 
   return (
-    <>
-    <div className="md:mt-[100px]">
-    <h1 className='text-white text-xl xs:text-3xl sm:text-5xl font-medium leading-tight sm:leading-[62.40px] '>
-        {question}
-      </h1>
-      <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-light leading-relaxed whitespace-nowrap'>
-        Rate your level of satisfaction in a scale of 1 - 10
-      </p>
-      <div className="mt-4 sm:mt-8">
-        <RatingSlider 
-          initialValue={1}
-          value={formData[field] || 1}
-          onChange={handleSliderChange}
-        />
+    <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
+      <div className="flex-grow">
+        <h1 className='text-white text-xl xs:text-3xl sm:text-5xl font-general-sans font-semibold leading-tight sm:leading-[62.40px] '>
+          {question}
+        </h1>
+        <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium leading-relaxed whitespace-nowrap'>
+          Rate your level of satisfaction in a scale of 1 - 10
+        </p>
+        <div className="mt-4 sm:mt-8">
+          <RatingSlider 
+            initialValue={1}
+            value={formData[field] || 1}
+            onChange={handleSliderChange}
+          />
+        </div>
       </div>
-      <div className="mt-6 sm:mt-10 mb-8 md:mb-0 flex justify-end md:justify-start">
+      
+      <div className="mt-6 sm:mt-10 mb-8 md:mb-0 flex justify-end md:justify-start font-inter">
         <NavigationButton 
           onClick={() => {
             if (handleSubmit) handleSubmit();
             setCurrentStage(currentStage + 1);
           }} 
           text="Next" 
-          className="text-[16px] sm:text-[20px]"
+          className="text-[24px]"
           disabled={!hasMovedSlider}
         />
       </div>
     </div>
-      
-    </>
   );
 };
 

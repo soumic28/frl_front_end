@@ -54,7 +54,7 @@ const CustomDot = (props) => {
         fontSize={fontSize}
         fontWeight="bold"
       >
-        {payload.value}/10
+        {payload.value}
       </text>
     </g>
   );
@@ -373,7 +373,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
                     textAnchor={x > cx ? "start" : "end"}
                     fill="#666666"
                     fontSize={10}
-                  >{`${value}/10`}</text>
+                  >{`${value}`}</text>
                 );
               }}
               tickCount={5}
