@@ -17,6 +17,7 @@ const LocationForm = ({
   const [zipCode, setZipCode] = useState(formData.zipCode || "");
   const countryDropdownRef = useRef(null);
   const zipDropdownRef = useRef(null);
+  const countrySearchInputRef = useRef(null);
 
   const handleNext = () => {
     if (!formData.country || !formData.zipCode) {
@@ -48,6 +49,13 @@ const LocationForm = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Focus input when dropdown opens
+  useEffect(() => {
+    if (isCountryDropdownOpen && countrySearchInputRef.current) {
+      countrySearchInputRef.current.focus();
+    }
+  }, [isCountryDropdownOpen]);
 
   const handleZipCodeChange = (e) => {
     const value = e.target.value;
@@ -84,6 +92,7 @@ const LocationForm = ({
             {isCountryDropdownOpen && (
               <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg max-h-60 overflow-y-auto w-full">
                 <input
+                  ref={countrySearchInputRef}
                   type="text"
                   placeholder="Search country"
                   value={searchTerm}
