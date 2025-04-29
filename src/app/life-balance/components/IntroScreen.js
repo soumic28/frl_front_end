@@ -47,7 +47,7 @@ const IntroScreen = ({ setCurrentStage, pageVariants }) => (
       <NavigationButton
         onClick={() => setCurrentStage(1)}
         text="Explore Now"
-        className="text-[24px]"
+        className="text-[20px] whitespace-nowrap"
       ></NavigationButton>
     </div>
   </motion.div>

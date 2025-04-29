@@ -153,7 +153,7 @@ const LocationForm = ({
         <NavigationButton
           onClick={handleNext}
           text="Next"
-          className="text-[24px]"
+          className="text-[20px]"
           disabled={isNextDisabled}
         />
       </div>

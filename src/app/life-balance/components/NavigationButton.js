@@ -6,7 +6,7 @@ const NavigationButton = ({ onClick, text, className, disabled = false }) => (
     onClick={onClick}
     whileHover={disabled ? {} : { scale: 1.05 }}
     whileTap={disabled ? {} : { scale: 0.95 }}
-    className={`flex w-fit items-center px-3 xs:px-4 sm:px-6 lg:px-7 py-1.5 xs:py-2 lg:py-3 bg-white rounded-[32px] text-xs xs:text-sm font-medium sm:h-10 lg:h-12 text-gray-700 sm:text-lg sm:font-semibold font-general-sans ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+    className={`flex h-[64px] w-fit items-center px-[28px] py-[12px] lg:py-[15px] bg-white rounded-[32px]  font-medium  lg:h-[64px] text-[#2D201B]  sm:font-semibold font-general-sans gap-[10px] ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
     disabled={disabled}
   >
     {text}

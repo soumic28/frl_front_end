@@ -308,7 +308,7 @@ export default function Page() {
                       </svg>
                     </button>
                   </div>
-                  <div className="absolute top-[-40px] md:top-0 left-0 right-0 w-full z-10 px-4 md:px-8">
+                  <div className="absolute top-[-65px] md:top-0 left-0 right-0 w-full z-10 px-4 md:px-8">
                     <div className="w-full flex items-center justify-between mb-4 md:mb-8">
                       <button
                         onClick={() => setCurrentStage(currentStage - 1)}
