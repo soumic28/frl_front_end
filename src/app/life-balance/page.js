@@ -105,7 +105,7 @@ export default function Page() {
     wheelWrapper.style.position = "relative";
     wheelWrapper.style.width = "700px";
     wheelWrapper.style.height = "700px";
-    wheelWrapper.style.margin = "0 auto 60px";
+    wheelWrapper.style.margin = "0 auto 40px";
     cardContainer.appendChild(wheelWrapper);
 
     // Create SVG container
@@ -121,10 +121,10 @@ export default function Page() {
     // Create a container for the actual wheel chart
     const wheelContainer = document.createElement("div");
     wheelContainer.style.position = "absolute";
-    wheelContainer.style.width = "500px";
-    wheelContainer.style.height = "500px";
-    wheelContainer.style.top = "100px";
-    wheelContainer.style.left = "100px";
+    wheelContainer.style.width = "690px";
+    wheelContainer.style.height = "690px";
+    wheelContainer.style.top = "5px";
+    wheelContainer.style.left = "5px";
     wheelContainer.style.zIndex = "2";
     wheelContainer.setAttribute("data-wheel-container", "true");
     wheelWrapper.appendChild(wheelContainer);
@@ -199,14 +199,50 @@ export default function Page() {
           svgElement.setAttribute("height", "700");
           svgElement.style.width = "100%";
           svgElement.style.height = "100%";
-
-          // Make sure text elements are visible
+          
+          // Scale the SVG to bring text closer to center
+          svgElement.style.transform = "scale(0.8)";
+          svgElement.style.transformOrigin = "center";
+          
+          // Move the SVG text categories closer to the wheel
           const textElements = svgElement.querySelectorAll("text");
           textElements.forEach((text) => {
             text.style.fill = "white";
             text.style.fontFamily =
               "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
             text.style.fontWeight = "bold";
+            
+            // Check if this is a transform attribute we can modify to move text closer
+            const transform = text.getAttribute("transform");
+            if (transform) {
+              // Move text inward by 50% to extremely tightly enclose the wheel
+              const newTransform = transform.replace(
+                /translate\(([^,]+),\s*([^)]+)\)/,
+                (match, x, y) => {
+                  const newX = parseFloat(x) * 0.5;
+                  const newY = parseFloat(y) * 0.5;
+                  return `translate(${newX}, ${newY})`;
+                }
+              );
+              text.setAttribute("transform", newTransform);
+            }
+          });
+          
+          // Also adjust any paths or other elements that might form circles
+          const pathElements = svgElement.querySelectorAll("path, circle");
+          pathElements.forEach(element => {
+            const transform = element.getAttribute("transform");
+            if (transform && transform.includes("translate")) {
+              const newTransform = transform.replace(
+                /translate\(([^,]+),\s*([^)]+)\)/,
+                (match, x, y) => {
+                  const newX = parseFloat(x) * 0.5;
+                  const newY = parseFloat(y) * 0.5;
+                  return `translate(${newX}, ${newY})`;
+                }
+              );
+              element.setAttribute("transform", newTransform);
+            }
           });
         }
 
