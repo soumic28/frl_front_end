@@ -1,5 +1,6 @@
 import NavigationButton from './NavigationButton';
 import RatingSlider from './RatingSlider';
+import AlertPopup from './AlertPopup';
 import { useState, useEffect } from 'react';
 
 const QuestionScreen = ({ 
@@ -12,6 +13,7 @@ const QuestionScreen = ({
   handleSubmit = null
 }) => {
   const [hasMovedSlider, setHasMovedSlider] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   
   // Set initial value to 1 if not already set
   useEffect(() => {
@@ -31,6 +33,15 @@ const QuestionScreen = ({
     }
   };
 
+  const handleNextClick = () => {
+    if (hasMovedSlider) {
+      if (handleSubmit) handleSubmit();
+      setCurrentStage(currentStage + 1);
+    } else {
+      setShowPopup(true);
+    }
+  };
+
   // Log values to help with debugging
   useEffect(() => {
     console.log('Current slider value:', formData[field]);
@@ -40,7 +51,7 @@ const QuestionScreen = ({
   return (
     <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
       <div className="flex-grow">
-        <h1 className='text-white text-xl xs:text-3xl sm:text-5xl font-general-sans font-semibold  '>
+        <h1 className='text-white text-xl  sm:text-5xl font-general-sans font-semibold  '>
           {question}
         </h1>
         <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium    md:mx-0'>
@@ -57,15 +68,17 @@ const QuestionScreen = ({
       
       <div className="mt-6 sm:mt-10 mb-8 md:mb-0 flex justify-end md:justify-start font-inter">
         <NavigationButton 
-          onClick={() => {
-            if (handleSubmit) handleSubmit();
-            setCurrentStage(currentStage + 1);
-          }} 
+          onClick={handleNextClick}
           text="Next" 
           className="text-[20px]"
-          disabled={!hasMovedSlider}
         />
       </div>
+
+      <AlertPopup 
+        isVisible={showPopup}
+        message="Please move the slider to rate your satisfaction before proceeding."
+        onClose={() => setShowPopup(false)}
+      />
     </div>
   );
 };
