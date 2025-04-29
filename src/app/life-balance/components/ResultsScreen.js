@@ -36,7 +36,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       </p>
     </div>
     
-    <div className="mt-4 sm:mt-8 mb-8 md:mb-0 -mx-3">
+    <div className="mt-4 sm:mt-8 mb-8 md:mb-0 -mx-6">
       <div className="flex flex-row items-center gap-4 sm:gap-6 mx-auto sm:mx-0">
         <motion.button
           onClick={handleDownload}
@@ -45,7 +45,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
           className="flex w-fit text-[20px] items-center justify-center bg-white text-gray-700 rounded-[32px] font-medium sm:font-semibold"
           style={{
             width: "",
-            height: "64px",
+            height: "60px",
             padding: "15px 28px",
             gap: "10px",
           }}
@@ -74,7 +74,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
           className="flex w-fit text-[20px] items-center justify-center border-white border text-white rounded-[32px] font-medium sm:font-semibold"
           style={{
             // width: "216px",
-            height: "64px",
+            height: "60px",
             padding: "15px 28px",
             gap: "10px",
           }}
