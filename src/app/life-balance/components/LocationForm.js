@@ -136,7 +136,8 @@ const LocationForm = ({
                     onChange={handleZipCodeChange}
                     onBlur={() => setIsZipFocused(false)}
                     placeholder="Enter PIN / ZIP Code"
-                    className="w-full bg-transparent text-white text-xl focus:outline-none border-0"
+                    className="w-full bg-transparent text-white text-xl focus:outline-none border border-transparent p-0 shadow-none appearance-none"
+                    style={{ outline: 'none', boxShadow: 'none' }}
                     autoFocus
                   />
                 ) : (
