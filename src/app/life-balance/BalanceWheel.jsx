@@ -32,7 +32,7 @@ const CustomDot = (props) => {
 
   // Use smaller radius on mobile - check if window is defined (client-side only)
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const radius = isMobile ? 15 : 20;
+  const radius = isMobile ? 4 : 5;
   const fontSize = isMobile ? 9 : 10;
 
   return (
@@ -54,7 +54,7 @@ const CustomDot = (props) => {
         fontSize={fontSize}
         fontWeight="bold"
       >
-        {payload.value}
+        {/* {payload.value} */}
       </text>
     </g>
   );

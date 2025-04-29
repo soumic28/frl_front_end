@@ -12,11 +12,11 @@ const LocationForm = ({
 }) => {
   const [error, setError] = useState("");
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
-  const [isZipDropdownOpen, setIsZipDropdownOpen] = useState(false);
+  const [isZipFocused, setIsZipFocused] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [zipCode, setZipCode] = useState(formData.zipCode || "");
   const countryDropdownRef = useRef(null);
-  const zipDropdownRef = useRef(null);
+  const zipInputRef = useRef(null);
+  const countrySearchInputRef = useRef(null);
 
   const handleNext = () => {
     if (!formData.country || !formData.zipCode) {
@@ -38,9 +38,6 @@ const LocationForm = ({
       if (countryDropdownRef.current && !countryDropdownRef.current.contains(event.target)) {
         setIsCountryDropdownOpen(false);
       }
-      if (zipDropdownRef.current && !zipDropdownRef.current.contains(event.target)) {
-        setIsZipDropdownOpen(false);
-      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -49,10 +46,24 @@ const LocationForm = ({
     };
   }, []);
 
+  // Focus input when dropdown opens
+  useEffect(() => {
+    if (isCountryDropdownOpen && countrySearchInputRef.current) {
+      countrySearchInputRef.current.focus();
+    }
+  }, [isCountryDropdownOpen]);
+
   const handleZipCodeChange = (e) => {
     const value = e.target.value;
-    setZipCode(value);
     updateFormData("zipCode", value);
+  };
+
+  // Auto focus ZIP field when clicked
+  const handleZipClick = () => {
+    setIsZipFocused(true);
+    if (zipInputRef.current) {
+      zipInputRef.current.focus();
+    }
   };
 
   return (
@@ -84,6 +95,7 @@ const LocationForm = ({
             {isCountryDropdownOpen && (
               <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg max-h-60 overflow-y-auto w-full">
                 <input
+                  ref={countrySearchInputRef}
                   type="text"
                   placeholder="Search country"
                   value={searchTerm}
@@ -107,40 +119,35 @@ const LocationForm = ({
             )}
           </div>
 
-          {/* ZIP/PIN Code Dropdown */}
-          <div className="relative" ref={zipDropdownRef}>
+          {/* ZIP/PIN Code - Clean Direct Input Style */}
+          <div className="relative">
             <div
               className="w-full px-[32px] py-[22px] text-white bg-transparent border-[2px] border-white rounded-[50px] appearance-none focus:outline-none focus:ring-2 focus:ring-white cursor-pointer flex items-center justify-between"
-              onClick={() => setIsZipDropdownOpen(!isZipDropdownOpen)}
+              onClick={handleZipClick}
             >
-              <span className="text-xl">{formData.zipCode || "PIN / ZIP Code"}</span>
+              <span className="text-xl flex-grow">
+                {isZipFocused ? (
+                  <input
+                    ref={zipInputRef}
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={formData.zipCode || ""}
+                    onChange={handleZipCodeChange}
+                    onBlur={() => setIsZipFocused(false)}
+                    placeholder="Enter PIN / ZIP Code"
+                    className="w-full bg-transparent text-white text-xl focus:outline-none border border-transparent p-0 shadow-none appearance-none"
+                    style={{ outline: 'none', boxShadow: 'none' }}
+                    autoFocus
+                  />
+                ) : (
+                  formData.zipCode || "PIN / ZIP Code"
+                )}
+              </span>
               <svg width="14" height="7" viewBox="0 0 14 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.99967 6.99992L0.333008 0.333252H13.6663L6.99967 6.99992Z" fill="#EEFCFD"/>
               </svg>
             </div>
-            {isZipDropdownOpen && (
-              <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg p-4 w-full">
-                <input
-                  type="text"
-                  placeholder="Enter PIN / ZIP Code"
-                  value={zipCode}
-                  onChange={handleZipCodeChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  autoFocus
-                />
-                <div className="flex justify-end mt-3">
-                  <button
-                    onClick={() => {
-                      updateFormData("zipCode", zipCode);
-                      setIsZipDropdownOpen(false);
-                    }}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                  >
-                    Apply
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
@@ -153,7 +160,7 @@ const LocationForm = ({
         <NavigationButton
           onClick={handleNext}
           text="Next"
-          className="text-[24px]"
+          className="text-[20px]"
           disabled={isNextDisabled}
         />
       </div>

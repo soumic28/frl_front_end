@@ -47,8 +47,8 @@ const InstructionsScreen = ({
     <div className="flex justify-end md:justify-start my-4">
       <NavigationButton
         onClick={() => setCurrentStage(currentStage + 1)}
-        text="Start"
-        className="text-[24px]"
+        text="Explore Now"
+        className="text-[20px] whitespace-nowrap"
       />
     </div>
   </motion.div>

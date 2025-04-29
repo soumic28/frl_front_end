@@ -36,13 +36,19 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       </p>
     </div>
     
-    <div className="mt-4 sm:mt-8 mb-8 md:mb-0 -mx-3">
+    <div className="mt-4 sm:mt-8 mb-8 md:mb-0 -mx-6">
       <div className="flex flex-row items-center gap-4 sm:gap-6 mx-auto sm:mx-0">
         <motion.button
           onClick={handleDownload}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex text-[24px] items-center justify-center px-4 sm:px-6 lg:px-7 py-2 sm:py-3 bg-white rounded-full text-sm sm:text-lg font-medium sm:font-semibold text-gray-700"
+          className="flex w-fit text-[20px] items-center justify-center bg-white text-gray-700 rounded-[32px] font-medium sm:font-semibold"
+          style={{
+            width: "",
+            height: "60px",
+            padding: "15px 28px",
+            gap: "10px",
+          }}
         >
           Download
           <svg
@@ -65,7 +71,13 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex text-[24px] items-center justify-center px-4 sm:px-6 lg:px-7 py-2 sm:py-3 border-white border rounded-full text-sm sm:text-lg font-medium sm:font-semibold text-white"
+          className="flex w-fit text-[20px] items-center justify-center border-white border text-white rounded-[32px] font-medium sm:font-semibold"
+          style={{
+            // width: "216px",
+            height: "60px",
+            padding: "15px 28px",
+            gap: "10px",
+          }}
         >
           Share
           <svg
