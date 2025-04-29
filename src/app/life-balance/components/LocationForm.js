@@ -14,10 +14,10 @@ const LocationForm = ({
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
   const [isZipDropdownOpen, setIsZipDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [zipCode, setZipCode] = useState(formData.zipCode || "");
   const countryDropdownRef = useRef(null);
   const zipDropdownRef = useRef(null);
   const countrySearchInputRef = useRef(null);
+  const zipInputRef = useRef(null);
 
   const handleNext = () => {
     if (!formData.country || !formData.zipCode) {
@@ -55,11 +55,13 @@ const LocationForm = ({
     if (isCountryDropdownOpen && countrySearchInputRef.current) {
       countrySearchInputRef.current.focus();
     }
-  }, [isCountryDropdownOpen]);
+    if (isZipDropdownOpen && zipInputRef.current) {
+      zipInputRef.current.focus();
+    }
+  }, [isCountryDropdownOpen, isZipDropdownOpen]);
 
   const handleZipCodeChange = (e) => {
     const value = e.target.value;
-    setZipCode(value);
     updateFormData("zipCode", value);
   };
 
@@ -120,7 +122,7 @@ const LocationForm = ({
           <div className="relative" ref={zipDropdownRef}>
             <div
               className="w-full px-[32px] py-[22px] text-white bg-transparent border-[2px] border-white rounded-[50px] appearance-none focus:outline-none focus:ring-2 focus:ring-white cursor-pointer flex items-center justify-between"
-              onClick={() => setIsZipDropdownOpen(!isZipDropdownOpen)}
+              onClick={() => setIsZipDropdownOpen(true)}
             >
               <span className="text-xl">{formData.zipCode || "PIN / ZIP Code"}</span>
               <svg width="14" height="7" viewBox="0 0 14 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -130,24 +132,20 @@ const LocationForm = ({
             {isZipDropdownOpen && (
               <div className="absolute z-10 mt-2 bg-white text-black rounded-lg shadow-lg p-4 w-full">
                 <input
-                  type="text"
+                  ref={zipInputRef}
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   placeholder="Enter PIN / ZIP Code"
-                  value={zipCode}
+                  value={formData.zipCode || ""}
                   onChange={handleZipCodeChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  autoFocus
-                />
-                <div className="flex justify-end mt-3">
-                  <button
-                    onClick={() => {
-                      updateFormData("zipCode", zipCode);
+                  onBlur={() => {
+                    if (formData.zipCode) {
                       setIsZipDropdownOpen(false);
-                    }}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                  >
-                    Apply
-                  </button>
-                </div>
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
             )}
           </div>
