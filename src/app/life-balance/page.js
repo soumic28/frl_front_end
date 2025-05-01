@@ -324,7 +324,14 @@ export default function Page() {
                 <>
                   <div className="absolute top-[-40px] md:-top-[65px] -left-[780px] right-0 w-full z-10 px-4 md:px-8 hidden md:block my-3">
                     <button
-                      onClick={() => setCurrentStage(currentStage - 1)}
+                      onClick={() => {
+                        // Skip step 2 when going back from step 3
+                        if (currentStage === 3) {
+                          setCurrentStage(1);
+                        } else {
+                          setCurrentStage(currentStage - 1);
+                        }
+                      }}
                       className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-md"
                     >
                       <svg
@@ -347,7 +354,14 @@ export default function Page() {
                   <div className="absolute top-[-65px] md:top-0 left-0 right-0 w-full z-10 px-4 md:px-8 my-4">
                     <div className="w-full flex items-center justify-between mb-4 md:mb-8">
                       <button
-                        onClick={() => setCurrentStage(currentStage - 1)}
+                        onClick={() => {
+                          // Skip step 2 when going back from step 3
+                          if (currentStage === 3) {
+                            setCurrentStage(1);
+                          } else {
+                            setCurrentStage(currentStage - 1);
+                          }
+                        }}
                         className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-md md:hidden"
                       >
                         <svg
@@ -407,6 +421,7 @@ export default function Page() {
                 </motion.div>
               )}
 
+              {/* Commented out world map for stage 2
               {currentStage === 2 && (
                 <motion.div
                   className="flex justify-center md:mr-[25%] scale-75 md:scale-100"
@@ -425,6 +440,7 @@ export default function Page() {
                   </div>
                 </motion.div>
               )}
+              */}
 
               {currentStage > 2 && currentStage < 11 && (
                 <div className="scale-75 md:scale-100 w-full h-full mb-[80px] md:mb-0 flex items-center justify-center">
@@ -454,12 +470,13 @@ export default function Page() {
 
                 {currentStage === 1 && (
                   <InstructionsScreen
-                    setCurrentStage={setCurrentStage}
+                    setCurrentStage={(stage) => stage === 2 ? setCurrentStage(3) : setCurrentStage(stage)}
                     currentStage={currentStage}
                     pageVariants={pageVariants}
                   />
                 )}
 
+                {/* Commented out location form step for now
                 {currentStage === 2 && (
                   <LocationForm
                     formData={formData}
@@ -469,6 +486,7 @@ export default function Page() {
                     pageVariants={pageVariants}
                   />
                 )}
+                */}
 
                 {/* Questions stages (3-10) */}
                 {currentStage >= 3 && currentStage <= 10 && (
@@ -483,7 +501,14 @@ export default function Page() {
                     {currentQuestion && (
                       <QuestionScreen
                         currentStage={currentStage}
-                        setCurrentStage={setCurrentStage}
+                        setCurrentStage={(stage) => {
+                          // Skip step 2 when going backwards from step 3
+                          if (currentStage === 3 && stage === 2) {
+                            setCurrentStage(1);
+                          } else {
+                            setCurrentStage(stage);
+                          }
+                        }}
                         question={currentQuestion.question}
                         field={currentQuestion.field}
                         formData={formData}
