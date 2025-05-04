@@ -53,9 +53,9 @@ const BackButton = ({ onBack, currentStage }) => {
             <ProgressBar currentStage={currentStage} />
           </div>
           </div>
-          {/* <div className="md:mx-[120px] md:relative -top-[60px]">
+          <div className="md:mx-[120px] md:relative -top-[60px] md:hidden">
             <ProgressBar currentStage={currentStage} />
-          </div> */}
+          </div>
         </div>
       </div>
     </>

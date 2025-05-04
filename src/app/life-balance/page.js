@@ -17,6 +17,7 @@ import ResultsScreen from "./components/ResultsScreen";
 import ProgressBar from "./components/ProgressBar";
 import BackButton from "./components/BackButton";
 import VisualizationContainer from "./components/VisualizationContainer";
+import { WavyBackground } from "@/components/ui/wavy-background";
 
 // Dynamic import to prevent SSR issues with chart
 const BalanceWheel = dynamic(() => import("./BalanceWheel"), { ssr: false });
@@ -168,14 +169,41 @@ export default function LifeBalancePage() {
                   </motion.div>
                 )}
 
-                {/* Results stage */}
+                {/* Results stage - Only apply wavy background here */}
                 {currentStage === 11 && (
-                  <ResultsScreen
-                    date={date}
-                    handleDownload={handleDownload}
-                    router={router}
-                    pageVariants={pageVariants}
-                  />
+                  <div className="fixed inset-0 z-[1] bg-[#19667A]">
+                    <WavyBackground 
+                      colors={["#104652", "#186e85", "#2596be", "#0d3e4b"]} 
+                      waveOpacity={0.3}
+                      blur={5}
+                      speed="slow"
+                      waveWidth={100}
+                      backgroundFill="#19667A"
+                      containerClassName="w-full h-full flex flex-col justify-center items-center"
+                    >
+                      <div className="w-full h-full max-w-[1440px] mt-12 md:mt-0 flex flex-col-reverse md:flex-row items-center justify-center p-4 sm:p-6 md:p-8">
+                        {/* Content side (left on desktop) */}
+                        <div className="w-full md:w-1/2 z-10 mt-6 md:mt-0">
+                          <ResultsScreen
+                            date={date}
+                            handleDownload={handleDownload}
+                            router={router}
+                            pageVariants={pageVariants}
+                          />
+                        </div>
+                        
+                        {/* Wheel side (right on desktop) */}
+                        <div className="w-full md:w-1/2 z-10 flex justify-center items-center">
+                          <VisualizationContainer
+                            currentStage={currentStage}
+                            isSwinging={isSwinging}
+                            wheelRef={wheelRef}
+                            formData={formData}
+                          />
+                        </div>
+                      </div>
+                    </WavyBackground>
+                  </div>
                 )}
               </AnimatePresence>
             </div>
