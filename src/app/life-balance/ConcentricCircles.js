@@ -24,7 +24,7 @@ const ConcentricCircles = ({ stage }) => {
   const baseSize = "min(100vw, 600px)";
   
   return (
-    <div className="relative top-[80px] md:top-0 inset-0 flex items-center justify-center w-full h-full">
+    <div className="relative top-[80px] md:top-[55px] inset-0 flex items-center justify-center w-full h-full">
       {circleColors.slice(0, currentCircles).map((color, index) => {
         // Calculate size - largest (outer) to smallest (inner)
         const sizePercentage = 1 - (index * 0.1); // Each circle is 10% smaller
