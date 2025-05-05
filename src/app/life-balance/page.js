@@ -23,9 +23,6 @@ import VisualizationContainer from "./components/VisualizationContainer";
 // Dynamic import to prevent SSR issues with chart
 const BalanceWheel = dynamic(() => import("./BalanceWheel"), { ssr: false });
 
-// Background gradient colors that match the wavy-background colors
-const gradientColors = ["#104652", "#186e85", "#2596be", "#0d3e4b"];
-
 export default function LifeBalancePage() {
   const router = useRouter();
   const wheelRef = useRef(null);
@@ -173,11 +170,20 @@ export default function LifeBalancePage() {
                   </motion.div>
                 )}
 
-                {/* Results stage - Only apply animated gradient background here */}
+                {/* Results stage - With animated gradient background */}
                 {currentStage === 11 && (
-                  <div className="fixed inset-0 z-[1]">
-                    {/* Animated teal gradient background */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0D5B6C] via-[#19667A] via-[#25879E] via-[#1E94B2] to-[#0D5B6C] animate-gradient-x"></div>
+                  <div className="fixed inset-0 z-[1] overflow-hidden">
+                    {/* Base teal background */}
+                    <div className="absolute inset-0 bg-[#0D5B6C]"></div>
+                    
+                    {/* Animated gradient circles */}
+                    <div className="gradient-bg">
+                      <div className="gradient-circle c1"></div>
+                      <div className="gradient-circle c2"></div>
+                      <div className="gradient-circle c3"></div>
+                      <div className="gradient-circle c4"></div>
+                      <div className="gradient-circle c5"></div>
+                    </div>
                     
                     {/* Content container */}
                     <div className="w-full h-full max-w-[1440px] mt-12 md:mt-0 flex flex-col-reverse md:flex-row items-center justify-center p-4 sm:p-6 md:p-8 relative z-10">
@@ -201,19 +207,6 @@ export default function LifeBalancePage() {
                         />
                       </div>
                     </div>
-                    
-                    {/* Commented out WavyBackground for now 
-                    <WavyBackground 
-                      colors={["#104652", "#186e85", "#2596be", "#0d3e4b"]} 
-                      waveOpacity={0.3}
-                      blur={5}
-                      speed="slow"
-                      waveWidth={100}
-                      backgroundFill="#19667A"
-                      containerClassName="w-full h-full flex flex-col justify-center items-center"
-                    >
-                    </WavyBackground>
-                    */}
                   </div>
                 )}
               </AnimatePresence>
@@ -264,22 +257,109 @@ export default function LifeBalancePage() {
             }
           }
 
-          /* Gradient animation */
-          @keyframes gradient-x {
-            0% {
-              background-position: 0% 50%;
-            }
-            50% {
-              background-position: 100% 50%;
-            }
-            100% {
-              background-position: 0% 50%;
-            }
+          /* Animated gradient background styles */
+          .gradient-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            filter: blur(10px);
+            opacity: 0.8;
           }
-
-          .animate-gradient-x {
-            background-size: 400% 400%;
-            animation: gradient-x 15s ease infinite;
+          
+          .gradient-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+              rgba(57, 200, 231, 0.8) 0%, 
+              rgba(37, 165, 196, 0.6) 40%, 
+              rgba(13, 122, 148, 0.4) 60%, 
+              rgba(11, 91, 108, 0.1) 80%
+            );
+            mix-blend-mode: screen;
+          }
+          
+          .c1 {
+            top: -10%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            animation: move1 16s infinite linear;
+          }
+          
+          .c2 {
+            bottom: -5%;
+            right: 10%;
+            width: 40%;
+            height: 40%;
+            animation: move2 18s infinite linear;
+          }
+          
+          .c3 {
+            top: 20%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            animation: move3 20s infinite linear;
+          }
+          
+          .c4 {
+            bottom: 30%;
+            left: 10%;
+            width: 35%;
+            height: 35%;
+            animation: move4 15s infinite linear;
+          }
+          
+          .c5 {
+            top: 40%;
+            left: 40%;
+            width: 45%;
+            height: 45%;
+            animation: move5 17s infinite linear;
+          }
+          
+          @keyframes move1 {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(10%, 15%) scale(1.1); }
+            50% { transform: translate(20%, 5%) scale(0.9); }
+            75% { transform: translate(5%, 20%) scale(1.05); }
+            100% { transform: translate(0, 0) scale(1); }
+          }
+          
+          @keyframes move2 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(-15%, -10%) rotate(120deg) scale(1.2); }
+            66% { transform: translate(-5%, -20%) rotate(240deg) scale(0.8); }
+            100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+          }
+          
+          @keyframes move3 {
+            0% { transform: translate(0, 0) scale(1); }
+            20% { transform: translate(-20%, 10%) scale(0.8); }
+            40% { transform: translate(-10%, 20%) scale(1.1); }
+            60% { transform: translate(-30%, 5%) scale(0.9); }
+            80% { transform: translate(-15%, 15%) scale(1.2); }
+            100% { transform: translate(0, 0) scale(1); }
+          }
+          
+          @keyframes move4 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(15%, -15%) rotate(90deg) scale(0.9); }
+            50% { transform: translate(25%, 10%) rotate(180deg) scale(1.1); }
+            75% { transform: translate(10%, 20%) rotate(270deg) scale(0.8); }
+            100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+          }
+          
+          @keyframes move5 {
+            0% { transform: translate(0, 0) scale(1); }
+            20% { transform: translate(20%, 10%) scale(1.1); }
+            40% { transform: translate(5%, 25%) scale(0.9); }
+            60% { transform: translate(-15%, 15%) scale(1.2); }
+            80% { transform: translate(-20%, 5%) scale(0.8); }
+            100% { transform: translate(0, 0) scale(1); }
           }
         `}</style>
       </div>
