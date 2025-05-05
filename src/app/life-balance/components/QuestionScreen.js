@@ -49,15 +49,15 @@ const QuestionScreen = ({
   }, [formData, field, hasMovedSlider]);
 
   return (
-    <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
+    <div className="flex flex-col min-h-[calc(50vh-80px)] md:min-h-0 w-full">
       <div className="flex-grow">
-        <h1 className='text-white text-xl  sm:text-5xl font-general-sans font-semibold  '>
+        <h1 className='text-white text-xl sm:text-4xl md:text-5xl font-general-sans font-semibold'>
           {question}
         </h1>
-        <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium    md:mx-0'>
-          Rate your level of satisfaction in a <br/>scale of 1 - 10
+        <p className='text-white mt-2 sm:mt-4 text-sm xs:text-base sm:text-xl font-general-sans font-medium'>
+          Rate your level of satisfaction in a <br className="sm:hidden"/>scale of 1 - 10
         </p>
-        <div className="mt-4 sm:mt-8">
+        <div className="mt-4 sm:mt-6 max-w-[350px]">
           <RatingSlider 
             initialValue={1}
             value={formData[field] || 1}
@@ -66,7 +66,7 @@ const QuestionScreen = ({
         </div>
       </div>
       
-      <div className="mt-6 sm:mt-10 mb-8 md:mb-0 flex justify-end md:justify-start font-inter">
+      <div className="mt-6 sm:mt-8 mb-8 md:mb-0 flex justify-start font-inter">
         <NavigationButton 
           onClick={handleNextClick}
           text="Next" 

@@ -21,10 +21,10 @@ const ConcentricCircles = ({ stage }) => {
   const currentCircles = stage >= 2 ? Math.min(stage - 1, circleColors.length) : 0;
   
   // Base size for largest circle - responsive for different screen sizes
-  const baseSize = "min(100vw, 600px)";
+  const baseSize = "min(90vw, 500px)";
   
   return (
-    <div className="relative top-[80px] md:top-[55px] inset-0 flex items-center justify-center w-full h-full">
+    <div className="relative flex items-center justify-center w-full h-full">
       {circleColors.slice(0, currentCircles).map((color, index) => {
         // Calculate size - largest (outer) to smallest (inner)
         const sizePercentage = 1 - (index * 0.1); // Each circle is 10% smaller
@@ -47,8 +47,8 @@ const ConcentricCircles = ({ stage }) => {
               backgroundColor: color,
               width: `calc(${baseSize} * ${sizePercentage})`,
               height: `calc(${baseSize} * ${sizePercentage})`,
-              maxWidth: `${600 * sizePercentage}px`,
-              maxHeight: `${600 * sizePercentage}px`,
+              maxWidth: `${500 * sizePercentage}px`,
+              maxHeight: `${500 * sizePercentage}px`,
               zIndex: index // Smaller circles appear on top
             }}
           />

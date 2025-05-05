@@ -12,7 +12,7 @@ const VisualizationContainer = ({ currentStage, isSwinging, wheelRef, formData }
   if (currentStage < 2) {
     return (
       <motion.div
-        className="flex justify-center md:mr-32 scale-75 md:scale-100"
+        className="flex justify-center items-center md:mr-0 scale-75 md:scale-100 h-full"
         animate={isSwinging ? { rotate: [0, 10, -10, 0] } : {}}
         transition={{
           duration: 2,
@@ -20,7 +20,7 @@ const VisualizationContainer = ({ currentStage, isSwinging, wheelRef, formData }
         }}
       >
         {/* Hero image for PC only */}
-        <div className="hidden md:flex md:w-[500px] md:h-[500px] md:mt-4 rounded-full overflow-hidden items-center justify-center shadow-lg">
+        <div className="hidden md:flex md:w-[500px] md:h-[500px] rounded-full overflow-hidden items-center justify-center shadow-lg">
           <Image
             src="/assets/Life-balance-model.svg"
             width={300}
@@ -48,7 +48,7 @@ const VisualizationContainer = ({ currentStage, isSwinging, wheelRef, formData }
   // Concentric circles for question stages (3-10)
   if (currentStage > 2 && currentStage < 11) {
     return (
-      <div className="scale-75 md:scale-100 w-full h-full mb-[80px] md:mb-0 flex items-center justify-center">
+      <div className="scale-75 md:scale-100 w-full h-full flex items-center justify-center">
         <ConcentricCircles stage={currentStage} />
       </div>
     );
@@ -58,7 +58,7 @@ const VisualizationContainer = ({ currentStage, isSwinging, wheelRef, formData }
   if (currentStage === 11) {
     return (
       <div
-        className="scale-100 md:scale-100 mt-0 md:mt-[20%] md:mr-[25%] mb-4 w-[280px] h-[280px] md:w-[600px] md:h-[600px] flex items-center justify-center relative"
+        className="scale-100 md:scale-100 mx-auto md:mx-0 w-[280px] h-[280px] md:w-[500px] md:h-[500px] flex items-center justify-center relative"
         style={{ aspectRatio: "1/1" }}
       >
         <BalanceWheel graphRef={wheelRef} formData={formData} />

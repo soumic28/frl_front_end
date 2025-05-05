@@ -109,7 +109,7 @@ export default function LifeBalancePage() {
         <div className="w-full max-w-screen-[1440px] mx-auto px-4 flex items-center justify-center">
           <div className="flex flex-col md:flex-row w-full justify-center items-center">
             {/* Visualization Section */}
-            <div className="w-full md:w-1/2 md:order-2 mt-[60px] md:mt-4 mx-auto md:mr-10 relative flex justify-center md:justify-center items-center h-auto min-h-[280px] md:min-h-[600px]">
+            <div className="w-full md:w-1/2 md:order-2 mt-[60px] md:mt-4 mx-auto flex justify-center items-center h-auto min-h-[280px] md:min-h-[600px]">
               {/* Back button and progress bar for question stages */}
               {currentStage >= 3 && currentStage <= 10 && currentQuestion && (
                 <BackButton 
@@ -128,7 +128,7 @@ export default function LifeBalancePage() {
             </div>
 
             {/* Content Section */}
-            <div className="w-full md:w-[80%] md:order-1 flex flex-col px-4 sm:px-0">
+            <div className="w-full md:w-1/2 md:order-1 flex flex-col px-4 md:px-8">
               <AnimatePresence mode="wait">
                 {currentStage === 0 && (
                   <IntroScreen
@@ -153,7 +153,7 @@ export default function LifeBalancePage() {
                     animate="visible"
                     exit="exit"
                     variants={pageVariants}
-                    className="flex flex-col justify-start mt-[60px] md:mt-[20vh] ml-2 sm:ml-[5vw] md:ml-[10vw] pr-2 sm:pr-[5vw]"
+                    className="flex flex-col justify-start mt-[60px] md:mt-[20vh] px-2 md:px-8"
                   >
                     {currentQuestion && (
                       <QuestionScreen
@@ -183,7 +183,7 @@ export default function LifeBalancePage() {
                     >
                       <div className="w-full h-full max-w-[1440px] mt-12 md:mt-0 flex flex-col-reverse md:flex-row items-center justify-center p-4 sm:p-6 md:p-8">
                         {/* Content side (left on desktop) */}
-                        <div className="w-full md:w-1/2 z-10 mt-6 md:mt-0">
+                        <div className="w-full md:w-1/2 z-10 mt-6 md:mt-0 px-4 md:px-8">
                           <ResultsScreen
                             date={date}
                             handleDownload={handleDownload}
