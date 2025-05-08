@@ -386,29 +386,34 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
   }
 
   return (
-    <div className="w-full h-full flex items-center justify-center" data-wheel-container="true">
+    <div
+      className="w-full h-full flex items-center justify-center"
+      data-wheel-container="true"
+    >
       {/* Outer wheel with category labels */}
-      
-      
+
       {/* Inner wheel with radar chart */}
       <div
         ref={graphRef}
-        className="relative w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
+        className="relative w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] bg-white rounded-full overflow-hidden"
         style={{ aspectRatio: "1/1" }}
         data-inner-wheel="true"
       >
-        <div className="absolute left-[10px] top-[10px] w-[480px] h-[480px] md:w-[480px] md:h-[480px] rounded-full overflow-hidden flex items-center justify-center z-30" data-outer-wheel="true">
-        <Image
-          src="/assets/Text.svg"
-          width={300}
-          height={300}
-          className="w-[280px] h-[280px] md:w-[600px] md:h-[550px] object-contain"
-          alt="wheel background"
-          priority={true}
-          unoptimized={true}
-          crossOrigin="anonymous"
-        />
-      </div>
+        <div
+          className="absolute left-[5px] top-[5px] w-[240px] h-[240px] sm:w-[290px] sm:h-[290px] md:w-[440px] md:h-[440px] lg:w-[540px] lg:h-[540px] rounded-full overflow-hidden flex items-center justify-center z-30"
+          data-outer-wheel="true"
+        >
+          <Image
+            src="/assets/Text.svg"
+            width={300}
+            height={300}
+            className="w-[230px] h-[230px] sm:w-[280px] sm:h-[280px] md:w-[430px] md:h-[430px] lg:w-[530px] lg:h-[530px] object-contain"
+            alt="wheel background"
+            priority={true}
+            unoptimized={true}
+            crossOrigin="anonymous"
+          />
+        </div>
         <BalanceRadarChart data={data} />
       </div>
     </div>
