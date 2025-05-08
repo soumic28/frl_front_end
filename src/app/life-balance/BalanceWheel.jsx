@@ -164,7 +164,7 @@ const BalanceRadarChart = ({ data }) => (
     <RadarChart
       cx="50%"
       cy="50%"
-      outerRadius="95%"
+      outerRadius="85%"
       startAngle={90}
       endAngle={-270}
       margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
@@ -388,9 +388,18 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
   return (
     <div className="w-full h-full flex items-center justify-center" data-wheel-container="true">
       {/* Outer wheel with category labels */}
-      <div className="absolute w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full overflow-hidden flex items-center justify-center" data-outer-wheel="true">
+      
+      
+      {/* Inner wheel with radar chart */}
+      <div
+        ref={graphRef}
+        className="relative w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
+        style={{ aspectRatio: "1/1" }}
+        data-inner-wheel="true"
+      >
+        <div className="absolute left-[10px] top-[10px] w-[480px] h-[480px] md:w-[480px] md:h-[480px] rounded-full overflow-hidden flex items-center justify-center z-30" data-outer-wheel="true">
         <Image
-          src="/assets/roundtext.svg"
+          src="/assets/Text.svg"
           width={300}
           height={300}
           className="w-[280px] h-[280px] md:w-[600px] md:h-[550px] object-contain"
@@ -400,14 +409,6 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
           crossOrigin="anonymous"
         />
       </div>
-      
-      {/* Inner wheel with radar chart */}
-      <div
-        ref={graphRef}
-        className="relative w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
-        style={{ aspectRatio: "1/1" }}
-        data-inner-wheel="true"
-      >
         <BalanceRadarChart data={data} />
       </div>
     </div>
