@@ -395,7 +395,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
       {/* Inner wheel with radar chart */}
       <div
         ref={graphRef}
-        className="relative w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] bg-white rounded-full overflow-hidden"
+        className="relative w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] bg-white rounded-full overflow-hidden p-3"
         style={{ aspectRatio: "1/1" }}
         data-inner-wheel="true"
       >

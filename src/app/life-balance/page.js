@@ -154,7 +154,7 @@ export default function LifeBalancePage() {
                     animate="visible"
                     exit="exit"
                     variants={pageVariants}
-                    className="flex flex-col justify-start mt-[60px] md:mt-[20vh] ml-2 sm:ml-[5vw] md:ml-[10vw] pr-2 sm:pr-[5vw]"
+                    className="flex flex-col justify-start mt-[75px] md:mt-[20vh] ml-2 sm:ml-[5vw] md:ml-[10vw] pr-2 sm:pr-[5vw]"
                   >
                     {currentQuestion && (
                       <QuestionScreen

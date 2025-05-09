@@ -57,7 +57,7 @@ const QuestionScreen = ({
         <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium    md:mx-0'>
           Rate your level of satisfaction in a <br/>scale of 1 - 10
         </p>
-        <div className="mt-4 sm:mt-8">
+        <div className="mt-6 sm:mt-8">
           <RatingSlider 
             initialValue={1}
             value={formData[field] || 1}
