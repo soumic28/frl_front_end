@@ -273,10 +273,10 @@ export default function LifeBalancePage() {
             position: absolute;
             border-radius: 50%;
             background: radial-gradient(circle, 
-              rgba(57, 200, 231, 0.8) 0%, 
-              rgba(37, 165, 196, 0.6) 40%, 
-              rgba(13, 122, 148, 0.4) 60%, 
-              rgba(11, 91, 108, 0.1) 80%
+              rgba(34, 150, 177, 0.8) 0%, 
+              rgba(25, 120, 145, 0.6) 40%, 
+              rgba(10, 90, 112, 0.4) 60%, 
+              rgba(8, 70, 85, 0.1) 80%
             );
             mix-blend-mode: screen;
           }
@@ -286,7 +286,7 @@ export default function LifeBalancePage() {
             left: -10%;
             width: 50%;
             height: 50%;
-            animation: move1 16s infinite linear;
+            animation: move1 10s infinite linear;
           }
           
           .c2 {
@@ -294,7 +294,7 @@ export default function LifeBalancePage() {
             right: 10%;
             width: 40%;
             height: 40%;
-            animation: move2 18s infinite linear;
+            animation: move2 11s infinite linear;
           }
           
           .c3 {
@@ -302,7 +302,7 @@ export default function LifeBalancePage() {
             right: -10%;
             width: 60%;
             height: 60%;
-            animation: move3 20s infinite linear;
+            animation: move3 12s infinite linear;
           }
           
           .c4 {
@@ -310,7 +310,7 @@ export default function LifeBalancePage() {
             left: 10%;
             width: 35%;
             height: 35%;
-            animation: move4 15s infinite linear;
+            animation: move4 9s infinite linear;
           }
           
           .c5 {
@@ -318,7 +318,7 @@ export default function LifeBalancePage() {
             left: 40%;
             width: 45%;
             height: 45%;
-            animation: move5 17s infinite linear;
+            animation: move5 10s infinite linear;
           }
           
           @keyframes move1 {
