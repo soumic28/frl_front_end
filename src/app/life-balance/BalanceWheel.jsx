@@ -388,12 +388,12 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
   return (
     <div className="w-full h-full flex items-center justify-center" data-wheel-container="true">
       {/* Outer wheel with category labels */}
-      <div className="absolute w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full overflow-hidden flex items-center justify-center" data-outer-wheel="true">
+      <div className="absolute w-[520px] h-[520px] md:w-[600px] md:h-[600px] rounded-full overflow-hidden flex items-center justify-center" data-outer-wheel="true">
         <Image
           src="/assets/roundtext.svg"
           width={300}
           height={300}
-          className="w-[280px] h-[280px] md:w-[600px] md:h-[550px] object-contain"
+          className="w-[320px] h-[320px] md:w-[600px] md:h-[550px] object-contain"
           alt="wheel background"
           priority={true}
           unoptimized={true}
@@ -404,7 +404,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
       {/* Inner wheel with radar chart */}
       <div
         ref={graphRef}
-        className="relative w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
+        className="relative w-[280px] h-[280px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
         style={{ aspectRatio: "1/1" }}
         data-inner-wheel="true"
       >
