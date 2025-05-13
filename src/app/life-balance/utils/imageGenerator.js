@@ -52,7 +52,7 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     const cardContainer = document.createElement("div");
     cardContainer.style.width = "800px";
     cardContainer.style.height = "1200px";
-    cardContainer.style.background = "linear-gradient(180deg, #19667A 0%, #003644 100%)";
+    cardContainer.style.background = "linear-gradient(180deg, #205A6A 0%, #002A36 100%)";
     cardContainer.style.borderRadius = "20px";
     cardContainer.style.padding = "60px";
     cardContainer.style.display = "flex";

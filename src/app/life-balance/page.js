@@ -174,7 +174,7 @@ export default function LifeBalancePage() {
                 {currentStage === 11 && (
                   <div className="fixed inset-0 z-[1] overflow-hidden">
                     {/* Base teal background */}
-                    <div className="absolute inset-0 bg-[#0D5B6C]"></div>
+                    <div className="absolute inset-0 bg-[#205A6A]"></div>
                     
                     {/* Animated gradient circles */}
                     <div className="gradient-bg">
@@ -273,10 +273,10 @@ export default function LifeBalancePage() {
             position: absolute;
             border-radius: 50%;
             background: radial-gradient(circle, 
-              rgba(34, 150, 177, 0.8) 0%, 
-              rgba(25, 120, 145, 0.6) 40%, 
-              rgba(10, 90, 112, 0.4) 60%, 
-              rgba(8, 70, 85, 0.1) 80%
+              rgba(24, 110, 137, 0.9) 0%, 
+              rgba(15, 80, 105, 0.8) 40%, 
+              rgba(32, 90, 106, 0.6) 60%, 
+              rgba(15, 43, 53, 0.3) 80%
             );
             mix-blend-mode: screen;
           }
