@@ -52,7 +52,7 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     const cardContainer = document.createElement("div");
     cardContainer.style.width = "800px";
     cardContainer.style.height = "1200px";
-    cardContainer.style.background = "linear-gradient(180deg, #19667A 0%, #003644 100%)";
+    cardContainer.style.background = "linear-gradient(180deg, #205A6A 0%, #002A36 100%)";
     cardContainer.style.borderRadius = "20px";
     cardContainer.style.padding = "60px";
     cardContainer.style.display = "flex";
@@ -74,8 +74,8 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     // Create the wheel container wrapper for positioning
     const wheelWrapper = document.createElement("div");
     wheelWrapper.style.position = "relative";
-    wheelWrapper.style.width = "700px";
-    wheelWrapper.style.height = "700px";
+    wheelWrapper.style.width = "750px";
+    wheelWrapper.style.height = "750px";
     wheelWrapper.style.margin = "0 auto 40px";
     cardContainer.appendChild(wheelWrapper);
 
@@ -92,8 +92,8 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     // Create a container for the actual wheel chart
     const wheelContainer = document.createElement("div");
     wheelContainer.style.position = "absolute";
-    wheelContainer.style.width = "690px";
-    wheelContainer.style.height = "690px";
+    wheelContainer.style.width = "740px";
+    wheelContainer.style.height = "740px";
     wheelContainer.style.top = "5px";
     wheelContainer.style.left = "5px";
     wheelContainer.style.zIndex = "2";
@@ -166,13 +166,13 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
       // Ensure SVG elements have the right styling
       const svgElement = svgContainer.querySelector("svg");
       if (svgElement) {
-        svgElement.setAttribute("width", "700");
-        svgElement.setAttribute("height", "700");
+        svgElement.setAttribute("width", "750");
+        svgElement.setAttribute("height", "750");
         svgElement.style.width = "100%";
         svgElement.style.height = "100%";
         
         // Scale the SVG to bring text closer to center
-        svgElement.style.transform = "scale(0.8)";
+        svgElement.style.transform = "scale(0.9)";
         svgElement.style.transformOrigin = "center";
         
         // Move the SVG text categories closer to the wheel

@@ -58,7 +58,7 @@ const VisualizationContainer = ({ currentStage, isSwinging, wheelRef, formData }
   if (currentStage === 11) {
     return (
       <div
-        className="scale-100 md:scale-100 mt-0 md:mt-[20%] md:mr-[25%] mb-4 w-[280px] h-[280px] md:w-[600px] md:h-[600px] flex items-center justify-center relative"
+        className="scale-100 md:scale-100 mt-0 md:mt-[15%] md:mr-[20%] mb-4 w-[350px] h-[350px] md:w-[600px] md:h-[600px] flex items-center justify-center relative"
         style={{ aspectRatio: "1/1" }}
       >
         <BalanceWheel graphRef={wheelRef} formData={formData} />
