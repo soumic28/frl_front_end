@@ -48,7 +48,7 @@ const VisualizationContainer = ({ currentStage, isSwinging, wheelRef, formData }
   // Concentric circles for question stages (3-10)
   if (currentStage > 2 && currentStage < 11) {
     return (
-      <div className="scale-75 md:scale-100 w-full h-full mb-[80px] md:mb-0 flex items-center justify-center">
+      <div className="scale-70 md:scale-100 w-full h-full mb-[80px] md:mb-0 flex items-center justify-center">
         <ConcentricCircles stage={currentStage} />
       </div>
     );

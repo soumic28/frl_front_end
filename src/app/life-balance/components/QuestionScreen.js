@@ -50,21 +50,22 @@ const QuestionScreen = ({
 
   return (
     <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
-      <div className="flex-grow">
+      <div className=" -mt-5 md:-mt-0">
         <h1 className='text-white text-xl  sm:text-5xl font-general-sans font-semibold  '>
           {question}
         </h1>
         <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium    md:mx-0'>
           Rate your level of satisfaction in a <br/>scale of 1 - 10
         </p>
-        <div className="mt-6 sm:mt-8">
+        
+      </div>
+      <div className="mt-6 sm:mt-8">
           <RatingSlider 
             initialValue={1}
             value={formData[field] || 1}
             onChange={handleSliderChange}
           />
         </div>
-      </div>
       
       <div className="mt-6 sm:mt-10 mb-8 md:mb-0 flex justify-end md:justify-start font-inter">
         <NavigationButton 

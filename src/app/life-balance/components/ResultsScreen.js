@@ -8,7 +8,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
     animate="visible"
     exit="exit"
     variants={pageVariants}
-    className="flex flex-col min-h-[calc(60vh-120px)] md:min-h-0 mt-[2vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw] mb-[40px] md:mb-0 "
+    className="flex flex-col min-h-[calc(50vh-120px)] md:min-h-0 mt-[2vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw] mb-[40px] md:mb-0 "
   >
     <div className="flex-grow">
       <h1 className="text-white font-general-sans  mt-0 sm:mt-[-20px] md:mt-[-50px] text-2xl xs:text-4xl sm:text-5xl font-semibold leading-tight sm:leading-[62.40px] md:whitespace-nowrap " >
