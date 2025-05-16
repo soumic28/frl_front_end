@@ -49,30 +49,35 @@ const QuestionScreen = ({
   }, [formData, field, hasMovedSlider]);
 
   return (
-    <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
-      <div className=" -mt-5 md:-mt-0">
-        <h1 className='text-white text-xl  sm:text-5xl font-general-sans font-semibold  '>
-          {question}
-        </h1>
-        <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium    md:mx-0'>
-          Rate your level of satisfaction in a <br/>scale of 1 - 10
-        </p>
-        
+    <div className="flex flex-col h-full overflow-y-auto">
+      <div className="flex-1 min-h-0 pb-20">
+        <div className="mb-8">
+          <h1 className='text-white text-xl sm:text-5xl font-general-sans font-semibold'>
+            {question}
+          </h1>
+          <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium'>
+            Rate your level of satisfaction in a <br/>scale of 1 - 10
+          </p>
+        </div>
       </div>
-      <div className="mt-6 sm:mt-8">
+      
+      {/* Fixed position container for slider and button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[#19667A] py-4 px-4 md:px-[10vw]">
+        <div className="mb-6">
           <RatingSlider 
             initialValue={1}
             value={formData[field] || 1}
             onChange={handleSliderChange}
           />
         </div>
-      
-      <div className="mt-6 sm:mt-10 mb-8 md:mb-0 flex justify-end md:justify-start font-inter">
-        <NavigationButton 
-          onClick={handleNextClick}
-          text="Next" 
-          className="text-[20px]"
-        />
+        
+        <div className="flex justify-end md:justify-start font-inter mb-2">
+          <NavigationButton 
+            onClick={handleNextClick}
+            text="Next" 
+            className="text-[20px]"
+          />
+        </div>
       </div>
 
       <AlertPopup 
