@@ -72,6 +72,9 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     wheelWrapper.style.width = `${wheelSize}px`;
     wheelWrapper.style.height = `${wheelSize}px`;
     wheelWrapper.style.margin = "0 auto 40px";
+    wheelWrapper.style.display = "flex";
+    wheelWrapper.style.justifyContent = "center";
+    wheelWrapper.style.alignItems = "center";
     cardContainer.appendChild(wheelWrapper);
 
     const svgContainer = document.createElement("div");
@@ -81,6 +84,9 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     svgContainer.style.width = "100%";
     svgContainer.style.height = "100%";
     svgContainer.style.zIndex = "1";
+    svgContainer.style.display = "flex";
+    svgContainer.style.justifyContent = "center";
+    svgContainer.style.alignItems = "center";
     wheelWrapper.appendChild(svgContainer);
 
     const wheelContainer = document.createElement("div");
@@ -89,6 +95,8 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     wheelContainer.style.height = `${wheelSize}px`;
     wheelContainer.style.top = "0";
     wheelContainer.style.left = "0";
+    wheelContainer.style.right = "0";
+    wheelContainer.style.margin = "0 auto";
     wheelContainer.style.zIndex = "2";
     wheelContainer.setAttribute("data-wheel-container", "true");
     wheelWrapper.appendChild(wheelContainer);
@@ -131,6 +139,8 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
       wheelClone.style.position = "absolute";
       wheelClone.style.top = "0";
       wheelClone.style.left = "0";
+      wheelClone.style.right = "0";
+      wheelClone.style.margin = "0 auto";
       wheelClone.style.width = "100%";
       wheelClone.style.height = "100%";
       wheelContainer.appendChild(wheelClone);
@@ -150,6 +160,10 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
         svgElement.style.height = "100%";
         svgElement.style.transform = "scale(0.9)";
         svgElement.style.transformOrigin = "center";
+        svgElement.style.position = "absolute";
+        svgElement.style.left = "0";
+        svgElement.style.right = "0";
+        svgElement.style.margin = "0 auto";
 
         const textElements = svgElement.querySelectorAll("text");
         textElements.forEach((text) => {
