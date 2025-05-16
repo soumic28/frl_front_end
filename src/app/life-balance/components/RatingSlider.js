@@ -124,7 +124,7 @@ const RatingSlider = ({ initialValue = 5, onChange }) => {
   return (
     <div
       ref={containerRef}
-      className="mt-4 flex flex-col w-full max-w-full sm:max-w-[320px] md:max-w-[350px] px-2"
+      className="mt-4 flex flex-col w-full max-w-full sm:max-w-[400px] md:max-w-[450px] px-2"
     >
       <div
         className="cursor-pointer w-full"
