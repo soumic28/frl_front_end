@@ -50,11 +50,11 @@ const QuestionScreen = ({
 
   return (
     <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
-      <div className="-mt-5 md:-mt-0">
-        <h1 className="text-white text-[25px] xs:text-5xl sm:text-5xl font-general-sans font-semibold">
+      <div className="-mt-12 md:-mt-0">
+        <h1 className="text-white text-xl xs:text-5xl sm:text-5xl font-general-sans font-semibold">
           {question}
         </h1>
-        <p className="text-white mt-2 sm:mt-5 text-xl xs:text-base sm:text-xl font-general-sans font-medium md:mx-0">
+        <p className="text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium md:mx-0">
           Rate your level of satisfaction in a <br />
           scale of 1 - 10
         </p>
