@@ -106,7 +106,7 @@ export default function LifeBalancePage() {
 
   return (
     <PageTransition>
-      <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh] overflow-y-auto md:my-0 items-center justify-center">
+      <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh] overflow-hidden md:my-0 items-center justify-center">
         <div className="w-full max-w-screen-[1440px] mx-auto px-4 flex items-center justify-center">
           <div className="flex flex-col md:flex-row w-full justify-center items-center">
             {/* Visualization Section */}
@@ -154,7 +154,7 @@ export default function LifeBalancePage() {
                     animate="visible"
                     exit="exit"
                     variants={pageVariants}
-                    className="flex flex-col justify-start mt-[75px] md:mt-[20vh] ml-2 sm:ml-[5vw] md:ml-[10vw] pr-2 sm:pr-[5vw] h-full pb-[140px]"
+                    className="flex flex-col justify-start mt-[75px] md:mt-[20vh] ml-2 sm:ml-[5vw] md:ml-[10vw] pr-2 sm:pr-[5vw] h-full"
                   >
                     {currentQuestion && (
                       <QuestionScreen

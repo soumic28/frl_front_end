@@ -1,20 +1,20 @@
-import NavigationButton from './NavigationButton';
-import RatingSlider from './RatingSlider';
-import AlertPopup from './AlertPopup';
-import { useState, useEffect } from 'react';
+import NavigationButton from "./NavigationButton";
+import RatingSlider from "./RatingSlider";
+import AlertPopup from "./AlertPopup";
+import { useState, useEffect } from "react";
 
-const QuestionScreen = ({ 
-  currentStage, 
-  setCurrentStage, 
-  question, 
-  field, 
-  formData, 
+const QuestionScreen = ({
+  currentStage,
+  setCurrentStage,
+  question,
+  field,
+  formData,
   updateFormData,
-  handleSubmit = null
+  handleSubmit = null,
 }) => {
   const [hasMovedSlider, setHasMovedSlider] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  
+
   // Set initial value to 1 if not already set
   useEffect(() => {
     if (!formData[field]) {
@@ -44,43 +44,61 @@ const QuestionScreen = ({
 
   // Log values to help with debugging
   useEffect(() => {
-    console.log('Current slider value:', formData[field]);
-    console.log('Has moved slider:', hasMovedSlider);
+    console.log("Current slider value:", formData[field]);
+    console.log("Has moved slider:", hasMovedSlider);
   }, [formData, field, hasMovedSlider]);
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto">
-      <div className="flex-1 min-h-0 pb-20">
-        <div className="mb-8">
-          <h1 className='text-white text-xl sm:text-5xl font-general-sans font-semibold'>
-            {question}
-          </h1>
-          <p className='text-white mt-2 sm:mt-5 text-sm xs:text-base sm:text-xl font-general-sans font-medium'>
-            Rate your level of satisfaction in a <br/>scale of 1 - 10
-          </p>
-        </div>
+    <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
+      <div className="-mt-5 md:-mt-0">
+        <h1 className="text-white text-[25px] xs:text-5xl sm:text-5xl font-general-sans font-semibold">
+          {question}
+        </h1>
+        <p className="text-white mt-2 sm:mt-5 text-xl xs:text-base sm:text-xl font-general-sans font-medium md:mx-0">
+          Rate your level of satisfaction in a <br />
+          scale of 1 - 10
+        </p>
       </div>
-      
-      {/* Fixed position container for slider and button */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#19667A] py-4 px-4 md:px-[10vw]">
+
+      {/* Mobile view: Fixed position container */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#19667A] py-4 px-4 z-10">
         <div className="mb-6">
-          <RatingSlider 
+          <RatingSlider
             initialValue={1}
             value={formData[field] || 1}
             onChange={handleSliderChange}
           />
         </div>
-        
-        <div className="flex justify-end md:justify-start font-inter mb-2">
-          <NavigationButton 
+
+        <div className="flex justify-end font-inter mb-2">
+          <NavigationButton
             onClick={handleNextClick}
-            text="Next" 
+            text="Next"
             className="text-[20px]"
           />
         </div>
       </div>
 
-      <AlertPopup 
+      {/* Desktop view: Normal layout */}
+      <div className="hidden md:block">
+        <div className="mt-6 sm:mt-8">
+          <RatingSlider
+            initialValue={1}
+            value={formData[field] || 1}
+            onChange={handleSliderChange}
+          />
+        </div>
+
+        <div className="mt-6 sm:mt-10 mb-8 md:mb-0 flex justify-start font-inter">
+          <NavigationButton
+            onClick={handleNextClick}
+            text="Next"
+            className="text-[20px]"
+          />
+        </div>
+      </div>
+
+      <AlertPopup
         isVisible={showPopup}
         message="Please move the slider to rate your satisfaction before proceeding."
         onClose={() => setShowPopup(false)}
@@ -89,4 +107,4 @@ const QuestionScreen = ({
   );
 };
 
-export default QuestionScreen; 
+export default QuestionScreen;
