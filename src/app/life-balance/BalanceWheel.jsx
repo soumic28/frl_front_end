@@ -436,7 +436,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
   return (
     <div className="w-full h-full flex items-center justify-center" data-wheel-container="true">
       {/* Main container with fixed proportions */}
-      <div className="relative w-[250px] h-[250px] sm:w-[450px] sm:h-[450px] md:w-[500px] md:h-[500px] lg:w-[510px] lg:h-[510px]">
+      <div className="relative w-[265px] h-[265px] sm:w-[450px] sm:h-[450px] md:w-[500px] md:h-[500px] lg:w-[510px] lg:h-[510px]">
         {/* SVG Text Circle - positioned absolutely to surround the inner wheel */}
         <div className="absolute top-0 left-0 w-full h-full scale-[1.2] sm:scale-[1.15] md:scale-[1.1] lg:scale-[1.08]" data-outer-wheel="true">
           <SVGLoader />
@@ -445,7 +445,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
         {/* Inner circle with radar chart */}
         <div
           ref={graphRef}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[470px] md:h-[470px] lg:w-[520px] lg:h-[520px] bg-white rounded-full overflow-hidden"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[470px] md:h-[470px] lg:w-[520px] lg:h-[520px] bg-white rounded-full overflow-hidden"
           style={{ boxShadow: 'none' }}
           data-inner-wheel="true"
         >

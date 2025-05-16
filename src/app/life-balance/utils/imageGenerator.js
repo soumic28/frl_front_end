@@ -13,21 +13,6 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     return;
   }
 
-  const fetchAndEmbedSVG = async (url, container) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch SVG: ${response.status}`);
-      }
-      const svgText = await response.text();
-      container.innerHTML = svgText;
-      return true;
-    } catch (error) {
-      console.error("Error embedding SVG:", error);
-      return false;
-    }
-  };
-
   try {
     const elements = wheelElement.querySelectorAll('[class*="bg-"]');
     const originalClasses = new Map();
@@ -76,18 +61,6 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     wheelWrapper.style.justifyContent = "center";
     wheelWrapper.style.alignItems = "center";
     cardContainer.appendChild(wheelWrapper);
-
-    const svgContainer = document.createElement("div");
-    svgContainer.style.position = "absolute";
-    svgContainer.style.top = "0";
-    svgContainer.style.left = "0";
-    svgContainer.style.width = "100%";
-    svgContainer.style.height = "100%";
-    svgContainer.style.zIndex = "1";
-    svgContainer.style.display = "flex";
-    svgContainer.style.justifyContent = "center";
-    svgContainer.style.alignItems = "center";
-    wheelWrapper.appendChild(svgContainer);
 
     const wheelContainer = document.createElement("div");
     wheelContainer.style.position = "absolute";
@@ -144,64 +117,6 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
       wheelClone.style.width = "100%";
       wheelClone.style.height = "100%";
       wheelContainer.appendChild(wheelClone);
-    }
-
-    const svgLoaded = await fetchAndEmbedSVG(
-      "/assets/roundtext.svg",
-      svgContainer
-    );
-
-    if (svgLoaded) {
-      const svgElement = svgContainer.querySelector("svg");
-      if (svgElement) {
-        svgElement.setAttribute("width", `${wheelSize}`);
-        svgElement.setAttribute("height", `${wheelSize}`);
-        svgElement.style.width = "100%";
-        svgElement.style.height = "100%";
-        svgElement.style.transform = "scale(0.9)";
-        svgElement.style.transformOrigin = "center";
-        svgElement.style.position = "absolute";
-        svgElement.style.left = "0";
-        svgElement.style.right = "0";
-        svgElement.style.margin = "0 auto";
-
-        const textElements = svgElement.querySelectorAll("text");
-        textElements.forEach((text) => {
-          text.style.fill = "white";
-          text.style.fontFamily =
-            "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-          text.style.fontWeight = "bold";
-
-          const transform = text.getAttribute("transform");
-          if (transform) {
-            const newTransform = transform.replace(
-              /translate\(([^,]+),\s*([^)]+)\)/,
-              (match, x, y) => {
-                const newX = parseFloat(x) * 0.5;
-                const newY = parseFloat(y) * 0.5;
-                return `translate(${newX}, ${newY})`;
-              }
-            );
-            text.setAttribute("transform", newTransform);
-          }
-        });
-
-        const pathElements = svgElement.querySelectorAll("path, circle");
-        pathElements.forEach((element) => {
-          const transform = element.getAttribute("transform");
-          if (transform && transform.includes("translate")) {
-            const newTransform = transform.replace(
-              /translate\(([^,]+),\s*([^)]+)\)/,
-              (match, x, y) => {
-                const newX = parseFloat(x) * 0.5;
-                const newY = parseFloat(y) * 0.5;
-                return `translate(${newX}, ${newY})`;
-              }
-            );
-            element.setAttribute("transform", newTransform);
-          }
-        });
-      }
     }
 
     const canvas = await html2canvas(cardContainer, {
