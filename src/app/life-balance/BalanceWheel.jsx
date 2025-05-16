@@ -164,7 +164,7 @@ const BalanceRadarChart = ({ data }) => (
     <RadarChart
       cx="50%"
       cy="50%"
-      outerRadius="95%"
+      outerRadius="92%"
       startAngle={90}
       endAngle={-270}
       margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
@@ -404,7 +404,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
       {/* Inner wheel with radar chart */}
       <div
         ref={graphRef}
-        className="relative w-[280px] h-[280px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
+        className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
         style={{ aspectRatio: "1/1" }}
         data-inner-wheel="true"
       >
