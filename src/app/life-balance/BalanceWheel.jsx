@@ -11,6 +11,54 @@ import {
 } from "recharts";
 import html2canvas from "html2canvas";
 import Image from "next/image";
+
+// SVG Loader component to prevent placeholder image
+const SVGLoader = ({ className }) => {
+  const [svgContent, setSvgContent] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check if we're on mobile
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
+  
+  useEffect(() => {
+    // Fetch the SVG content directly
+    fetch('/assets/roundtext.svg')
+      .then(response => response.text())
+      .then(svgText => {
+        // Modify the SVG to make it fully responsive
+        const modifiedSvg = svgText
+          .replace('<svg', '<svg preserveAspectRatio="xMidYMid meet"')
+          .replace(/width="[^"]*"/, 'width="100%"')
+          .replace(/height="[^"]*"/, 'height="100%"');
+        setSvgContent(modifiedSvg);
+      })
+      .catch(error => {
+        console.error('Error loading SVG:', error);
+      });
+  }, []);
+  
+  if (!svgContent) {
+    return null;
+  }
+  
+  return (
+    <div 
+      className={`absolute inset-0 ${className}`}
+      dangerouslySetInnerHTML={{ __html: svgContent }}
+    />
+  );
+};
+
 // Custom ticks for the radius axis to ensure we show all numbers 1-10
 const CustomTick = ({ payload, x, y, textAnchor, stroke, radius }) => {
   return <g className="recharts-polar-radius-axis-tick"></g>;
@@ -387,28 +435,22 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
 
   return (
     <div className="w-full h-full flex items-center justify-center" data-wheel-container="true">
-      {/* Outer wheel with category labels */}
-      <div className="absolute w-[520px] h-[520px] md:w-[600px] md:h-[600px] rounded-full overflow-hidden flex items-center justify-center" data-outer-wheel="true">
-        <Image
-          src="/assets/roundtext.svg"
-          width={300}
-          height={300}
-          className="w-[320px] h-[320px] md:w-[600px] md:h-[550px] object-contain"
-          alt="wheel background"
-          priority={true}
-          unoptimized={true}
-          crossOrigin="anonymous"
-        />
-      </div>
-      
-      {/* Inner wheel with radar chart */}
-      <div
-        ref={graphRef}
-        className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-white rounded-full overflow-hidden"
-        style={{ aspectRatio: "1/1" }}
-        data-inner-wheel="true"
-      >
-        <BalanceRadarChart data={data} />
+      {/* Main container with fixed proportions */}
+      <div className="relative w-[250px] h-[250px] sm:w-[450px] sm:h-[450px] md:w-[500px] md:h-[500px] lg:w-[510px] lg:h-[510px]">
+        {/* SVG Text Circle - positioned absolutely to surround the inner wheel */}
+        <div className="absolute top-0 left-0 w-full h-full scale-[1.2] sm:scale-[1.15] md:scale-[1.1] lg:scale-[1.08]" data-outer-wheel="true">
+          <SVGLoader />
+        </div>
+        
+        {/* Inner circle with radar chart */}
+        <div
+          ref={graphRef}
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[470px] md:h-[470px] lg:w-[520px] lg:h-[520px] bg-white rounded-full overflow-hidden"
+          style={{ boxShadow: 'none' }}
+          data-inner-wheel="true"
+        >
+          <BalanceRadarChart data={data} />
+        </div>
       </div>
     </div>
   );
