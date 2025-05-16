@@ -286,7 +286,7 @@ export default function LifeBalancePage() {
             left: -10%;
             width: 50%;
             height: 50%;
-            animation: move1 6s infinite linear;
+            animation: move1 4s infinite linear;
           }
           
           .c2 {
@@ -294,7 +294,7 @@ export default function LifeBalancePage() {
             right: 10%;
             width: 40%;
             height: 40%;
-            animation: move2 7s infinite linear;
+            animation: move2 5s infinite linear;
           }
           
           .c3 {
@@ -302,7 +302,7 @@ export default function LifeBalancePage() {
             right: -10%;
             width: 60%;
             height: 60%;
-            animation: move3 8s infinite linear;
+            animation: move3 6s infinite linear;
           }
           
           .c4 {
@@ -310,7 +310,7 @@ export default function LifeBalancePage() {
             left: 10%;
             width: 35%;
             height: 35%;
-            animation: move4 5s infinite linear;
+            animation: move4 3.5s infinite linear;
           }
           
           .c5 {
@@ -318,7 +318,7 @@ export default function LifeBalancePage() {
             left: 40%;
             width: 45%;
             height: 45%;
-            animation: move5 6s infinite linear;
+            animation: move5 4.5s infinite linear;
           }
           
           @keyframes move1 {
