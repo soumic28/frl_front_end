@@ -1,19 +1,9 @@
 "use client";
 import { useEffect, useState, useRef, useMemo } from "react";
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarRadiusAxis,
-  PolarAngleAxis,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
 import html2canvas from "html2canvas";
-import Image from "next/image";
 
-// SVG Loader component to prevent placeholder image
-const SVGLoader = ({ className }) => {
+// Custom SVG Wheel component that integrates data with the balancewheel.svg design
+const CustomBalanceWheel = ({ data }) => {
   const [svgContent, setSvgContent] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   
@@ -31,83 +21,132 @@ const SVGLoader = ({ className }) => {
   }, []);
   
   useEffect(() => {
-    // Fetch the SVG content directly
-    fetch('/assets/roundtext.svg')
+    // Fetch the SVG content and modify it to include data points
+    fetch('/assets/balancewheel.svg')
       .then(response => response.text())
       .then(svgText => {
-        // Modify the SVG to make it fully responsive
-        const modifiedSvg = svgText
-          .replace('<svg', '<svg preserveAspectRatio="xMidYMid meet"')
-          .replace(/width="[^"]*"/, 'width="100%"')
-          .replace(/height="[^"]*"/, 'height="100%"');
+        // Parse the SVG and add data visualization
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+        const svgElement = svgDoc.querySelector('svg');
+        
+        // Make SVG responsive
+        svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        svgElement.setAttribute('width', '100%');
+        svgElement.setAttribute('height', '100%');
+        
+        // Define the center and radius for data points
+        const centerX = 441;
+        const centerY = 437;
+        const baseRadius = 100;
+        
+        // Define angles for each life area (8 segments, starting from top)
+        const angles = [
+          { name: 'SPIRITUAL & EMOTION', angle: 0 },
+          { name: 'HEALTH', angle: 45 },
+          { name: 'RECREATION & FUN', angle: 90 },
+          { name: 'FRIENDS & FAMILY', angle: 135 },
+          { name: 'ROMANCE', angle: 180 },
+          { name: 'FINANCES', angle: 225 },
+          { name: 'PHYSICAL ENVIRONMENT', angle: 270 },
+          { name: 'WORK / CAREER', angle: 315 }
+        ];
+        
+        // Create data points and connecting lines
+        const dataPoints = [];
+        data.forEach((item, index) => {
+          const angleInfo = angles.find(a => a.name === item.subject);
+          if (angleInfo) {
+            const angleRad = (angleInfo.angle - 90) * Math.PI / 180; // Adjust for SVG coordinate system
+            const radius = baseRadius + (item.value * 30); // Scale radius based on value
+            const x = centerX + radius * Math.cos(angleRad);
+            const y = centerY + radius * Math.sin(angleRad);
+            
+            dataPoints.push({ x, y, value: item.value, subject: item.subject });
+          }
+        });
+        
+        // Create the data visualization polygon
+        if (dataPoints.length > 0) {
+          const pathData = dataPoints.map((point, index) => 
+            `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
+          ).join(' ') + ' Z';
+          
+          // Add the data polygon
+          const dataPolygon = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'path');
+          dataPolygon.setAttribute('d', pathData);
+          dataPolygon.setAttribute('fill', '#78DDE8');
+          dataPolygon.setAttribute('fill-opacity', '0.3');
+          dataPolygon.setAttribute('stroke', '#78DDE8');
+          dataPolygon.setAttribute('stroke-width', '3');
+          svgElement.appendChild(dataPolygon);
+          
+          // Add data points
+          dataPoints.forEach(point => {
+            // Create circle for data point
+            const circle = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', point.x);
+            circle.setAttribute('cy', point.y);
+            circle.setAttribute('r', isMobile ? '8' : '12');
+            circle.setAttribute('fill', '#78DDE8');
+            circle.setAttribute('stroke', '#FFFFFF');
+            circle.setAttribute('stroke-width', '2');
+            svgElement.appendChild(circle);
+            
+            // Add value text inside circle
+            const text = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', point.x);
+            text.setAttribute('y', point.y);
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('dominant-baseline', 'central');
+            text.setAttribute('fill', 'white');
+            text.setAttribute('font-size', isMobile ? '10' : '12');
+            text.setAttribute('font-weight', 'bold');
+            text.textContent = point.value;
+            svgElement.appendChild(text);
+          });
+          
+          // Add connecting lines from center to each data point
+          dataPoints.forEach(point => {
+            const line = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', centerX);
+            line.setAttribute('y1', centerY);
+            line.setAttribute('x2', point.x);
+            line.setAttribute('y2', point.y);
+            line.setAttribute('stroke', '#78DDE8');
+            line.setAttribute('stroke-width', '1');
+            line.setAttribute('stroke-opacity', '0.5');
+            svgElement.appendChild(line);
+          });
+        }
+        
+        // Convert back to string
+        const serializer = new XMLSerializer();
+        const modifiedSvg = serializer.serializeToString(svgElement);
         setSvgContent(modifiedSvg);
       })
       .catch(error => {
         console.error('Error loading SVG:', error);
       });
-  }, []);
+  }, [data, isMobile]);
   
   if (!svgContent) {
-    return null;
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-[#1A4A5C] rounded-full">
+        <p className="text-white">Loading balance wheel...</p>
+      </div>
+    );
   }
   
   return (
     <div 
-      className={`absolute inset-0 ${className}`}
+      className="w-full h-full"
       dangerouslySetInnerHTML={{ __html: svgContent }}
     />
   );
 };
 
-// Custom ticks for the radius axis to ensure we show all numbers 1-10
-const CustomTick = ({ payload, x, y, textAnchor, stroke, radius }) => {
-  return <g className="recharts-polar-radius-axis-tick"></g>;
-};
-
-// Custom dot renderer that displays the value inside the dot
-const CustomDot = (props) => {
-  // Check if props or payload is undefined
-  if (!props || !props.payload) {
-    return null;
-  }
-
-  const { cx, cy, payload } = props;
-  
-  // Additional safety check for NaN values
-  if (cx === undefined || cy === undefined || isNaN(cx) || isNaN(cy)) {
-    return null;
-  }
-
-  // Use smaller radius on mobile - check if window is defined (client-side only)
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const radius = isMobile ? 6 : 8;
-  const fontSize = isMobile ? 10 : 12;
-
-  return (
-    <g>
-      <circle
-        cx={cx}
-        cy={cy}
-        r={radius}
-        fill="#78DDE8"
-        stroke="#78DDE8"
-        strokeWidth={2}
-      />
-      <text
-        x={cx}
-        y={cy}
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill="white"
-        fontSize={fontSize}
-        fontWeight="bold"
-      >
-        {/* {payload.value} */}
-      </text>
-    </g>
-  );
-};
-
+// Custom tooltip component
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
@@ -119,163 +158,6 @@ const CustomTooltip = ({ active, payload }) => {
   }
   return null;
 };
-
-// Custom angle axis tick to position labels along the circumference
-const CustomAngleTick = (props) => {
-  const { x, y, cx, cy, payload } = props;
-
-  // Safety check - if any required values are undefined or NaN, return null
-  if (!payload || x === undefined || y === undefined || 
-      cx === undefined || cy === undefined ||
-      isNaN(x) || isNaN(y) || isNaN(cx) || isNaN(cy)) {
-    return null;
-  }
-
-  // Calculate angle in radians
-  const angleRad = (-payload.angle * Math.PI) / 180;
-
-  // Calculate the radius - larger than the chart to position text outside
-  const radius = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2) * 1.15;
-
-  // Determine position and rotation based on the angle
-  let textAnchor = "middle";
-  let textX = cx + radius * Math.cos(angleRad);
-  let textY = cy + radius * Math.sin(angleRad);
-  let rotation = (payload.angle - 90) % 360;
-
-  // Adjust rotation to keep text readable
-  if (rotation > 90 && rotation < 270) {
-    rotation = rotation + 180;
-  }
-
-  return (
-    <g>
-      <text
-        x={textX}
-        y={textY}
-        textAnchor={textAnchor}
-        dominantBaseline="central"
-        fill="white"
-        fontSize="14"
-        fontWeight="600"
-        className="text-[11px] md:text-[14px]"
-        transform={`rotate(${rotation}, ${textX}, ${textY})`}
-      >
-        {payload.value}
-      </text>
-    </g>
-  );
-};
-
-// Define a custom shape for the radar polygon with curved lines
-const CustomRadarShape = (props) => {
-  const { cx, cy, points } = props;
-  
-  if (!points || points.length < 3) return null;
-  
-  // Create a path with cubic Bezier curves
-  let pathData = `M ${points[0].x} ${points[0].y}`;
-  
-  for (let i = 0; i < points.length; i++) {
-    const current = points[i];
-    const next = points[(i + 1) % points.length];
-    const prev = points[(i - 1 + points.length) % points.length];
-    
-    // Calculate control points for smoother cubic Bezier curve
-    // Move control points 1/3 of the way from current to adjacent points
-    const cp1X = current.x + (next.x - prev.x) / 6;
-    const cp1Y = current.y + (next.y - prev.y) / 6;
-    
-    const cp2X = next.x - (next.x - current.x) / 3;
-    const cp2Y = next.y - (next.y - current.y) / 3;
-    
-    // Add cubic Bezier curve segment
-    pathData += ` C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${next.x} ${next.y}`;
-  }
-  
-  pathData += ' Z'; // Close the path
-  
-  return (
-    <path
-      d={pathData}
-      stroke={props.stroke}
-      fill={props.fill}
-      fillOpacity={props.fillOpacity}
-      strokeWidth={props.strokeWidth}
-    />
-  );
-};
-
-// Component for RadarChart to keep BalanceWheel component cleaner
-const BalanceRadarChart = ({ data }) => (
-  <ResponsiveContainer width="100%" height="100%" aspect={1}>
-    <RadarChart
-      cx="50%"
-      cy="50%"
-      outerRadius="100%"
-      startAngle={90}
-      endAngle={-270}
-      margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-    >
-      {/* Dark background circle */}
-      <circle cx="50%" cy="50%" r="85%" fill="#1F4B5A" />
-      
-      <PolarGrid
-        gridType="polygon"
-        stroke="white"
-        radialLines={true}
-        gridCount={5}
-        radialLineProps={{
-          stroke: "white",
-          strokeWidth: 1,
-          strokeOpacity: 0.3,
-        }}
-      />
-      <PolarAngleAxis
-        dataKey="subject"
-        tick={<CustomAngleTick />}
-        tickLine={false}
-        stroke="white"
-        axisLineType="polygon"
-      />
-      <PolarRadiusAxis
-        angle={90}
-        domain={[0, 10]}
-        tick={({ payload, x, y, cx, cy }) => {
-          const value = payload.value;
-          if (value === 0) return null;
-          return (
-            <text
-              x={x}
-              y={y}
-              textAnchor={x > cx ? "start" : "end"}
-              fill="white"
-              fontSize={10}
-              fontWeight="500"
-            >{`${value * 10}%`}</text>
-          );
-        }}
-        tickCount={5}
-        ticks={[2, 4, 6, 8, 10]}
-        stroke="white"
-        axisLine={false}
-      />
-      <Radar
-        name="Life Balance"
-        dataKey="value"
-        stroke="#78DDE8"
-        fill="#78DDE8"
-        fillOpacity={0.2}
-        strokeWidth={3}
-        dot={<CustomDot />}
-        data={data}
-        isAnimationActive={true}
-        shape={<CustomRadarShape />}
-      />
-      <Tooltip content={<CustomTooltip />} />
-    </RadarChart>
-  </ResponsiveContainer>
-);
 
 // Helper function to transform form data to chart data
 const transformFormDataToChartData = (formData) => {
@@ -438,22 +320,13 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
 
   return (
     <div className="w-full h-full flex items-center justify-center" data-wheel-container="true">
-      {/* Main container with fixed proportions */}
-      <div className="relative w-[265px] h-[265px] sm:w-[450px] sm:h-[450px] md:w-[500px] md:h-[500px] lg:w-[510px] lg:h-[510px]">
-        {/* SVG Text Circle - positioned absolutely to surround the inner wheel */}
-        <div className="absolute top-0 left-0 w-full h-full scale-[1.2] sm:scale-[1.15] md:scale-[1.1] lg:scale-[1.08]" data-outer-wheel="true">
-          <SVGLoader />
-        </div>
-        
-        {/* Inner circle with radar chart */}
-        <div
-          ref={graphRef}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[470px] md:h-[470px] lg:w-[520px] lg:h-[520px] bg-[#1A4A5C] rounded-full overflow-hidden"
-          style={{ boxShadow: 'none' }}
-          data-inner-wheel="true"
-        >
-          <BalanceRadarChart data={data} />
-        </div>
+      {/* Main container with the custom SVG wheel */}
+      <div 
+        ref={chartRef}
+        className="relative w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px]"
+        data-balance-wheel="true"
+      >
+        <CustomBalanceWheel data={data} />
       </div>
     </div>
   );
