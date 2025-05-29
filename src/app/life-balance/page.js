@@ -178,8 +178,12 @@ export default function LifeBalancePage() {
                       <img 
                         src="/assets/bg.png" 
                         alt="Background" 
-                        className="absolute inset-0 w-full h-full object-cover "
+                        className="absolute inset-0 w-full h-full object-cover animated-bg"
                       />
+                      {/* Apple weather-style flowing overlays */}
+                      <div className="absolute inset-0 apple-flow-layer-1"></div>
+                      <div className="absolute inset-0 apple-flow-layer-2"></div>
+                      <div className="absolute inset-0 apple-flow-layer-3"></div>
                     </div>
                     
                     {/* Content container */}
@@ -256,6 +260,164 @@ export default function LifeBalancePage() {
 
           /* Removed animation styles for gradient background */
           
+          /* Apple Weather-style flowing animations */
+          .animated-bg {
+            animation: gentle-drift 15s ease-in-out infinite;
+          }
+          
+          @keyframes gentle-drift {
+            0%, 100% { 
+              transform: translateX(0%) scale(1.01);
+            }
+            50% { 
+              transform: translateX(-3%) scale(1.02);
+            }
+          }
+          
+          /* Flowing layers that move right to left continuously */
+          .apple-flow-layer-1 {
+            background: linear-gradient(90deg, 
+              transparent 0%, 
+              rgba(255,255,255,0.15) 25%, 
+              rgba(173,216,230,0.20) 50%, 
+              rgba(135,206,235,0.15) 75%, 
+              transparent 100%);
+            animation: flow-right-to-left-1 6s linear infinite;
+            width: 200%;
+          }
+          
+          .apple-flow-layer-2 {
+            background: linear-gradient(90deg, 
+              transparent 0%, 
+              rgba(100,149,237,0.12) 30%, 
+              rgba(176,224,230,0.18) 60%, 
+              rgba(70,130,180,0.12) 90%, 
+              transparent 100%);
+            animation: flow-right-to-left-2 9s linear infinite;
+            width: 250%;
+          }
+          
+          .apple-flow-layer-3 {
+            background: linear-gradient(90deg, 
+              transparent 0%, 
+              rgba(240,248,255,0.08) 20%, 
+              rgba(230,230,250,0.14) 50%, 
+              rgba(176,196,222,0.10) 80%, 
+              transparent 100%);
+            animation: flow-right-to-left-3 12s linear infinite;
+            width: 300%;
+          }
+          
+          @keyframes flow-right-to-left-1 {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-100%);
+            }
+          }
+          
+          @keyframes flow-right-to-left-2 {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-150%);
+            }
+          }
+          
+          @keyframes flow-right-to-left-3 {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-200%);
+            }
+          }
+          
+          /* Mobile-specific enhancements */
+          @media (max-width: 767px) {
+            .apple-flow-layer-1 {
+              background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255,255,255,0.20) 25%, 
+                rgba(173,216,230,0.25) 50%, 
+                rgba(135,206,235,0.20) 75%, 
+                transparent 100%);
+              animation: flow-right-to-left-1 5s linear infinite;
+            }
+            
+            .apple-flow-layer-2 {
+              background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(100,149,237,0.15) 30%, 
+                rgba(176,224,230,0.22) 60%, 
+                rgba(70,130,180,0.15) 90%, 
+                transparent 100%);
+              animation: flow-right-to-left-2 7s linear infinite;
+            }
+            
+            .apple-flow-layer-3 {
+              background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(240,248,255,0.12) 20%, 
+                rgba(230,230,250,0.18) 50%, 
+                rgba(176,196,222,0.14) 80%, 
+                transparent 100%);
+              animation: flow-right-to-left-3 9s linear infinite;
+            }
+            
+            /* Additional mobile cloud layer */
+            .animated-bg::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: 
+                radial-gradient(ellipse 400px 200px at 120% 20%, rgba(255,255,255,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 300px 150px at 80% 80%, rgba(173,216,230,0.08) 0%, transparent 60%);
+              animation: mobile-cloud-flow 15s linear infinite;
+              width: 180%;
+            }
+          }
+          
+          @keyframes mobile-cloud-flow {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-80%);
+            }
+          }
+          
+          /* Desktop cloud movement - enhanced visibility */
+          @media (min-width: 768px) {
+            .animated-bg::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: 
+                radial-gradient(ellipse 800px 400px at 120% 30%, rgba(255,255,255,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 300px at 80% 70%, rgba(173,216,230,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 1000px 500px at 150% 90%, rgba(135,206,235,0.05) 0%, transparent 70%);
+              animation: cloud-flow 15s linear infinite;
+              width: 200%;
+            }
+          }
+          
+          @keyframes cloud-flow {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-100%);
+            }
+          }
         `}</style>
       </div>
     </PageTransition>
