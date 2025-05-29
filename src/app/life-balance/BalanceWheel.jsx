@@ -80,8 +80,8 @@ const CustomDot = (props) => {
 
   // Use smaller radius on mobile - check if window is defined (client-side only)
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const radius = isMobile ? 4 : 5;
-  const fontSize = isMobile ? 9 : 10;
+  const radius = isMobile ? 6 : 8;
+  const fontSize = isMobile ? 10 : 12;
 
   return (
     <g>
@@ -89,8 +89,8 @@ const CustomDot = (props) => {
         cx={cx}
         cy={cy}
         r={radius}
-        fill="#866948"
-        stroke="white"
+        fill="#4DD0E1"
+        stroke="#4DD0E1"
         strokeWidth={2}
       />
       <text
@@ -111,7 +111,7 @@ const CustomDot = (props) => {
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#866948] text-white p-3 rounded shadow-lg">
+      <div className="bg-[#1A4A5C] text-white p-3 rounded shadow-lg border border-[#4DD0E1]">
         <p className="font-bold">{payload[0].payload.subject}</p>
         <p>Score: {payload[0].payload.value}/10</p>
       </div>
@@ -135,7 +135,7 @@ const CustomAngleTick = (props) => {
   const angleRad = (-payload.angle * Math.PI) / 180;
 
   // Calculate the radius - larger than the chart to position text outside
-  const radius = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2) * 1.2;
+  const radius = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2) * 1.15;
 
   // Determine position and rotation based on the angle
   let textAnchor = "middle";
@@ -157,8 +157,8 @@ const CustomAngleTick = (props) => {
         dominantBaseline="central"
         fill="white"
         fontSize="14"
-        fontWeight="bold"
-        className="text-[12px] md:text-[16px]"
+        fontWeight="600"
+        className="text-[11px] md:text-[14px]"
         transform={`rotate(${rotation}, ${textX}, ${textY})`}
       >
         {payload.value}
@@ -212,28 +212,30 @@ const BalanceRadarChart = ({ data }) => (
     <RadarChart
       cx="50%"
       cy="50%"
-      outerRadius="92%"
+      outerRadius="85%"
       startAngle={90}
       endAngle={-270}
-      margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
+      margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
     >
-      <circle cx="50%" cy="50%" r="85%" fill="white" />
+      {/* Dark background circle */}
+      <circle cx="50%" cy="50%" r="85%" fill="#1A4A5C" />
+      
       <PolarGrid
         gridType="circle"
-        stroke="#D6CDB2"
+        stroke="white"
         radialLines={true}
         gridCount={5}
         radialLineProps={{
-          stroke: "#D6CDB2",
+          stroke: "white",
           strokeWidth: 1,
-          strokeOpacity: 1,
+          strokeOpacity: 0.3,
         }}
       />
       <PolarAngleAxis
         dataKey="subject"
         tick={<CustomAngleTick />}
         tickLine={false}
-        stroke="#D6CDB2"
+        stroke="white"
         axisLineType="circle"
       />
       <PolarRadiusAxis
@@ -247,23 +249,24 @@ const BalanceRadarChart = ({ data }) => (
               x={x}
               y={y}
               textAnchor={x > cx ? "start" : "end"}
-              fill="#666666"
+              fill="white"
               fontSize={10}
-            >{`${value}`}</text>
+              fontWeight="500"
+            >{`${value * 10}%`}</text>
           );
         }}
         tickCount={5}
         ticks={[2, 4, 6, 8, 10]}
-        stroke="#D6CDB2"
+        stroke="white"
         axisLine={false}
       />
       <Radar
         name="Life Balance"
         dataKey="value"
-        stroke="#866948"
-        fill="#866948"
-        fillOpacity={0.1}
-        strokeWidth={2}
+        stroke="#4DD0E1"
+        fill="#4DD0E1"
+        fillOpacity={0.2}
+        strokeWidth={3}
         dot={<CustomDot />}
         data={data}
         isAnimationActive={true}
@@ -364,22 +367,22 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
       el.setAttribute("class", filteredClasses.join(" "));
     });
 
-    // Set explicit background to white for the capture
+    // Set explicit background to dark teal for the capture
     const originalStyle = chartRef.current.getAttribute("style") || "";
     chartRef.current.setAttribute(
       "style",
-      `${originalStyle}; background-color: #FFFFFF !important;`
+      `${originalStyle}; background-color: #1A4A5C !important;`
     );
 
-    // Set background to white for the capture
+    // Set background to dark teal for the capture
     html2canvas(chartRef.current, {
-      backgroundColor: "#FFFFFF",
+      backgroundColor: "#1A4A5C",
       useCORS: true,
       scale: 2, // Higher resolution
       removeContainer: true,
       onclone: (clonedDoc, element) => {
         // Any additional modifications to the cloned document if needed
-        element.style.backgroundColor = "#FFFFFF";
+        element.style.backgroundColor = "#1A4A5C";
       },
     }).then((canvas) => {
       // Convert to JPEG
@@ -427,8 +430,8 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
   // If not mounted or no formData, show a loading placeholder
   if (!mounted || !formData) {
     return (
-      <div className="w-full h-[500px] flex items-center justify-center bg-black rounded-full">
-        <p>Loading balance wheel...</p>
+      <div className="w-full h-[500px] flex items-center justify-center bg-[#1A4A5C] rounded-full">
+        <p className="text-white">Loading balance wheel...</p>
       </div>
     );
   }
@@ -445,7 +448,7 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
         {/* Inner circle with radar chart */}
         <div
           ref={graphRef}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[470px] md:h-[470px] lg:w-[520px] lg:h-[520px] bg-white rounded-full overflow-hidden"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[470px] md:h-[470px] lg:w-[520px] lg:h-[520px] bg-[#1A4A5C] rounded-full overflow-hidden"
           style={{ boxShadow: 'none' }}
           data-inner-wheel="true"
         >
