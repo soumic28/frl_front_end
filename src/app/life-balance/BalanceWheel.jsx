@@ -35,6 +35,50 @@ const CustomBalanceWheel = ({ data }) => {
         svgElement.setAttribute('width', '100%');
         svgElement.setAttribute('height', '100%');
         
+        // Remove existing data visualization elements (circles, lines, polygons that look like data points)
+        // Keep only the base wheel design and text labels
+        const elementsToRemove = [];
+        
+        // Find and mark elements that appear to be data visualization (not the base design)
+        const allElements = svgElement.querySelectorAll('*');
+        allElements.forEach(element => {
+          // Remove elements that are likely data visualization based on their attributes
+          if (element.tagName === 'circle' && 
+              (element.getAttribute('fill') === '#78DDE8' || 
+               element.getAttribute('stroke') === '#78DDE8' ||
+               element.getAttribute('fill') === 'white' && element.getAttribute('stroke'))) {
+            elementsToRemove.push(element);
+          }
+          
+          // Remove lines that connect data points (typically have specific stroke colors)
+          if (element.tagName === 'line' && 
+              (element.getAttribute('stroke') === '#78DDE8' || 
+               element.getAttribute('stroke-opacity'))) {
+            elementsToRemove.push(element);
+          }
+          
+          // Remove polygons that represent data areas
+          if (element.tagName === 'polygon' && 
+              (element.getAttribute('fill') === '#78DDE8' || 
+               element.getAttribute('fill-opacity'))) {
+            elementsToRemove.push(element);
+          }
+          
+          // Remove paths that might be data visualization (not the base wheel design)
+          if (element.tagName === 'path' && 
+              (element.getAttribute('fill') === '#78DDE8' || 
+               element.getAttribute('stroke') === '#78DDE8')) {
+            elementsToRemove.push(element);
+          }
+        });
+        
+        // Remove the identified elements
+        elementsToRemove.forEach(element => {
+          if (element.parentNode) {
+            element.parentNode.removeChild(element);
+          }
+        });
+        
         // Define the center and radius for data points
         const centerX = 441;
         const centerY = 437;
