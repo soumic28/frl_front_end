@@ -106,7 +106,7 @@ export default function LifeBalancePage() {
 
   return (
     <PageTransition>
-      <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh] overflow-hidden md:my-0 items-center justify-center">
+      <div className="h-full bg-[#19667A] flex flex-col min-h-[100dvh] overflow-hidden md:my-0 items-center justify-center ">
         <div className="w-full max-w-screen-[1440px] mx-auto px-4 flex items-center justify-center">
           <div className="flex flex-col md:flex-row w-full justify-center items-center">
             {/* Visualization Section */}
@@ -173,16 +173,17 @@ export default function LifeBalancePage() {
                 {/* Results stage - With animated gradient background */}
                 {currentStage === 11 && (
                   <div className="fixed inset-0 z-[1] overflow-hidden">
-                    {/* Base teal background */}
-                    <div className="absolute inset-0 bg-[#205A6A]"></div>
-                    
-                    {/* Animated gradient circles */}
-                    <div className="gradient-bg">
-                      <div className="gradient-circle c1"></div>
-                      <div className="gradient-circle c2"></div>
-                      <div className="gradient-circle c3"></div>
-                      <div className="gradient-circle c4"></div>
-                      <div className="gradient-circle c5"></div>
+                    {/* Base teal background with image */}
+                    <div className="absolute inset-0 bg-[#081A20]">
+                      <img 
+                        src="/assets/bg.png" 
+                        alt="Background" 
+                        className="absolute inset-0 w-full h-full object-cover animated-bg"
+                      />
+                      {/* Apple weather-style flowing overlays */}
+                      <div className="absolute inset-0 apple-flow-layer-1"></div>
+                      <div className="absolute inset-0 apple-flow-layer-2"></div>
+                      <div className="absolute inset-0 apple-flow-layer-3"></div>
                     </div>
                     
                     {/* Content container */}
@@ -257,109 +258,165 @@ export default function LifeBalancePage() {
             }
           }
 
-          /* Animated gradient background styles */
-          .gradient-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            filter: blur(10px);
-            opacity: 0.8;
+          /* Removed animation styles for gradient background */
+          
+          /* Apple Weather-style flowing animations */
+          .animated-bg {
+            animation: gentle-drift 15s ease-in-out infinite;
           }
           
-          .gradient-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, 
-              rgba(24, 110, 137, 0.9) 0%, 
-              rgba(15, 80, 105, 0.8) 40%, 
-              rgba(32, 90, 106, 0.6) 60%, 
-              rgba(15, 43, 53, 0.3) 80%
-            );
-            mix-blend-mode: screen;
+          @keyframes gentle-drift {
+            0%, 100% { 
+              transform: translateX(0%) scale(1.01);
+            }
+            50% { 
+              transform: translateX(-3%) scale(1.02);
+            }
           }
           
-          .c1 {
-            top: -10%;
-            left: -10%;
-            width: 50%;
-            height: 50%;
-            animation: move1 4s infinite linear;
+          /* Flowing layers that move right to left continuously */
+          .apple-flow-layer-1 {
+            background: linear-gradient(90deg, 
+              transparent 0%, 
+              rgba(255,255,255,0.15) 25%, 
+              rgba(173,216,230,0.20) 50%, 
+              rgba(135,206,235,0.15) 75%, 
+              transparent 100%);
+            animation: flow-right-to-left-1 6s linear infinite;
+            width: 200%;
           }
           
-          .c2 {
-            bottom: -5%;
-            right: 10%;
-            width: 40%;
-            height: 40%;
-            animation: move2 5s infinite linear;
+          .apple-flow-layer-2 {
+            background: linear-gradient(90deg, 
+              transparent 0%, 
+              rgba(100,149,237,0.12) 30%, 
+              rgba(176,224,230,0.18) 60%, 
+              rgba(70,130,180,0.12) 90%, 
+              transparent 100%);
+            animation: flow-right-to-left-2 9s linear infinite;
+            width: 250%;
           }
           
-          .c3 {
-            top: 20%;
-            right: -10%;
-            width: 60%;
-            height: 60%;
-            animation: move3 6s infinite linear;
+          .apple-flow-layer-3 {
+            background: linear-gradient(90deg, 
+              transparent 0%, 
+              rgba(240,248,255,0.08) 20%, 
+              rgba(230,230,250,0.14) 50%, 
+              rgba(176,196,222,0.10) 80%, 
+              transparent 100%);
+            animation: flow-right-to-left-3 12s linear infinite;
+            width: 300%;
           }
           
-          .c4 {
-            bottom: 30%;
-            left: 10%;
-            width: 35%;
-            height: 35%;
-            animation: move4 3.5s infinite linear;
+          @keyframes flow-right-to-left-1 {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-100%);
+            }
           }
           
-          .c5 {
-            top: 40%;
-            left: 40%;
-            width: 45%;
-            height: 45%;
-            animation: move5 4.5s infinite linear;
+          @keyframes flow-right-to-left-2 {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-150%);
+            }
           }
           
-          @keyframes move1 {
-            0% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(10%, 15%) scale(1.1); }
-            50% { transform: translate(20%, 5%) scale(0.9); }
-            75% { transform: translate(5%, 20%) scale(1.05); }
-            100% { transform: translate(0, 0) scale(1); }
+          @keyframes flow-right-to-left-3 {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-200%);
+            }
           }
           
-          @keyframes move2 {
-            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-            33% { transform: translate(-15%, -10%) rotate(120deg) scale(1.2); }
-            66% { transform: translate(-5%, -20%) rotate(240deg) scale(0.8); }
-            100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+          /* Mobile-specific enhancements */
+          @media (max-width: 767px) {
+            .apple-flow-layer-1 {
+              background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255,255,255,0.20) 25%, 
+                rgba(173,216,230,0.25) 50%, 
+                rgba(135,206,235,0.20) 75%, 
+                transparent 100%);
+              animation: flow-right-to-left-1 5s linear infinite;
+            }
+            
+            .apple-flow-layer-2 {
+              background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(100,149,237,0.15) 30%, 
+                rgba(176,224,230,0.22) 60%, 
+                rgba(70,130,180,0.15) 90%, 
+                transparent 100%);
+              animation: flow-right-to-left-2 7s linear infinite;
+            }
+            
+            .apple-flow-layer-3 {
+              background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(240,248,255,0.12) 20%, 
+                rgba(230,230,250,0.18) 50%, 
+                rgba(176,196,222,0.14) 80%, 
+                transparent 100%);
+              animation: flow-right-to-left-3 9s linear infinite;
+            }
+            
+            /* Additional mobile cloud layer */
+            .animated-bg::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: 
+                radial-gradient(ellipse 400px 200px at 120% 20%, rgba(255,255,255,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 300px 150px at 80% 80%, rgba(173,216,230,0.08) 0%, transparent 60%);
+              animation: mobile-cloud-flow 15s linear infinite;
+              width: 180%;
+            }
           }
           
-          @keyframes move3 {
-            0% { transform: translate(0, 0) scale(1); }
-            20% { transform: translate(-20%, 10%) scale(0.8); }
-            40% { transform: translate(-10%, 20%) scale(1.1); }
-            60% { transform: translate(-30%, 5%) scale(0.9); }
-            80% { transform: translate(-15%, 15%) scale(1.2); }
-            100% { transform: translate(0, 0) scale(1); }
+          @keyframes mobile-cloud-flow {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-80%);
+            }
           }
           
-          @keyframes move4 {
-            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-            25% { transform: translate(15%, -15%) rotate(90deg) scale(0.9); }
-            50% { transform: translate(25%, 10%) rotate(180deg) scale(1.1); }
-            75% { transform: translate(10%, 20%) rotate(270deg) scale(0.8); }
-            100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+          /* Desktop cloud movement - enhanced visibility */
+          @media (min-width: 768px) {
+            .animated-bg::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: 
+                radial-gradient(ellipse 800px 400px at 120% 30%, rgba(255,255,255,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 300px at 80% 70%, rgba(173,216,230,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 1000px 500px at 150% 90%, rgba(135,206,235,0.05) 0%, transparent 70%);
+              animation: cloud-flow 15s linear infinite;
+              width: 200%;
+            }
           }
           
-          @keyframes move5 {
-            0% { transform: translate(0, 0) scale(1); }
-            20% { transform: translate(20%, 10%) scale(1.1); }
-            40% { transform: translate(5%, 25%) scale(0.9); }
-            60% { transform: translate(-15%, 15%) scale(1.2); }
-            80% { transform: translate(-20%, 5%) scale(0.8); }
-            100% { transform: translate(0, 0) scale(1); }
+          @keyframes cloud-flow {
+            0% { 
+              transform: translateX(100%);
+            }
+            100% { 
+              transform: translateX(-100%);
+            }
           }
         `}</style>
       </div>
