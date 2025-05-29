@@ -89,8 +89,8 @@ const CustomDot = (props) => {
         cx={cx}
         cy={cy}
         r={radius}
-        fill="#4DD0E1"
-        stroke="#4DD0E1"
+        fill="#78DDE8"
+        stroke="#78DDE8"
         strokeWidth={2}
       />
       <text
@@ -212,16 +212,16 @@ const BalanceRadarChart = ({ data }) => (
     <RadarChart
       cx="50%"
       cy="50%"
-      outerRadius="85%"
+      outerRadius="100%"
       startAngle={90}
       endAngle={-270}
       margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
     >
       {/* Dark background circle */}
-      <circle cx="50%" cy="50%" r="85%" fill="#1A4A5C" />
+      <circle cx="50%" cy="50%" r="85%" fill="#1F4B5A" />
       
       <PolarGrid
-        gridType="circle"
+        gridType="polygon"
         stroke="white"
         radialLines={true}
         gridCount={5}
@@ -236,7 +236,7 @@ const BalanceRadarChart = ({ data }) => (
         tick={<CustomAngleTick />}
         tickLine={false}
         stroke="white"
-        axisLineType="circle"
+        axisLineType="polygon"
       />
       <PolarRadiusAxis
         angle={90}
@@ -263,8 +263,8 @@ const BalanceRadarChart = ({ data }) => (
       <Radar
         name="Life Balance"
         dataKey="value"
-        stroke="#4DD0E1"
-        fill="#4DD0E1"
+        stroke="#78DDE8"
+        fill="#78DDE8"
         fillOpacity={0.2}
         strokeWidth={3}
         dot={<CustomDot />}
