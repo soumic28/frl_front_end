@@ -22,7 +22,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
         ultimate truth, just check in with how you feel in this moment.
       </p>
       <p className="text-[#E6E6E6] block lg:hidden font-general-sans font-medium text-[15px] mt-4 sm:mt-6">
-      This is your current life balance wheel. Scores may shift hourly, daily, or weekly. Don’t seek ultimate truth just notice how you feel right now.
+      This is your current life balance wheel. Scores may shift hourly, daily, or weekly. Don&apos;t seek ultimate truth just notice how you feel right now.
       </p>
 
       <p className="text-[#E6E6E6] block lg:hidden font-medium italic text-[12px] mt-4 sm:mt-6">
@@ -67,6 +67,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
             />
           </svg>
         </motion.button>
+        
         <motion.button
           onClick={() => {
             router.push("/resources");

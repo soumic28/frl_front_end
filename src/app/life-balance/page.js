@@ -62,6 +62,36 @@ export default function LifeBalancePage() {
 
   // Handle image download
   const handleDownload = () => {
+    console.log("handleDownload called");
+    console.log("wheelRef.current:", wheelRef.current);
+    console.log("date:", date);
+    
+    if (!wheelRef.current) {
+      console.error("wheelRef.current is null or undefined");
+      
+      // Try alternative download method
+      console.log("Attempting alternative download method...");
+      
+      // Look for the wheel element by data attribute
+      const wheelElement = document.querySelector('[data-balance-wheel="true"]');
+      if (wheelElement) {
+        console.log("Found wheel element by data attribute");
+        generateBalanceWheelImage(wheelElement, date);
+        return;
+      }
+      
+      // Look for the wheel container
+      const wheelContainer = document.querySelector('[data-wheel-container="true"]');
+      if (wheelContainer) {
+        console.log("Found wheel container by data attribute");
+        generateBalanceWheelImage(wheelContainer, date);
+        return;
+      }
+      
+      alert("Unable to download: Wheel not ready. Please wait a moment and try again.");
+      return;
+    }
+    
     generateBalanceWheelImage(wheelRef.current, date);
   };
 
@@ -185,6 +215,12 @@ export default function LifeBalancePage() {
                       <div className="absolute inset-0 apple-flow-layer-1"></div>
                       <div className="absolute inset-0 apple-flow-layer-2"></div>
                       <div className="absolute inset-0 apple-flow-layer-3"></div>
+                      
+                      {/* Apple Weather-Style Lightning Effects */}
+                      <div className="absolute inset-0 lightning-bolt-main"></div>
+                      <div className="absolute inset-0 lightning-bolt-secondary"></div>
+                      <div className="absolute inset-0 lightning-flash-overlay"></div>
+                      <div className="absolute inset-0 lightning-afterglow"></div>
                     </div>
                     
                     {/* Content container with equal spacing */}
@@ -420,6 +456,257 @@ export default function LifeBalancePage() {
             }
             100% { 
               transform: translateX(-100%);
+            }
+          }
+          
+          /* ===== APPLE WEATHER STYLE LIGHTNING EFFECTS ===== */
+          
+          /* Main Lightning Bolt - Realistic jagged pattern */
+          .lightning-bolt-main {
+            background: 
+              linear-gradient(15deg, transparent 0%, transparent 45%, 
+                rgba(255,255,255,0.9) 46%, rgba(135,206,250,0.8) 47%, 
+                rgba(255,255,255,0.95) 48%, transparent 49%, transparent 100%),
+              linear-gradient(25deg, transparent 0%, transparent 52%, 
+                rgba(255,255,255,0.85) 53%, rgba(173,216,230,0.7) 54%, 
+                rgba(255,255,255,0.9) 55%, transparent 56%, transparent 100%),
+              linear-gradient(35deg, transparent 0%, transparent 38%, 
+                rgba(255,255,255,0.8) 39%, rgba(100,149,237,0.6) 40%, 
+                rgba(255,255,255,0.85) 41%, transparent 42%, transparent 100%);
+            animation: lightning-strike-main 8s ease-in-out infinite;
+            opacity: 0;
+            filter: blur(0.5px);
+          }
+          
+          /* Secondary Lightning Bolt - Branching effect */
+          .lightning-bolt-secondary {
+            background: 
+              linear-gradient(-20deg, transparent 0%, transparent 60%, 
+                rgba(255,255,255,0.7) 61%, rgba(176,224,230,0.5) 62%, 
+                rgba(255,255,255,0.75) 63%, transparent 64%, transparent 100%),
+              linear-gradient(-10deg, transparent 0%, transparent 35%, 
+                rgba(255,255,255,0.6) 36%, rgba(135,206,235,0.4) 37%, 
+                rgba(255,255,255,0.65) 38%, transparent 39%, transparent 100%),
+              linear-gradient(-30deg, transparent 0%, transparent 70%, 
+                rgba(255,255,255,0.5) 71%, rgba(70,130,180,0.3) 72%, 
+                rgba(255,255,255,0.55) 73%, transparent 74%, transparent 100%);
+            animation: lightning-strike-secondary 8s ease-in-out infinite;
+            animation-delay: 0.3s;
+            opacity: 0;
+            filter: blur(0.3px);
+          }
+          
+          /* Lightning Flash Overlay - Screen illumination */
+          .lightning-flash-overlay {
+            background: 
+              radial-gradient(ellipse 100% 80% at 50% 30%, rgba(255,255,255,0.4) 0%, transparent 70%),
+              radial-gradient(ellipse 80% 60% at 30% 50%, rgba(173,216,230,0.3) 0%, transparent 60%),
+              radial-gradient(ellipse 90% 70% at 70% 40%, rgba(135,206,235,0.2) 0%, transparent 80%);
+            animation: lightning-flash 8s ease-in-out infinite;
+            animation-delay: 0.1s;
+            opacity: 0;
+            mix-blend-mode: screen;
+          }
+          
+          /* Lightning Afterglow - Residual illumination */
+          .lightning-afterglow {
+            background: 
+              radial-gradient(ellipse 120% 100% at 50% 40%, rgba(255,255,255,0.1) 0%, transparent 80%),
+              radial-gradient(ellipse 80% 60% at 40% 60%, rgba(173,216,230,0.08) 0%, transparent 70%),
+              radial-gradient(ellipse 100% 80% at 60% 30%, rgba(100,149,237,0.06) 0%, transparent 90%);
+            animation: lightning-afterglow 8s ease-in-out infinite;
+            animation-delay: 0.5s;
+            opacity: 0;
+          }
+          
+          /* Main Lightning Strike Animation */
+          @keyframes lightning-strike-main {
+            0%, 85% { 
+              opacity: 0;
+              transform: scaleY(0) translateX(0%);
+            }
+            86% { 
+              opacity: 1;
+              transform: scaleY(1) translateX(-2%);
+            }
+            86.2% { 
+              opacity: 0;
+              transform: scaleY(1) translateX(-2%);
+            }
+            86.5% { 
+              opacity: 1;
+              transform: scaleY(1) translateX(1%);
+            }
+            87% { 
+              opacity: 0;
+              transform: scaleY(1) translateX(1%);
+            }
+            100% { 
+              opacity: 0;
+              transform: scaleY(0) translateX(0%);
+            }
+          }
+          
+          /* Secondary Lightning Strike Animation */
+          @keyframes lightning-strike-secondary {
+            0%, 85.3% { 
+              opacity: 0;
+              transform: scaleX(0) translateY(0%);
+            }
+            85.8% { 
+              opacity: 0.8;
+              transform: scaleX(1) translateY(-1%);
+            }
+            86% { 
+              opacity: 0;
+              transform: scaleX(1) translateY(-1%);
+            }
+            86.3% { 
+              opacity: 0.6;
+              transform: scaleX(1) translateY(2%);
+            }
+            86.8% { 
+              opacity: 0;
+              transform: scaleX(1) translateY(2%);
+            }
+            100% { 
+              opacity: 0;
+              transform: scaleX(0) translateY(0%);
+            }
+          }
+          
+          /* Lightning Flash Animation */
+          @keyframes lightning-flash {
+            0%, 85% { 
+              opacity: 0;
+              transform: scale(1);
+            }
+            85.5% { 
+              opacity: 0.6;
+              transform: scale(1.1);
+            }
+            86% { 
+              opacity: 0.3;
+              transform: scale(1.05);
+            }
+            86.5% { 
+              opacity: 0.8;
+              transform: scale(1.15);
+            }
+            87.5% { 
+              opacity: 0;
+              transform: scale(1);
+            }
+            100% { 
+              opacity: 0;
+              transform: scale(1);
+            }
+          }
+          
+          /* Lightning Afterglow Animation */
+          @keyframes lightning-afterglow {
+            0%, 86% { 
+              opacity: 0;
+              transform: scale(1);
+            }
+            87% { 
+              opacity: 0.4;
+              transform: scale(1.2);
+            }
+            90% { 
+              opacity: 0.2;
+              transform: scale(1.1);
+            }
+            95% { 
+              opacity: 0.1;
+              transform: scale(1.05);
+            }
+            100% { 
+              opacity: 0;
+              transform: scale(1);
+            }
+          }
+          
+          /* Mobile Lightning Optimizations */
+          @media (max-width: 767px) {
+            .lightning-bolt-main {
+              background: 
+                linear-gradient(20deg, transparent 0%, transparent 42%, 
+                  rgba(255,255,255,1) 43%, rgba(135,206,250,0.9) 44%, 
+                  rgba(255,255,255,1) 45%, transparent 46%, transparent 100%),
+                linear-gradient(30deg, transparent 0%, transparent 48%, 
+                  rgba(255,255,255,0.95) 49%, rgba(173,216,230,0.8) 50%, 
+                  rgba(255,255,255,0.95) 51%, transparent 52%, transparent 100%),
+                linear-gradient(40deg, transparent 0%, transparent 35%, 
+                  rgba(255,255,255,0.9) 36%, rgba(100,149,237,0.7) 37%, 
+                  rgba(255,255,255,0.9) 38%, transparent 39%, transparent 100%);
+              animation: lightning-strike-main 6s ease-in-out infinite;
+              filter: blur(0.3px);
+            }
+            
+            .lightning-bolt-secondary {
+              background: 
+                linear-gradient(-25deg, transparent 0%, transparent 55%, 
+                  rgba(255,255,255,0.8) 56%, rgba(176,224,230,0.6) 57%, 
+                  rgba(255,255,255,0.8) 58%, transparent 59%, transparent 100%),
+                linear-gradient(-15deg, transparent 0%, transparent 30%, 
+                  rgba(255,255,255,0.7) 31%, rgba(135,206,235,0.5) 32%, 
+                  rgba(255,255,255,0.7) 33%, transparent 34%, transparent 100%);
+              animation: lightning-strike-secondary 6s ease-in-out infinite;
+              animation-delay: 0.2s;
+              filter: blur(0.2px);
+            }
+            
+            .lightning-flash-overlay {
+              background: 
+                radial-gradient(ellipse 120% 100% at 50% 30%, rgba(255,255,255,0.6) 0%, transparent 70%),
+                radial-gradient(ellipse 100% 80% at 30% 50%, rgba(173,216,230,0.4) 0%, transparent 60%),
+                radial-gradient(ellipse 110% 90% at 70% 40%, rgba(135,206,235,0.3) 0%, transparent 80%);
+              animation: lightning-flash 6s ease-in-out infinite;
+              animation-delay: 0.1s;
+            }
+            
+            .lightning-afterglow {
+              background: 
+                radial-gradient(ellipse 140% 120% at 50% 40%, rgba(255,255,255,0.15) 0%, transparent 80%),
+                radial-gradient(ellipse 100% 80% at 40% 60%, rgba(173,216,230,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 120% 100% at 60% 30%, rgba(100,149,237,0.08) 0%, transparent 90%);
+              animation: lightning-afterglow 6s ease-in-out infinite;
+              animation-delay: 0.3s;
+            }
+          }
+          
+          /* Desktop Lightning Enhancements */
+          @media (min-width: 768px) {
+            .lightning-bolt-main {
+              background: 
+                linear-gradient(12deg, transparent 0%, transparent 47%, 
+                  rgba(255,255,255,0.85) 48%, rgba(135,206,250,0.7) 49%, 
+                  rgba(255,255,255,0.9) 50%, transparent 51%, transparent 100%),
+                linear-gradient(22deg, transparent 0%, transparent 54%, 
+                  rgba(255,255,255,0.8) 55%, rgba(173,216,230,0.6) 56%, 
+                  rgba(255,255,255,0.85) 57%, transparent 58%, transparent 100%),
+                linear-gradient(32deg, transparent 0%, transparent 40%, 
+                  rgba(255,255,255,0.75) 41%, rgba(100,149,237,0.5) 42%, 
+                  rgba(255,255,255,0.8) 43%, transparent 44%, transparent 100%),
+                linear-gradient(42deg, transparent 0%, transparent 62%, 
+                  rgba(255,255,255,0.7) 63%, rgba(70,130,180,0.4) 64%, 
+                  rgba(255,255,255,0.75) 65%, transparent 66%, transparent 100%);
+              filter: blur(0.7px);
+            }
+            
+            .lightning-bolt-secondary {
+              background: 
+                linear-gradient(-18deg, transparent 0%, transparent 62%, 
+                  rgba(255,255,255,0.65) 63%, rgba(176,224,230,0.45) 64%, 
+                  rgba(255,255,255,0.7) 65%, transparent 66%, transparent 100%),
+                linear-gradient(-8deg, transparent 0%, transparent 37%, 
+                  rgba(255,255,255,0.55) 38%, rgba(135,206,235,0.35) 39%, 
+                  rgba(255,255,255,0.6) 40%, transparent 41%, transparent 100%),
+                linear-gradient(-28deg, transparent 0%, transparent 72%, 
+                  rgba(255,255,255,0.45) 73%, rgba(70,130,180,0.25) 74%, 
+                  rgba(255,255,255,0.5) 75%, transparent 76%, transparent 100%);
+              filter: blur(0.4px);
             }
           }
         `}</style>
