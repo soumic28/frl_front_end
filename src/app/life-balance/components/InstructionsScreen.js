@@ -5,6 +5,7 @@ const InstructionsScreen = ({
   setCurrentStage,
   currentStage,
   pageVariants,
+  onBack,
 }) => (
   <motion.div
     key="stage-1"
@@ -12,8 +13,32 @@ const InstructionsScreen = ({
     animate="visible"
     exit="exit"
     variants={pageVariants}
-    className="flex flex-col min-h-[calc(40vh-120px)] md:min-h-0 mt-[10vh] sm:mt-[15vh] ml-4 sm:ml-[5vw] md:ml-[8vw] pr-4 sm:pr-[5vw] "
+    className="flex flex-col min-h-[calc(40vh-120px)] md:min-h-0 mt-[10vh] sm:mt-[15vh] ml-4 sm:ml-[5vw] md:ml-[8vw] pr-4 sm:pr-[5vw] relative"
   >
+    {/* Back button at top, aligned with heading left edge */}
+    {onBack && (
+      <button
+        onClick={onBack}
+        className="fixed top-4 left-4 sm:left-[5vw] md:left-[8vw] md:top-6 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-md z-50"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 19L8 12L15 5"
+            stroke="#19667A"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+    )}
+    
     <div className="flex-grow">
       <h1 className="text-white font-general-sans text-3xl xs:text-4xl whitespace-nowrap sm:text-5xl font-semibold leading-tight sm:leading-[62.40px] -mt-[90px] md:mt-0">
         Life Balance Wheel
