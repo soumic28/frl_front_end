@@ -143,6 +143,7 @@ export default function LifeBalancePage() {
                     setCurrentStage={handleStageProgression}
                     currentStage={currentStage}
                     pageVariants={pageVariants}
+                    onBack={handleBackNavigation}
                   />
                 )}
 

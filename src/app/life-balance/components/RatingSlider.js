@@ -155,7 +155,7 @@ const RatingSlider = ({ initialValue = 5, onChange }) => {
 
           {/* Number labels for 1 and 10 */}
           <text x="1" y="65" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold">1</text>
-          <text x="443" y="65" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold">10</text>
+          <text x="440" y="65" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold">10</text>
 
           {/* Line with tick marks */}
           <path
