@@ -8,7 +8,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
     animate="visible"
     exit="exit"
     variants={pageVariants}
-    className="flex flex-col min-h-[calc(50vh-120px)] md:min-h-0 mt-[2vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw] mb-[40px] md:mb-0 "
+    className="flex flex-col min-h-[calc(50vh-120px)] md:min-h-0 mt-[2vh] sm:mt-[15vh] md:mt-[23vh] ml-4 sm:ml-[5vw] md:ml-[10vw] pr-4 sm:pr-[5vw] mb-[50px] md:mb-0 "
   >
     <div className="flex-grow">
       <h1 className="text-white font-general-sans  mt-0 sm:mt-[-20px] md:mt-[-50px] text-2xl xs:text-4xl sm:text-5xl font-semibold leading-tight sm:leading-[62.40px] md:whitespace-nowrap " >
@@ -22,9 +22,11 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
         ultimate truth, just check in with how you feel in this moment.
       </p>
       <p className="text-[#E6E6E6] block lg:hidden font-general-sans font-medium text-[15px] mt-4 sm:mt-6">
-        This is how your life balance wheel looks like now. Scores will change
-        weekly, daily, even hourly as circumstances change. Do not look for any
-        ultimate truth, just check in with how you feel in this moment.
+      This is your current life balance wheel. Scores may shift hourly, daily, or weekly. Don’t seek ultimate truth just notice how you feel right now.
+      </p>
+
+      <p className="text-[#E6E6E6] block lg:hidden font-medium italic text-[12px] mt-4 sm:mt-6">
+      The Life Balance Wheel Tool has been developed by the Academy of Leadership Coaching & NLP (ALCN). To know more about its work please visit <span className="underline mx-1">https://nlp-leadership-coaching.com/</span>
       </p>
       
       <p className="text-[#EBEBEB] md:text-[14px] max-w-[100%] mt-6 hidden sm:block font-general-sans font-semibold">
