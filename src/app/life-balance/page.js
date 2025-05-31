@@ -186,10 +186,10 @@ export default function LifeBalancePage() {
                       <div className="absolute inset-0 apple-flow-layer-3"></div>
                     </div>
                     
-                    {/* Content container */}
-                    <div className="w-full h-full max-w-[1440px] mt-12 md:mt-0 flex flex-col-reverse md:flex-row items-center justify-center p-4 sm:p-6 md:p-8 relative z-10">
+                    {/* Content container with equal spacing */}
+                    <div className="w-full h-full max-w-[1440px] mx-auto mt-12 md:mt-0 flex flex-col-reverse md:flex-row items-center justify-center relative z-10">
                       {/* Content side (left on desktop) */}
-                      <div className="w-full md:w-1/2 z-10 mt-6 md:mt-0">
+                      <div className="flex-1 z-10 mt-6 md:mt-0 flex items-center justify-center px-4 sm:px-6 md:px-8">
                         <ResultsScreen
                           date={date}
                           handleDownload={handleDownload}
@@ -198,8 +198,11 @@ export default function LifeBalancePage() {
                         />
                       </div>
                       
+                      {/* Equal spacing gap between components */}
+                      <div className="hidden md:block w-16"></div>
+                      
                       {/* Wheel side (right on desktop) */}
-                      <div className="w-full md:w-1/2 z-10 flex justify-center items-center">
+                      <div className="flex-1 z-10 flex justify-center items-center px-4 sm:px-6 md:px-8">
                         <VisualizationContainer
                           currentStage={currentStage}
                           isSwinging={isSwinging}
