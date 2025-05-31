@@ -50,7 +50,7 @@ const QuestionScreen = ({
 
   return (
     <div className="flex flex-col min-h-[calc(55vh-120px)] md:min-h-0 md:mt-[100px]">
-      <div className="mt-6 mx-4 md:mx-auto md:-mt-0">
+      <div className="mt-2 mx-4 md:mx-auto md:-mt-0">
         <h1 className="text-white text-2xl xs:text-5xl sm:text-5xl font-general-sans font-semibold">
           {question}
         </h1>
