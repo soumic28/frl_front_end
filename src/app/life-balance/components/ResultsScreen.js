@@ -25,7 +25,7 @@ const ResultsScreen = ({ date, handleDownload, router, pageVariants }) => (
       This is your current life balance wheel. Scores may shift hourly, daily, or weekly. Don&apos;t seek ultimate truth just notice how you feel right now.
       </p>
 
-      <p className="text-[#E6E6E6] block lg:hidden font-medium italic text-[12px] mt-4 sm:mt-6">
+      <p className="text-[#E6E6E6] block lg:hidden font-medium italic text-[12px] my-4 sm:mt-6">
       The Life Balance Wheel Tool has been developed by the Academy of Leadership Coaching & NLP (ALCN). To know more about its work please visit <span className="underline mx-1">https://nlp-leadership-coaching.com/</span>
       </p>
       
