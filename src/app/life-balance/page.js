@@ -62,6 +62,36 @@ export default function LifeBalancePage() {
 
   // Handle image download
   const handleDownload = () => {
+    console.log("handleDownload called");
+    console.log("wheelRef.current:", wheelRef.current);
+    console.log("date:", date);
+    
+    if (!wheelRef.current) {
+      console.error("wheelRef.current is null or undefined");
+      
+      // Try alternative download method
+      console.log("Attempting alternative download method...");
+      
+      // Look for the wheel element by data attribute
+      const wheelElement = document.querySelector('[data-balance-wheel="true"]');
+      if (wheelElement) {
+        console.log("Found wheel element by data attribute");
+        generateBalanceWheelImage(wheelElement, date);
+        return;
+      }
+      
+      // Look for the wheel container
+      const wheelContainer = document.querySelector('[data-wheel-container="true"]');
+      if (wheelContainer) {
+        console.log("Found wheel container by data attribute");
+        generateBalanceWheelImage(wheelContainer, date);
+        return;
+      }
+      
+      alert("Unable to download: Wheel not ready. Please wait a moment and try again.");
+      return;
+    }
+    
     generateBalanceWheelImage(wheelRef.current, date);
   };
 

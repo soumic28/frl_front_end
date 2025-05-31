@@ -8,12 +8,17 @@ import { toJpeg } from "html-to-image";
  * @param {string} date - The current date string to display on the image
  */
 export const generateBalanceWheelImage = async (wheelElement, date) => {
+  console.log("generateBalanceWheelImage called with:", { wheelElement, date });
+  
   if (!wheelElement) {
     console.error("Wheel element reference is missing");
+    alert("Unable to download: Wheel element not found. Please try again.");
     return;
   }
 
   try {
+    console.log("Starting image generation process...");
+    
     const elements = wheelElement.querySelectorAll('[class*="bg-"]');
     const originalClasses = new Map();
     elements.forEach((el) => {
@@ -29,7 +34,10 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
     const isMobile = screenWidth < 768;
     const wheelSize = isMobile ? screenWidth - 40 : 740;
 
+    console.log("Creating card container...");
+    
     const cardContainer = document.createElement("div");
+    cardContainer.id = "wheel-card-container";
     cardContainer.style.width = isMobile ? "100vw" : "800px";
     cardContainer.style.height = isMobile ? "auto" : "1200px";
     cardContainer.style.background =
@@ -106,6 +114,8 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
 
     document.body.appendChild(cardContainer);
 
+    console.log("Cloning wheel element...");
+    
     if (wheelElement) {
       const wheelParent = wheelElement.closest('[data-wheel-container="true"]');
       const wheelClone = (wheelParent || wheelElement).cloneNode(true);
@@ -119,6 +129,8 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
       wheelContainer.appendChild(wheelClone);
     }
 
+    console.log("Generating canvas with html2canvas...");
+    
     const canvas = await html2canvas(cardContainer, {
       backgroundColor: "transparent",
       useCORS: true,
@@ -143,29 +155,56 @@ export const generateBalanceWheelImage = async (wheelElement, date) => {
       },
     });
 
+    console.log("Canvas generated successfully, creating download link...");
+    
     const imageData = canvas.toDataURL("image/jpeg", 0.95);
     const link = document.createElement("a");
     link.download = "life-balance-wheel.jpg";
     link.href = imageData;
+    
+    // Add the link to the document and trigger download
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
+    
+    console.log("Download triggered successfully!");
 
+    // Restore original classes
     elements.forEach((el) => {
       if (originalClasses.has(el)) {
         el.setAttribute("class", originalClasses.get(el));
       }
     });
+    
   } catch (err) {
     console.error("Error generating card image:", err);
-    if (wheelElement) {
-      toJpeg(wheelElement, { quality: 0.95 }).then((dataUrl) => {
+    
+    // Fallback to simpler download method
+    console.log("Attempting fallback download method...");
+    
+    try {
+      if (wheelElement) {
+        const dataUrl = await toJpeg(wheelElement, { quality: 0.95 });
         const link = document.createElement("a");
         link.download = "balance-wheel.jpeg";
         link.href = dataUrl;
+        document.body.appendChild(link);
         link.click();
-      });
+        document.body.removeChild(link);
+        console.log("Fallback download successful!");
+      } else {
+        throw new Error("No wheel element available for fallback");
+      }
+    } catch (fallbackErr) {
+      console.error("Fallback download also failed:", fallbackErr);
+      alert("Download failed. Please try again or contact support if the issue persists.");
     }
   } finally {
+    // Clean up the temporary card container
     const existingCard = document.querySelector("#wheel-card-container");
-    if (existingCard) existingCard.remove();
+    if (existingCard) {
+      existingCard.remove();
+      console.log("Cleaned up temporary card container");
+    }
   }
 };

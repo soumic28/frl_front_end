@@ -22,13 +22,25 @@ const CustomBalanceWheel = ({ data }) => {
   
   useEffect(() => {
     // Fetch the SVG content and modify it to include data points
+    console.log("Fetching SVG content...");
     fetch('/assets/balancewheel.svg')
-      .then(response => response.text())
+      .then(response => {
+        console.log("SVG fetch response:", response.status);
+        return response.text();
+      })
       .then(svgText => {
+        console.log("SVG content loaded, length:", svgText.length);
         // Parse the SVG and add data visualization
         const parser = new DOMParser();
         const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
         const svgElement = svgDoc.querySelector('svg');
+        
+        if (!svgElement) {
+          console.error("No SVG element found in the loaded content");
+          return;
+        }
+        
+        console.log("SVG element found, processing...");
         
         // Make SVG responsive
         svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
@@ -79,6 +91,8 @@ const CustomBalanceWheel = ({ data }) => {
           }
         });
         
+        console.log("Removed", elementsToRemove.length, "existing data elements");
+        
         // Define the center and radius for data points
         const centerX = 441;
         const centerY = 437;
@@ -109,6 +123,8 @@ const CustomBalanceWheel = ({ data }) => {
             dataPoints.push({ x, y, value: item.value, subject: item.subject });
           }
         });
+        
+        console.log("Created", dataPoints.length, "data points");
         
         // Create the data visualization polygon
         if (dataPoints.length > 0) {
@@ -167,6 +183,7 @@ const CustomBalanceWheel = ({ data }) => {
         // Convert back to string
         const serializer = new XMLSerializer();
         const modifiedSvg = serializer.serializeToString(svgElement);
+        console.log("SVG processing complete, setting content");
         setSvgContent(modifiedSvg);
       })
       .catch(error => {
@@ -273,9 +290,19 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
     }
   }, [formData]);
 
+  // Forward the ref to parent component
+  useEffect(() => {
+    if (graphRef && chartRef.current) {
+      graphRef.current = chartRef.current;
+    }
+  }, [graphRef, mounted]);
+
   // Function to download chart as image
   const downloadChart = () => {
-    if (!chartRef.current) return;
+    if (!chartRef.current) {
+      console.error("Chart reference is not available");
+      return;
+    }
 
     // Remove any TailwindCSS classes that use oklch colors before capture
     const elements = chartRef.current.querySelectorAll('[class*="bg-"]');
@@ -331,6 +358,9 @@ const BalanceWheel = ({ formData, onDownload, graphRef }) => {
 
       // Restore original style
       chartRef.current.setAttribute("style", originalStyle);
+    }).catch((error) => {
+      console.error("Error generating chart image:", error);
+      alert("Failed to download the chart. Please try again.");
     });
   };
 
