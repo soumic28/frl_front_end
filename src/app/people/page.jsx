@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import WhiteHeader from "../(components)/WhiteHeader";
 import PageTransition from "../(components)/PageTransition";
 import Image from "next/image";
+import Pinaki_royImage from "../../../public/assets/pinaki_roy.png";
 
 const PeoplePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +18,8 @@ const PeoplePage = () => {
       location: "Agra, In",
       image: "/assets/person1.jpg", // You'll need to add actual images
       values: ["Humility", "Wisdom", "Honesty"],
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus."
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus.",
     },
     {
       id: 2,
@@ -25,29 +27,34 @@ const PeoplePage = () => {
       location: "Agra, In",
       image: "/assets/person2.jpg",
       values: ["Love", "Respect", "Compassion"],
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus."
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus.",
     },
     {
       id: 3,
       name: "Pinaki Roy",
       location: "Agra, In",
-      image: "/assets/person3.jpg",
+      image: Pinaki_royImage,
       values: ["Equality", "Dignity", "Harmony", "Compassion"],
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus."
-    }
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus.",
+    },
   ];
 
-  const filteredPeople = peopleData.filter(person =>
-    person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    person.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    person.values.some(value => value.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredPeople = peopleData.filter(
+    (person) =>
+      person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      person.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      person.values.some((value) =>
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+      )
   );
 
   return (
     <PageTransition>
       <div className="min-h-screen bg-white">
         <WhiteHeader />
-        
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -72,7 +79,12 @@ const PeoplePage = () => {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </div>
 
@@ -91,7 +103,12 @@ const PeoplePage = () => {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
             </div>
           </div>
@@ -111,8 +128,12 @@ const PeoplePage = () => {
                   {/* Placeholder for actual image */}
                   <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
                     <div className="w-24 h-24 bg-gray-400 rounded-full flex items-center justify-center">
-                      <svg className="w-12 h-12 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      <svg
+                        className="w-12 h-12 text-gray-600"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                       </svg>
                     </div>
                   </div>
@@ -121,28 +142,47 @@ const PeoplePage = () => {
                 {/* Profile Content */}
                 <div className="p-6">
                   {/* Name */}
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  <h3 className="text-xl font-semibold text-[#5C4537] mb-2">
                     {person.name}
                   </h3>
 
                   {/* Location */}
                   <div className="flex items-center text-gray-600 mb-4">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <svg
+                      className="w-4 h-4 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
                     </svg>
                     <span className="text-sm">{person.location}</span>
                   </div>
 
                   {/* Values Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-4 h-8">
                     {person.values.map((value, valueIndex) => (
                       <span
                         key={valueIndex}
-                        className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 border border-yellow-200"
+                        className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#EAE5D7] text-yellow-800 border border-yellow-200"
                       >
-                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        <svg
+                          className="w-3 h-3 mr-1"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                         </svg>
                         {value}
                       </span>
@@ -161,8 +201,18 @@ const PeoplePage = () => {
                     className="w-full bg-[#8B7355] hover:bg-[#7A6348] text-white font-medium py-3 px-6 rounded-full transition-colors duration-200 flex items-center justify-center gap-2"
                   >
                     Know More
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
                     </svg>
                   </motion.button>
                 </div>
@@ -177,7 +227,9 @@ const PeoplePage = () => {
               animate={{ opacity: 1 }}
               className="text-center py-12"
             >
-              <div className="text-gray-500 text-lg">No people found matching your search.</div>
+              <div className="text-gray-500 text-lg">
+                No people found matching your search.
+              </div>
             </motion.div>
           )}
         </motion.div>
@@ -186,4 +238,4 @@ const PeoplePage = () => {
   );
 };
 
-export default PeoplePage; 
+export default PeoplePage;
