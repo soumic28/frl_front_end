@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Header from "./(components)/Header";
 import Hero from "./(components)/Hero";
+import Footer from "./(components)/Footer";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
         <Header/>
         <Hero/>
       </div>
+      <Footer />
     </motion.div>
   );
 }
